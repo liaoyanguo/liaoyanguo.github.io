@@ -1,0 +1,973 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+    
+    <entry>
+      <title><![CDATA[ios transition translate 闪屏问题总结]]></title>
+      <url>https://github.dayanguo.cn/2018/07/06/ios%20transition%20translate%20%E9%97%AA%E5%B1%8F%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<p>解决方法：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"J-slider"</span> <span class="attr">style</span>=<span class="string">"width:320px;height:600px"</span>&gt;</span></div><div class="line">　<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"J-scroller"</span> <span class="attr">style</span>=<span class="string">"width:960px;height:600px;&gt;</span></span></div><div class="line">　　　　&lt;div class="<span class="attr">item</span>"&gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">　　　　<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">　　<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>假如以上结构的多图左右移动查看， J-scroller是一块很大的动画移动层，我们对J-scroller设置了 translate3d(x,y,z)  以及transition 动画，</p>
+<p>此时iphone查看移动时会有闪屏现象，因为webkit是不会将J-scroller这么大的层整个分配内存绘制渲染。</p>
+<p>这时候我们需要将滚动区域可视范围的列表项item元素缓存起来<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.item</span>&#123;</div><div class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">translate3d</span>(0,0,0);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>另外：当translate使用2d而非3d的呈现方式时，我们要设置当前动画移动元素的呈现方式为3d，它的所有子元素背面隐藏<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.J-scroller</span>&#123;</div><div class="line">    <span class="attribute">-webkit-transform-style</span>: preserve-<span class="number">3</span>d;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.J-scroller</span> <span class="selector-tag">item</span>&#123;</div><div class="line">    <span class="attribute">-webkit-backface-visibility</span>: hidden;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[下拉框“第一个选项不能选择”的bug]]></title>
+      <url>https://github.dayanguo.cn/2018/03/28/%E4%B8%8B%E6%8B%89%E6%A1%86%E2%80%9C%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%80%89%E9%A1%B9%E4%B8%8D%E8%83%BD%E9%80%89%E6%8B%A9%E2%80%9D%E7%9A%84bug/</url>
+      <content type="html"><![CDATA[<p>对应标题意思也就是让select默认不选中任何一项，才能选择第一项。但是浏览器会让select选择第一项，所以只能添加一条空的option，如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">select</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">disabled</span> <span class="attr">selected</span> <span class="attr">value</span>&gt;</span><span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"1"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"2"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"3"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"4"</span>&gt;</span>4<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如果要批量修改的话，可以在js中添加：<br>    其中使用了attr、prop，是因为jq版本级别不同的兼容。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    $(<span class="string">'select'</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params">index, el</span>) </span>&#123;</div><div class="line">        $(<span class="keyword">this</span>).find(<span class="string">'option'</span>).eq(<span class="number">0</span>).attr(<span class="string">'selected'</span>, <span class="literal">false</span>).prop(<span class="string">'selected'</span>, <span class="literal">false</span>).before(<span class="string">'&lt;option disabled selected value style="display:none"&gt;&lt;/option&gt;'</span>);</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[判断h5是否成功跳转到app]]></title>
+      <url>https://github.dayanguo.cn/2018/03/15/%E5%88%A4%E6%96%ADh5%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F%E8%B7%B3%E8%BD%AC%E5%88%B0app/</url>
+      <content type="html"><![CDATA[<h2 id="document的可见性属性"><a href="#document的可见性属性" class="headerlink" title="document的可见性属性"></a>document的可见性属性</h2><p>document.hidden是一个布尔值，简单的表示标签页显示或者隐藏。</p>
+<p>一般情况下我们使用document.hidden就能满足通常的需求。</p>
+<p>为了支持老版本的浏览器，我们需要对document.hidden在做一些前缀处理：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getHiddenProp</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> prefixes = [<span class="string">'webkit'</span>,<span class="string">'moz'</span>,<span class="string">'ms'</span>,<span class="string">'o'</span>];</div><div class="line"></div><div class="line">    <span class="comment">// if 'hidden' is natively supported just return it</span></div><div class="line">    <span class="keyword">if</span> (<span class="string">'hidden'</span> <span class="keyword">in</span> <span class="built_in">document</span> &amp;&amp; <span class="built_in">document</span>[<span class="string">'hidden'</span>]) <span class="keyword">return</span> <span class="string">'hidden'</span>;</div><div class="line"></div><div class="line">    <span class="comment">// otherwise loop over all the known prefixes until we find one</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; prefixes.length; i++)&#123;</div><div class="line">        <span class="keyword">if</span> ((prefixes[i] + <span class="string">'Hidden'</span>) <span class="keyword">in</span> <span class="built_in">document</span> &amp;&amp; <span class="built_in">document</span>[prefixes[i] + <span class="string">'Hidden'</span>])</div><div class="line">            <span class="keyword">return</span> prefixes[i] + <span class="string">'Hidden'</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// otherwise it's not supported</span></div><div class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>判断是否成功跳转到app（即是否离开当前h5页面），此处需要做2个判断兼容android和ios，以下是实例代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//点击打开app</span></div><div class="line">$(<span class="string">'#openApp'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">//显示加载</span></div><div class="line">    $(<span class="string">'.dialog_loading'</span>).removeClass(<span class="string">'hide'</span>);</div><div class="line"></div><div class="line">    <span class="comment">//打开app</span></div><div class="line">    <span class="keyword">var</span> u = navigator.userAgent;</div><div class="line">    <span class="keyword">var</span> isAndroid = u.indexOf(<span class="string">'Android'</span>) &gt; <span class="number">-1</span> || u.indexOf(<span class="string">'Adr'</span>) &gt; <span class="number">-1</span>;</div><div class="line">    <span class="keyword">var</span> target = <span class="string">''</span>;</div><div class="line">    <span class="keyword">if</span> (isAndroid) &#123;</div><div class="line">        target = <span class="string">'androidApp://?type=app&amp;target=Lamp'</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        target = <span class="string">'iosApp://?type=app&amp;target=Lamp'</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">document</span>.location = target;</div><div class="line"></div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">//隐藏加载</span></div><div class="line">        $(<span class="string">'.dialog_loading'</span>).addClass(<span class="string">'hide'</span>);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (!getHiddenProp()) &#123; <span class="comment">//android兼容</span></div><div class="line"></div><div class="line">            <span class="keyword">var</span> remind = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                alert(<span class="string">'未装该app或版本过低'</span>);</div><div class="line">            &#125;, <span class="number">500</span>);</div><div class="line"></div><div class="line">            <span class="built_in">window</span>.onblur = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">//ios兼容</span></div><div class="line">                clearTimeout(remind); <span class="comment">//清除提示事件</span></div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;, <span class="number">2000</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> h5 </tag>
+            
+            <tag> hidden </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[vs code调试php之旅]]></title>
+      <url>https://github.dayanguo.cn/2018/02/24/vs%20code%E8%B0%83%E8%AF%95php%E4%B9%8B%E6%97%85/</url>
+      <content type="html"><![CDATA[<h2 id="下载php对应版本xdebug的插件"><a href="#下载php对应版本xdebug的插件" class="headerlink" title="下载php对应版本xdebug的插件"></a>下载php对应版本xdebug的插件</h2><ol>
+<li>输出phpinfo()，copy到<a href="https://xdebug.org/wizard.php" target="_blank" rel="external">这里</a>，查看一下对应配置。</li>
+<li>然后在<a href="https://xdebug.org/download.php" target="_blank" rel="external">这里</a>下载对应的包，放进php目录下的ext。</li>
+<li>打开php目录下的php.ini ，添加几行配置，xdebug的路径按实际情况配置，配置完成后重启apache服务器。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[XDebug]</div><div class="line">zend_extension=&quot;D:\Program Files\phpStudy\php\php-5.5.38\ext\php_xdebug-2.5.5-5.5-vc11.dll&quot;</div><div class="line">xdebug.remote_enable = 1</div><div class="line">xdebug.remote_autostart = 1</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="配置vs-code"><a href="#配置vs-code" class="headerlink" title="配置vs code"></a>配置vs code</h2><ol>
+<li><p>打开vs code，打开设置，配置php路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    // 指向 PHP 可执行文件。</div><div class="line">    &quot;php.validate.executablePath&quot;: &quot;D:/Program Files/phpStudy/php/php-5.5.38/php.exe&quot;,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在vs code中打开自己的项目，按f5会自动生成launch.json。然后打个断点-&gt;再按下f5，浏览器刷新页面，然后就可以调试了…</p>
+</li>
+</ol>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> php </tag>
+            
+            <tag> 调试 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[rem的使用方法]]></title>
+      <url>https://github.dayanguo.cn/2018/01/11/rem%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</url>
+      <content type="html"><![CDATA[<h2 id="rem是什么？"><a href="#rem是什么？" class="headerlink" title="rem是什么？"></a>rem是什么？</h2><p>rem（font size of the root element）是指相对于根元素的字体大小的单位。简单的说它就是一个相对单位。看到rem大家一定会想起em单位，em（font size of the element）是指相对于父元素的字体大小的单位。它们之间其实很相似，只不过一个计算的规则是依赖根元素一个是依赖父元素计算。</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>置于head中，然后…尽情撒野吧<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> html = <span class="built_in">document</span>.documentElement;</div><div class="line">	<span class="keyword">var</span> windowWidth = html.clientWidth;</div><div class="line">	html.style.fontSize = windowWidth / <span class="number">7.5</span> + <span class="string">'px'</span>;</div><div class="line">	<span class="comment">// 等价于html.style.fontSize = windowWidth / 750 * 100 + 'px';</span></div><div class="line">	&#125;, <span class="literal">false</span>);</div><div class="line">&#125;)();</div></pre></td></tr></table></figure></p>
+<h2 id="浏览器的兼容性"><a href="#浏览器的兼容性" class="headerlink" title="浏览器的兼容性"></a>浏览器的兼容性</h2><p>rem是CSS3新引进来的一个度量单位，支持的浏览器还是蛮多的，比如：Mozilla Firefox 3.6+、Apple Safari 5+、Google Chrome、IE9+和Opera11+。</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[My'flex.css']]></title>
+      <url>https://github.dayanguo.cn/2017/12/04/My-flex-css/</url>
+      <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><em>使用于小程序</em><br>弹性布局，适配不同分辨率不同分辨率的手机。</p>
+<a id="more"></a>
+<blockquote>
+<p>注：为了写法规范，class的顺序按本文由上往下排</p>
+</blockquote>
+<p>要包请戳：<a href="/css/page/flex.min.css">flex.min.css</a><br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.ub</span>&#123;<span class="attribute">display</span>:flex;<span class="attribute">display</span>:-webkit-flex;<span class="attribute">flex-wrap</span>:nowrap;<span class="attribute">position</span>:relative;&#125;<span class="selector-class">.ub_row_rev</span>&#123;<span class="attribute">flex-direction</span>:row-reverse;&#125;<span class="selector-class">.ub_col_rev</span>&#123;<span class="attribute">flex-direction</span>:column-reverse;&#125;<span class="selector-class">.ub_fh</span>&#123;<span class="attribute">width</span>:<span class="number">100%</span>;&#125;<span class="selector-class">.ub_fv</span>&#123;<span class="attribute">height</span>:<span class="number">100%</span>;&#125;<span class="selector-class">.ub_ac</span>&#123;<span class="attribute">align-items</span>:center;&#125;<span class="selector-class">.ub_ae</span>&#123;<span class="attribute">align-items</span>:flex-end;&#125;<span class="selector-class">.ub_pc</span>&#123;<span class="attribute">justify-content</span>:center;&#125;<span class="selector-class">.ub_pe</span>&#123;<span class="attribute">justify-content</span>:flex-end;&#125;<span class="selector-class">.ub_pj</span>&#123;<span class="attribute">justify-content</span>:space-between;&#125;<span class="selector-class">.ub_ver</span>&#123;<span class="attribute">flex-flow</span>:column;&#125;<span class="selector-class">.ub_f1</span>&#123;<span class="attribute">flex</span>:<span class="number">1</span>;&#125;<span class="selector-class">.ub_f2</span>&#123;<span class="attribute">flex</span>:<span class="number">2</span>;&#125;<span class="selector-class">.ub_f3</span>&#123;<span class="attribute">flex</span>:<span class="number">3</span>;&#125;<span class="selector-class">.ub_f4</span>&#123;<span class="attribute">flex</span>:<span class="number">4</span>;&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Flex架构"><a href="#Flex架构" class="headerlink" title="Flex架构"></a>Flex架构</h2><p>定义：</p>
+<p>ub</p>
+<p>说明：</p>
+<p>使用flex弹性盒子模式对页面进行布局</p>
+<p>例子：</p>
+<p>ub定义元素的display属性为flex。那么子元素就可以根据我们定义的比例来分配元素的空间，ub一般跟ub_f[1-4]搭配着使用</p>
+<h2 id="元素空间大小分配比例"><a href="#元素空间大小分配比例" class="headerlink" title="元素空间大小分配比例"></a>元素空间大小分配比例</h2><p>定义：</p>
+<p>ub_f[1-4]</p>
+<p>说明：</p>
+<p>定义不同的flex属性值</p>
+<p>类别使用数字编号，定义不同的元素空间大小分配比例</p>
+<p>例子：</p>
+<blockquote>
+<p>ub_f1数字编号为1；定义flex：1<br>ub_f1数字编号为2；定义flex：2<br>ub_f1数字编号为3；定义flex：3<br>ub_f1数字编号为4；定义flex：4<br>ub_f[1-4]和ub搭配着使用</p>
+</blockquote>
+<p><em>注：比例因为内容而影响时，要在ub_f[1-4]的子元素加入一层ub_con</em></p>
+<p>解析：</p>
+<p>1、若子元素都使用ub_f1，那么子元素等比例的分配父元素的空间大小</p>
+<pre><code>&lt;view class=&apos;ub&apos;&gt;
+ &lt;view class=&apos;ub ub_f1 bg_orange&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;ub ub_f1 bg_pink&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p><img src="/images/page/1.jpg" alt=""></p>
+<p>2、若子元素一个用ub_f1，另外一个用ub_f2.，那么子元素按照1：2的比例分配父元素的空间大小</p>
+<pre><code>&lt;view class=&apos;ub&apos;&gt;
+ &lt;view class=&apos;ub ub_f1 bg_orange&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;ub ub_f2 bg_pink&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p><img src="/images/page/2.jpg" alt=""></p>
+<p>3、若子元素分别使用ub_f1，ub_f2，ub_f3，那么子元素会按照1：2：3的比例分配父元素的空间大小</p>
+<pre><code>&lt;view class=&apos;ub&apos;&gt;
+ &lt;view class=&apos;ub ub_f1 bg_orange&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;ub ub_f2 bg_pink&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;ub ub_f3 bg_gray&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p><img src="/images/page/3.jpg" alt=""></p>
+<p>4、若子元素中只有一个使用ub_f1，另外一个元素根据内容的多少定义大小，那么使用ub_f1的元素会自动适配元素的剩余空间大小</p>
+<pre><code>&lt;view class=&apos;ub&apos;&gt;
+ &lt;view class=&apos;bg_orange&apos;&gt;内容&lt;/view&gt;
+ &lt;view class=&apos;ub ub_f1 bg_pink&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p><img src="/images/page/4.jpg" alt=""></p>
+<h2 id="元素垂直方向的位置排列"><a href="#元素垂直方向的位置排列" class="headerlink" title="元素垂直方向的位置排列"></a>元素垂直方向的位置排列</h2><p>定义：</p>
+<p>ub_ac，ub_ae</p>
+<p>说明：</p>
+<p>ub_ac：垂直居中</p>
+<p>ub_ae：位于底边</p>
+<p>只有跟ub搭配着使用ub_ac，ub_ae的作用才生效</p>
+<p>例子：</p>
+<p>1、未使用ub_ac，ub_ae</p>
+<pre><code>&lt;view class=&apos;ub&apos;&gt;
+ &lt;view class=&apos;ub ub_f1&apos;&gt;内容&lt;/view&gt;
+ &lt;view class=&apos;arrow_r&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p><img src="/images/page/a1.png" alt=""></p>
+<p>2、使用ub_ac</p>
+<pre><code>&lt;view class=&apos;ub ub_ac&apos;&gt;
+ &lt;view class=&apos;ub ub_f1&apos;&gt;内容&lt;/view&gt;
+ &lt;view class=&apos;arrow_r&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p><img src="/images/page/a2.png" alt=""></p>
+<p>3、使用ub_ae</p>
+<pre><code>&lt;view class=&apos;ub ub_ae&apos;&gt;
+ &lt;view class=&apos;ub ub_f1&apos;&gt;内容&lt;/view&gt;
+ &lt;view class=&apos;arrow_r&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p><img src="/images/page/a3.png" alt=""></p>
+<h2 id="元素水平方向的位置排列"><a href="#元素水平方向的位置排列" class="headerlink" title="元素水平方向的位置排列"></a>元素水平方向的位置排列</h2><p>定义：</p>
+<p>ub_pc，ub_pe，ub_pj</p>
+<p>说明：</p>
+<p>ub_pc：水平居中</p>
+<p>ub_pe：位于末尾</p>
+<p>ub_pj：两端对齐</p>
+<p>只有跟ub搭配着使用ub_pc，ub_pe，ub_pj的作用才生效</p>
+<p>例子：</p>
+<p>1、未使用ub_pc，ub_pe，ub_pj</p>
+<pre><code>&lt;view class=&apos;ub&apos;&gt;
+ &lt;view class=&apos;bg_orange&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_pink&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_gray&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p><img src="/images/page/p1.png" alt=""></p>
+<p>2、使用ub_pc</p>
+<pre><code>&lt;view class=&apos;ub ub_pc&apos;&gt;
+ &lt;view class=&apos;bg_orange&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_pink&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_gray&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p><img src="/images/page/p2.png" alt=""></p>
+<p>3、使用ub_pe</p>
+<pre><code>&lt;view class=&apos;ub ub_pe&apos;&gt;
+ &lt;view class=&apos;bg_orange&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_pink&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_gray&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p><img src="/images/page/p3.png" alt=""></p>
+<p>4、使用ub_pj</p>
+<pre><code>&lt;view class=&apos;ub ub_pj&apos;&gt;
+ &lt;view class=&apos;bg_orange&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_pink&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_gray&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p><img src="/images/page/p4.png" alt=""></p>
+<h2 id="元素垂直排列"><a href="#元素垂直排列" class="headerlink" title="元素垂直排列"></a>元素垂直排列</h2><p>定义：</p>
+<p>ub_ver….</p>
+<p>说明：</p>
+<p>ub_ver：定义元素垂直排列</p>
+<p>只有跟ub搭配着使用ub_ver的作用才生效</p>
+<p>例子：</p>
+<p>1、未使用ub_ver</p>
+<pre><code>&lt;view class=&apos;ub&apos;&gt;
+ &lt;view class=&apos;bg_orange&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_pink&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_gray&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p><img src="/images/page/a1.png" alt=""></p>
+<p>2、使用ub_ver</p>
+<pre><code>&lt;view class=&apos;ub ub_ver&apos;&gt;
+ &lt;view class=&apos;bg_orange&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_pink&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_gray&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p><img src="/images/page/a2.png" alt=""></p>
+<h2 id="元素排列方向"><a href="#元素排列方向" class="headerlink" title="元素排列方向"></a>元素排列方向</h2><p>定义：</p>
+<p>ub_row_rev，ub_col_rev</p>
+<p>说明：</p>
+<p>ub_row_rev：定义元素水平排列方向<br>ub_col_rev：定义元素垂直排列方向</p>
+<p>以上2个，只有跟ub搭配着使用才生效，不能和ub_ver共用哦</p>
+<p>例子：</p>
+<p>1、未使用ub_row_rev</p>
+<pre><code>&lt;view class=&apos;ub&apos;&gt;
+ &lt;view class=&apos;bg_orange&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_pink&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_gray&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p><img src="/images/page/r1.png" alt=""></p>
+<p>2、使用ub_row_rev</p>
+<pre><code>&lt;view class=&apos;ub ub_row_rev&apos;&gt;
+ &lt;view class=&apos;bg_orange&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_pink&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_gray&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><p><img src="/images/page/r2.png" alt=""></p>
+<p>3、使用ub_col_rev</p>
+<pre><code>&lt;view class=&apos;ub ub_row_rev&apos;&gt;
+ &lt;view class=&apos;bg_orange&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_pink&apos;&gt;&lt;/view&gt;
+ &lt;view class=&apos;bg_gray&apos;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre><h2 id="宽高"><a href="#宽高" class="headerlink" title="宽高"></a>宽高</h2><p>定义：</p>
+<p>ub_fh，ub_fv</p>
+<p>说明：</p>
+<p>ub_fh：宽100%</p>
+<p>ub_fv：高100%</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> css </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[jq评论列表往上不间断滚动]]></title>
+      <url>https://github.dayanguo.cn/2017/11/30/jq%E8%AF%84%E8%AE%BA%E5%88%97%E8%A1%A8%E5%BE%80%E4%B8%8A%E4%B8%8D%E9%97%B4%E6%96%AD%E6%BB%9A%E5%8A%A8/</url>
+      <content type="html"><![CDATA[<p>定时滚动，时间可控。<br><a id="more"></a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></div><div class="line"><span class="selector-id">#commentUl</span>&#123;</div><div class="line">	<span class="attribute">height</span>: <span class="number">6rem</span>;</div><div class="line">	<span class="attribute">overflow</span>: hidden;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#commentUl</span> <span class="selector-tag">ul</span>&#123;</div><div class="line">    <span class="attribute">transition</span>: .<span class="number">5s</span>;</div><div class="line">    <span class="attribute">-moz-transition</span>: .<span class="number">5s</span>;</div><div class="line">    <span class="attribute">-webkit-transition</span>: .<span class="number">5s</span>;</div><div class="line">    <span class="attribute">-o-transition</span>: .<span class="number">5s</span>;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"commentUl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"comment"</span>&gt;</span>评论内容<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"comment"</span>&gt;</span>评论内容<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"comment"</span>&gt;</span>评论内容<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"comment"</span>&gt;</span>评论内容<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"comment"</span>&gt;</span>评论内容<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="comment">// 评论滚动</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">commentFun</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        firstLi = comment.find(<span class="string">'li'</span>).eq(<span class="number">0</span>);</div><div class="line">        firstLiH = firstLi.innerHeight();</div><div class="line">        <span class="comment">//console.log(firstLiH)</span></div><div class="line">        comment.addClass(<span class="string">'transi05'</span>);</div><div class="line">        commentMov(firstLiH);</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            commentMov(<span class="number">0</span>);</div><div class="line">            comment.removeClass(<span class="string">'transi05'</span>).append(firstLi);</div><div class="line">            <span class="comment">// clearInterval(inter)</span></div><div class="line">        &#125;, <span class="number">500</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 评论</span></div><div class="line">        inter = setInterval(commentFun, <span class="number">5000</span>);</div><div class="line">        comment = $(<span class="string">'#commentUl ul'</span>);</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> jquery </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[网页调起QQ的方法]]></title>
+      <url>https://github.dayanguo.cn/2017/11/28/%E7%BD%91%E9%A1%B5%E8%B0%83%E8%B5%B7QQ%E7%9A%84%E6%96%B9%E6%B3%95/</url>
+      <content type="html"><![CDATA[<p>非常简单哦！</p>
+<a id="more"></a>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"tencent://message/?uin=123456789&amp;amp;Site=www.yuming.com&amp;amp;Menu=yes"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://wpa.qq.com/msgrd?v=3&amp;uin=123456789&amp;site=qq&amp;menu=yes"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> QQ </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[My'box.css']]></title>
+      <url>https://github.dayanguo.cn/2017/11/27/My-box-css/</url>
+      <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><em>使用于h5页面·极速模式</em><br>使用弹性盒子对页面进行布局，box.css中就定义了弹性盒子的一些css3样式，弹性盒子模型是在指定大小的父容器里来为子元素分配空间，使用box架构可以更容易更方便的适配不同分辨率不同屏幕尺寸的手机。<br>与flex.css的区别是ub_rev。</p>
+<a id="more"></a>
+<blockquote>
+<p>注：为了写法规范，class的顺序按本文由上往下排</p>
+</blockquote>
+<p>要包请戳：<a href="/css/page/box.min.css">box.min.css</a><br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.ub</span>&#123;<span class="attribute">display</span>:-webkit-box<span class="meta">!important</span>;<span class="attribute">display</span>:box<span class="meta">!important</span>;<span class="attribute">position</span>:relative;&#125;<span class="selector-class">.ub_rev</span>&#123;<span class="attribute">-webkit-box-direction</span>:reverse;<span class="attribute">box-direction</span>:reverse;&#125;<span class="selector-class">.ub_fh</span>&#123;<span class="attribute">width</span>:<span class="number">100%</span>;&#125;<span class="selector-class">.ub_fv</span>&#123;<span class="attribute">height</span>:<span class="number">100%</span>;&#125;<span class="selector-class">.ub_con</span>&#123;<span class="attribute">position</span>:absolute;<span class="attribute">width</span>:<span class="number">100%</span>;<span class="attribute">height</span>:<span class="number">100%</span>;&#125;<span class="selector-class">.ub_ac</span>&#123;<span class="attribute">-webkit-box-align</span>:center;<span class="attribute">box-align</span>:center;&#125;<span class="selector-class">.ub_ae</span>&#123;<span class="attribute">-webkit-box-align</span>:end;<span class="attribute">box-align</span>:end;&#125;<span class="selector-class">.ub_pc</span>&#123;<span class="attribute">-webkit-box-pack</span>:center;<span class="attribute">box-pack</span>:center;&#125;<span class="selector-class">.ub_pe</span>&#123;<span class="attribute">-webkit-box-pack</span>:end;<span class="attribute">box-pack</span>:end;&#125;<span class="selector-class">.ub_pj</span>&#123;<span class="attribute">-webkit-box-pack</span>:justify;<span class="attribute">box-pack</span>:justify;&#125;<span class="selector-class">.ub_ver</span>&#123;<span class="attribute">-webkit-box-orient</span>:vertical;<span class="attribute">box-orient</span>:vertical;&#125;<span class="selector-class">.ub_f1</span>&#123;<span class="attribute">-webkit-box-flex</span>:<span class="number">1</span>;<span class="attribute">box-flex</span>:<span class="number">1</span>;&#125;<span class="selector-class">.ub_f2</span>&#123;<span class="attribute">-webkit-box-flex</span>:<span class="number">2</span>;<span class="attribute">box-flex</span>:<span class="number">2</span>;&#125;<span class="selector-class">.ub_f3</span>&#123;<span class="attribute">-webkit-box-flex</span>:<span class="number">3</span>;<span class="attribute">box-flex</span>:<span class="number">3</span>;&#125;<span class="selector-class">.ub_f4</span>&#123;<span class="attribute">-webkit-box-flex</span>:<span class="number">4</span>;<span class="attribute">box-flex</span>:<span class="number">4</span>;&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Box架构"><a href="#Box架构" class="headerlink" title="Box架构"></a>Box架构</h2><p>定义：</p>
+<p>ub</p>
+<p>说明：</p>
+<p>使用box弹性盒子模式对页面进行布局</p>
+<p>例子：</p>
+<p>ub定义元素的display属性为box。那么子元素就可以根据我们定义的比例来分配元素的空间，ub一般跟ub_f[1-4]搭配着使用</p>
+<h2 id="Box架构元素空间大小分配比例"><a href="#Box架构元素空间大小分配比例" class="headerlink" title="Box架构元素空间大小分配比例"></a>Box架构元素空间大小分配比例</h2><p>定义：</p>
+<p>ub_f[1-4]</p>
+<p>说明：</p>
+<p>定义不同的box-flex属性值</p>
+<p>类别使用数字编号，定义不同的元素空间大小分配比例</p>
+<p>例子：</p>
+<blockquote>
+<p>ub_f1数字编号为1；定义box-flex：1<br>ub_f1数字编号为2；定义box-flex：2<br>ub_f1数字编号为3；定义box-flex：3<br>ub_f1数字编号为4；定义box-flex：4<br>ub_f[1-4]和ub搭配着使用</p>
+</blockquote>
+<p><em>注：比例因为内容而影响时，要在ub_f[1-4]的子元素加入一层ub_con</em></p>
+<p>解析：</p>
+<p>1、若子元素都使用ub_f1，那么子元素等比例的分配父元素的空间大小</p>
+<pre><code>&lt;div class=&apos;ub&apos;&gt;
+ &lt;div class=&apos;ub ub_f1 bg_orange&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;ub ub_f1 bg_pink&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="/images/page/1.jpg" alt=""></p>
+<p>2、若子元素一个用ub_f1，另外一个用ub_f2.，那么子元素按照1：2的比例分配父元素的空间大小</p>
+<pre><code>&lt;div class=&apos;ub&apos;&gt;
+ &lt;div class=&apos;ub ub_f1 bg_orange&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;ub ub_f2 bg_pink&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="/images/page/2.jpg" alt=""></p>
+<p>3、若子元素分别使用ub_f1，ub_f2，ub_f3，那么子元素会按照1：2：3的比例分配父元素的空间大小</p>
+<pre><code>&lt;div class=&apos;ub&apos;&gt;
+ &lt;div class=&apos;ub ub_f1 bg_orange&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;ub ub_f2 bg_pink&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;ub ub_f3 bg_gray&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="/images/page/3.jpg" alt=""></p>
+<p>4、若子元素中只有一个使用ub_f1，另外一个元素根据内容的多少定义大小，那么使用ub_f1的元素会自动适配元素的剩余空间大小</p>
+<pre><code>&lt;div class=&apos;ub&apos;&gt;
+ &lt;div class=&apos;bg_orange&apos;&gt;内容&lt;/div&gt;
+ &lt;div class=&apos;ub ub_f1 bg_pink&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="/images/page/4.jpg" alt=""></p>
+<h2 id="Box架构元素垂直方向的位置排列"><a href="#Box架构元素垂直方向的位置排列" class="headerlink" title="Box架构元素垂直方向的位置排列"></a>Box架构元素垂直方向的位置排列</h2><p>定义：</p>
+<p>ub_ac，ub_ae</p>
+<p>说明：</p>
+<p>ub_ac：垂直居中</p>
+<p>ub_ae：位于底边</p>
+<p>只有跟ub搭配着使用ub_ac，ub_ae的作用才生效</p>
+<p>例子：</p>
+<p>1、未使用ub_ac，ub_ae</p>
+<pre><code>&lt;div class=&apos;ub&apos;&gt;
+ &lt;div class=&apos;ub ub_f1&apos;&gt;内容&lt;/div&gt;
+ &lt;div class=&apos;arrow_r&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="/images/page/a1.png" alt=""></p>
+<p>2、使用ub_ac</p>
+<pre><code>&lt;div class=&apos;ub ub_ac&apos;&gt;
+ &lt;div class=&apos;ub ub_f1&apos;&gt;内容&lt;/div&gt;
+ &lt;div class=&apos;arrow_r&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="/images/page/a2.png" alt=""></p>
+<p>3、使用ub_ae</p>
+<pre><code>&lt;div class=&apos;ub ub_ae&apos;&gt;
+ &lt;div class=&apos;ub ub_f1&apos;&gt;内容&lt;/div&gt;
+ &lt;div class=&apos;arrow_r&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="/images/page/a3.png" alt=""></p>
+<h2 id="Box架构元素水平方向的位置排列"><a href="#Box架构元素水平方向的位置排列" class="headerlink" title="Box架构元素水平方向的位置排列"></a>Box架构元素水平方向的位置排列</h2><p>定义：</p>
+<p>ub_pc，ub_pe，ub_pj</p>
+<p>说明：</p>
+<p>ub_pc：水平居中</p>
+<p>ub_pe：位于末尾</p>
+<p>ub_pj：两端对齐</p>
+<p>只有跟ub搭配着使用ub_pc，ub_pe，ub_pj的作用才生效</p>
+<p>例子：</p>
+<p>1、未使用ub_pc，ub_pe，ub_pj</p>
+<pre><code>&lt;div class=&apos;ub&apos;&gt;
+ &lt;div class=&apos;bg_orange&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_pink&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_gray&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="/images/page/p1.png" alt=""></p>
+<p>2、使用ub_pc</p>
+<pre><code>&lt;div class=&apos;ub ub_pc&apos;&gt;
+ &lt;div class=&apos;bg_orange&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_pink&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_gray&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="/images/page/p2.png" alt=""></p>
+<p>3、使用ub_pe</p>
+<pre><code>&lt;div class=&apos;ub ub_pe&apos;&gt;
+ &lt;div class=&apos;bg_orange&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_pink&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_gray&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="/images/page/p3.png" alt=""></p>
+<p>4、使用ub_pj</p>
+<pre><code>&lt;div class=&apos;ub ub_pj&apos;&gt;
+ &lt;div class=&apos;bg_orange&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_pink&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_gray&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="/images/page/p4.png" alt=""></p>
+<h2 id="Box架构元素垂直排列"><a href="#Box架构元素垂直排列" class="headerlink" title="Box架构元素垂直排列"></a>Box架构元素垂直排列</h2><p>定义：</p>
+<p>ub_ver….</p>
+<p>说明：</p>
+<p>ub_ver：定义元素垂直排列</p>
+<p>只有跟ub搭配着使用ub_ver的作用才生效</p>
+<p>例子：</p>
+<p>1、未使用ub_ver</p>
+<pre><code>&lt;div class=&apos;ub&apos;&gt;
+ &lt;div class=&apos;bg_orange&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_pink&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_gray&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="/images/page/a1.png" alt=""></p>
+<p>2、使用ub_ver</p>
+<pre><code>&lt;div class=&apos;ub ub_ver&apos;&gt;
+ &lt;div class=&apos;bg_orange&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_pink&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_gray&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="/images/page/a2.png" alt=""></p>
+<h2 id="Box架构元素排列方向"><a href="#Box架构元素排列方向" class="headerlink" title="Box架构元素排列方向"></a>Box架构元素排列方向</h2><p>定义：</p>
+<p>ub_rev</p>
+<p>说明：</p>
+<p>ub_rev：定义元素排列方向</p>
+<p>只有跟ub搭配着使用ub_rev的作用才生效</p>
+<p>例子：</p>
+<p>1、未使用ub_rev</p>
+<pre><code>&lt;div class=&apos;ub&apos;&gt;
+ &lt;div class=&apos;bg_orange&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_pink&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_gray&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="/images/page/r1.png" alt=""></p>
+<p>2、使用ub_rev</p>
+<pre><code>&lt;div class=&apos;ub ub_rev&apos;&gt;
+ &lt;div class=&apos;bg_orange&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_pink&apos;&gt;&lt;/div&gt;
+ &lt;div class=&apos;bg_gray&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="/images/page/r2.png" alt=""></p>
+<h2 id="宽高"><a href="#宽高" class="headerlink" title="宽高"></a>宽高</h2><p>定义：</p>
+<p>ub_fh，ub_fv</p>
+<p>说明：</p>
+<p>ub_fh：宽100%</p>
+<p>ub_fv：高100%</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> css </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[在iphone8 plus上的一个前端兼容性问题]]></title>
+      <url>https://github.dayanguo.cn/2017/11/20/%E5%9C%A8iphone8-plus%E4%B8%8A%E7%9A%84%E4%B8%80%E4%B8%AA%E5%89%8D%E7%AB%AF%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p>i8p上使用百度浏览器，会出现display无法实现显示或隐藏的bug，可以使用visibility:hidden(隐藏)，visibility:visible(显示)</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[hexo命令]]></title>
+      <url>https://github.dayanguo.cn/2017/11/20/hexo%E5%91%BD%E4%BB%A4/</url>
+      <content type="html"><![CDATA[<h2 id="安装更新"><a href="#安装更新" class="headerlink" title="安装更新"></a>安装更新</h2><pre><code>npm install hexo -g #安装  
+npm update hexo -g #升级  
+hexo init #初始化
+</code></pre><a id="more"></a>
+<h2 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h2><pre><code>hexo n &quot;我的博客&quot; == hexo new &quot;我的博客&quot; #新建文章
+hexo p == hexo publish
+hexo g == hexo generate#生成
+hexo s == hexo server #启动服务预览
+hexo d == hexo deploy#部署
+</code></pre><h2 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h2><pre><code>hexo server #Hexo 会监视文件变动并自动更新，您无须重启服务器。
+hexo server -s #静态模式
+hexo server -p 5000 #更改端口
+hexo server -i 192.168.1.1 #自定义 IP
+
+hexo clean #清除缓存 网页正常情况下可以忽略此条命令
+hexo g #生成静态网页
+hexo d #开始部署
+</code></pre>]]></content>
+      
+        
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[移动端注意事项]]></title>
+      <url>https://github.dayanguo.cn/2017/09/13/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</url>
+      <content type="html"><![CDATA[<h2 id="前进后退"><a href="#前进后退" class="headerlink" title="前进后退"></a>前进后退</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:window.history.back()"</span>&gt;</span>后退<span class="tag">&lt;/<span class="name">a</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:window.history.forward()"</span>&gt;</span>前进<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> 移动端 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[cmd命令操作电脑]]></title>
+      <url>https://github.dayanguo.cn/2017/07/06/cmd%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C%E7%94%B5%E8%84%91/</url>
+      <content type="html"><![CDATA[<p>先来学习一个命令<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">shutdown         <span class="comment">//这个命令本省的意思就是关机的意思，下面看一下它的参数</span></div><div class="line">-s               <span class="comment">//这个命令参数是关机的意思也就是（shutdown的缩写）</span></div><div class="line">-r               <span class="comment">//这个参数是重启的意思即（restart的缩写）</span></div><div class="line">-l               <span class="comment">//这个参数是注销的意思（logout）</span></div><div class="line">-t               <span class="comment">//这个参数比较重要，是指延时多少时间执行，它的单位是秒</span></div><div class="line">-f               <span class="comment">//关机时关闭所有的程序而不给出提示</span></div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>来个例子(切记参数之间要有空格隔开（当然可以是一个空格，也可以是多个）)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">shutdown  -s  -t  <span class="number">3600</span>   <span class="comment">//它的意思是在3600秒后关机</span></div><div class="line">shutdown  -s  -t   <span class="number">00</span>    <span class="comment">//它的意思是立刻关机</span></div></pre></td></tr></table></figure></p>
+<p>当然关机的时候我们也可以换一种方式<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">at  <span class="number">12</span>:<span class="number">00</span>  shutdown -s                 <span class="comment">//它的意思是在12：00的时候关机</span></div></pre></td></tr></table></figure></p>
+<p>取消关机命令<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">shutdown  -a      <span class="comment">//参数a是all的缩写，就是说取消你所执行的关机命令，但是他不能取消at  12:00  shutdown -s 的执行</span></div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> cmd </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[让浏览器自动刷新吧]]></title>
+      <url>https://github.dayanguo.cn/2017/07/05/%E8%AE%A9%E6%B5%8F%E8%A7%88%E5%99%A8%E8%87%AA%E5%8A%A8%E5%88%B7%E6%96%B0%E5%90%A7/</url>
+      <content type="html"><![CDATA[<h2 id="适合静态文件"><a href="#适合静态文件" class="headerlink" title="适合静态文件"></a>适合静态文件</h2><blockquote>
+<p>也就是对静态网站跑个服务器</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="1-使用gulp-livereload，要结合gulp-webserver一起用"><a href="#1-使用gulp-livereload，要结合gulp-webserver一起用" class="headerlink" title="1. 使用gulp-livereload，要结合gulp-webserver一起用"></a>1. 使用gulp-livereload，要结合gulp-webserver一起用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>),</div><div class="line">    livereload = <span class="built_in">require</span>(<span class="string">'gulp-livereload'</span>),</div><div class="line">	webserver = <span class="built_in">require</span>(<span class="string">'gulp-webserver'</span>); <span class="comment">// 本地服务器</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// 注册任务</span></div><div class="line">gulp.task(<span class="string">'webserver'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	gulp.src( <span class="string">'./'</span> ) <span class="comment">// 服务器目录（./代表根目录）</span></div><div class="line">	.pipe(webserver(&#123; <span class="comment">// 运行gulp-webserver</span></div><div class="line">		port: <span class="number">9090</span>,<span class="comment">//端口</span></div><div class="line">		host: <span class="string">'127.0.0.1'</span>,<span class="comment">//域名</span></div><div class="line">		livereload: <span class="literal">true</span>, <span class="comment">// 启用LiveReload</span></div><div class="line">		<span class="comment">// open: true // 服务器启动时自动打开网页</span></div><div class="line">	&#125;));</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 监听任务</span></div><div class="line">gulp.task(<span class="string">'watch'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// 看看改了那个文件</span></div><div class="line">    <span class="comment">// return gulp.watch('*', function(event) &#123;</span></div><div class="line">    <span class="comment">//   console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');</span></div><div class="line">    <span class="comment">// &#125;);</span></div><div class="line"></div><div class="line">    gulp.watch(<span class="string">'*'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">// 监听根目录下所有文件</span></div><div class="line">        gulp.src(<span class="string">'*'</span>).pipe(livereload());</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 默认任务</span></div><div class="line">gulp.task(<span class="string">'default'</span>,[<span class="string">'webserver'</span>,<span class="string">'watch'</span>]);</div></pre></td></tr></table></figure>
+<h3 id="2-结合gulp使用browser-sync"><a href="#2-结合gulp使用browser-sync" class="headerlink" title="2. 结合gulp使用browser-sync"></a>2. 结合gulp使用browser-sync</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>),</div><div class="line">    browserSync = <span class="built_in">require</span>(<span class="string">'browser-sync'</span>);</div><div class="line"></div><div class="line"></div><div class="line">gulp.task(<span class="string">'watch'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// browserSync.init(&#123;</span></div><div class="line">    <span class="comment">//     server: "./" //指定服务器启动根目录</span></div><div class="line">    <span class="comment">// &#125;);</span></div><div class="line">    <span class="comment">// gulp.watch('./*.html').on('change', browserSync.reload);</span></div><div class="line"></div><div class="line">    <span class="comment">// 也可以</span></div><div class="line">    browserSync(&#123;</div><div class="line">        <span class="attr">files</span>: <span class="string">"**"</span>,</div><div class="line">        <span class="attr">server</span>: &#123;</div><div class="line">            <span class="attr">baseDir</span>: <span class="string">"./"</span></div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 默认任务</span></div><div class="line">gulp.task(<span class="string">'default'</span>,[<span class="string">'watch'</span>]);</div></pre></td></tr></table></figure>
+<h3 id="3-直接执行browser-sync命令"><a href="#3-直接执行browser-sync命令" class="headerlink" title="3. 直接执行browser-sync命令"></a>3. 直接执行browser-sync命令</h3><blockquote>
+<p>对于静态文件，这是最理想的方法</p>
+</blockquote>
+<p>使用cmd命令<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// --files 路径是相对于运行该命令的项目（目录）</span></div><div class="line">browser-sync start --server --files <span class="string">"*.html"</span></div><div class="line"><span class="comment">// 如果你的文件层级比较深，您可以考虑使用 **（表示任意目录）匹配，任意目录下任意.css 或 .html文件</span></div><div class="line">browser-sync start --server --files <span class="string">"**/*.html,**/*.css,**/*.js"</span></div></pre></td></tr></table></figure></p>
+<h2 id="适合动态文件"><a href="#适合动态文件" class="headerlink" title="适合动态文件"></a>适合动态文件</h2><blockquote>
+<p>全局安装browser-sync：npm install browser-sync -g</p>
+</blockquote>
+<p>使用cmd命令<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">browser-sync start --proxy <span class="string">"testnode.com:8888"</span> --files <span class="string">"*.html"</span></div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> node </tag>
+            
+            <tag> gulp </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[gulp教程]]></title>
+      <url>https://github.dayanguo.cn/2017/05/15/gulp%E6%95%99%E7%A8%8B/</url>
+      <content type="html"><![CDATA[<h2 id="gulp简介"><a href="#gulp简介" class="headerlink" title="gulp简介"></a>gulp简介</h2><p>gulp是基于Nodejs的自动任务运行器， 她能自动化地完成 javascript/coffee/sass/less/html/image/css 等文件的的测试、检查、合并、压缩、格式化、浏览器自动刷新、部署文件生成，并监听文件在改动后重复指定的这些步骤。在实现上，她借鉴了Unix操作系统的管道（pipe）思想，前一级的输出，直接变成后一级的输入，使得在操作上非常简单。通过本文，我们将学习如何使用Gulp来改变开发流程，从而使开发更加快速高效。</p>
+<a id="more"></a>
+<p>gulp 和 grunt 非常类似，但相比于 grunt 的频繁 IO 操作，gulp 的流操作，能更快地更便捷地完成构建工作。</p>
+<h2 id="全局安装gulp"><a href="#全局安装gulp" class="headerlink" title="全局安装gulp"></a>全局安装gulp</h2><ol>
+<li>说明：全局安装gulp目的是为了通过它执行gulp任务；</li>
+<li>安装：命令提示符执行cnpm install gulp -g；</li>
+<li>查看是否正确安装：命令提示符执行gulp -v，出现版本号即为正确安装。</li>
+</ol>
+<h2 id="新建package-json文件"><a href="#新建package-json文件" class="headerlink" title="新建package.json文件"></a>新建package.json文件</h2><ol>
+<li>说明：package.json是基于nodejs项目必不可少的配置文件，它是存放在项目根目录的普通json文件；</li>
+<li>它是这样一个json文件（注意：json文件内是不能写注释的，复制下列内容请删除注释）</li>
+<li>也可以通过cnpm init新建 </li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"name"</span>: <span class="string">"test"</span>,   <span class="comment">//项目名称（必须）</span></div><div class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,   <span class="comment">//项目版本（必须）</span></div><div class="line">  <span class="string">"description"</span>: <span class="string">"This is for study gulp project !"</span>,   <span class="comment">//项目描述（必须）</span></div><div class="line">  <span class="string">"homepage"</span>: <span class="string">""</span>,   <span class="comment">//项目主页</span></div><div class="line">  <span class="string">"repository"</span>: &#123;    <span class="comment">//项目资源库</span></div><div class="line">    <span class="string">"type"</span>: <span class="string">"git"</span>,</div><div class="line">    <span class="string">"url"</span>: <span class="string">"https://git.oschina.net/xxxx"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">"author"</span>: &#123;    <span class="comment">//项目作者信息</span></div><div class="line">    <span class="string">"name"</span>: <span class="string">"surging"</span>,</div><div class="line">    <span class="string">"email"</span>: <span class="string">"surging2@qq.com"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">"license"</span>: <span class="string">"ISC"</span>,    <span class="comment">//项目许可协议</span></div><div class="line">  <span class="string">"devDependencies"</span>: &#123;    <span class="comment">//项目依赖的插件</span></div><div class="line">    <span class="string">"gulp"</span>: <span class="string">"^3.8.11"</span>,</div><div class="line">    <span class="string">"gulp-less"</span>: <span class="string">"^3.0.0"</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="本地安装gulp插件"><a href="#本地安装gulp插件" class="headerlink" title="本地安装gulp插件"></a>本地安装gulp插件</h2><ol>
+<li>为了能正常使用，我们还得本地安装gulp：cnpm install gulp –save-dev</li>
+<li>安装：定位目录命令后提示符执行cnpm install [插件名] –save-dev</li>
+</ol>
+<p>PS：细心的你可能会发现，我们全局安装了gulp，项目也安装了gulp，全局安装gulp是为了执行gulp任务，本地安装gulp则是为了调用gulp插件的功能。</p>
+<h2 id="新建gulpfile-js文件"><a href="#新建gulpfile-js文件" class="headerlink" title="新建gulpfile.js文件"></a>新建gulpfile.js文件</h2><p>说明：gulpfile.js是gulp项目的配置文件，是位于项目根目录的普通js文件（其实将gulpfile.js放入其他文件夹下亦可）。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//导入工具包 require('node_modules里对应模块')</span></div><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>), <span class="comment">//本地安装gulp所用到的地方</span></div><div class="line">    less = <span class="built_in">require</span>(<span class="string">'gulp-less'</span>);</div><div class="line"> </div><div class="line"><span class="comment">//定义一个testLess任务（自定义任务名称）</span></div><div class="line">gulp.task(<span class="string">'testLess'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    gulp.src(<span class="string">'src/less/index.less'</span>) <span class="comment">//该任务针对的文件</span></div><div class="line">        .pipe(less()) <span class="comment">//该任务调用的模块</span></div><div class="line">        .pipe(gulp.dest(<span class="string">'src/css'</span>)); <span class="comment">//将会在src/css下生成index.css</span></div><div class="line">&#125;);</div><div class="line"> </div><div class="line">gulp.task(<span class="string">'default'</span>,[<span class="string">'testLess'</span>, <span class="string">'elseTask'</span>]); <span class="comment">//定义默认任务 elseTask为其他任务，该示例没有定义elseTask任务</span></div><div class="line"> </div><div class="line"><span class="comment">//gulp.task(name[, deps], fn) 定义任务  name：任务名称 deps：依赖任务名称 fn：回调函数</span></div><div class="line"><span class="comment">//gulp.src(globs[, options]) 执行任务处理的文件  globs：处理的文件路径(字符串或者字符串数组) </span></div><div class="line"><span class="comment">//gulp.dest(path[, options]) 处理完后文件生成路径</span></div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> node </tag>
+            
+            <tag> npm </tag>
+            
+            <tag> gulp </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[npm相关知识]]></title>
+      <url>https://github.dayanguo.cn/2017/05/14/npm%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/</url>
+      <content type="html"><![CDATA[<h2 id="安装node"><a href="#安装node" class="headerlink" title="安装node"></a>安装node</h2><p>去node官网下载msi安装包，默认就有npm。安装完成，命令测试：node -v,  npm -v</p>
+<a id="more"></a>
+<h2 id="配置npm的全局模块的存放路径以及cache的路径"><a href="#配置npm的全局模块的存放路径以及cache的路径" class="headerlink" title="配置npm的全局模块的存放路径以及cache的路径"></a>配置npm的全局模块的存放路径以及cache的路径</h2><ol>
+<li><p>管理员身份启动cmd，输入：<br>npm config set prefix “D:\Program Files\nodejs\node_global”<br>npm config set cache “D:\Program Files\nodejs\node_cache”</p>
+</li>
+<li><p>确保环境变量包含global目录：<br>D:\Program Files\nodejs\node_global</p>
+</li>
+<li><p>如果npm -v没有结果，那就安装一下吧<br>npm install npm -g</p>
+</li>
+<li><p>安装glup试一下：<br>npm -g install gulp<br>查看：gulp -v</p>
+</li>
+</ol>
+<h2 id="npm换源（淘宝源）"><a href="#npm换源（淘宝源）" class="headerlink" title="npm换源（淘宝源）"></a>npm换源（淘宝源）</h2><h3 id="临时使用"><a href="#临时使用" class="headerlink" title="临时使用"></a>临时使用</h3><blockquote>
+<p>npm –registry <a href="https://registry.npm.taobao.org" target="_blank" rel="external">https://registry.npm.taobao.org</a> install express</p>
+</blockquote>
+<h3 id="持久使用"><a href="#持久使用" class="headerlink" title="持久使用"></a>持久使用</h3><blockquote>
+<p>npm config set registry <a href="http://registry.npm.taobao.org/" target="_blank" rel="external">http://registry.npm.taobao.org/</a></p>
+</blockquote>
+<p>配置后可通过下面方式来验证是否成功<br>npm config get registry<br>或npm info express</p>
+<h3 id="通过cnpm"><a href="#通过cnpm" class="headerlink" title="通过cnpm"></a>通过cnpm</h3><blockquote>
+<p>npm install -g cnpm –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="external">https://registry.npm.taobao.org</a></p>
+</blockquote>
+<p>使用cnpm install expresstall express</p>
+<hr>
+<pre><code>注：官方源：npm config set registry https://registry.npmjs.org/
+</code></pre>]]></content>
+      
+        
+        <tags>
+            
+            <tag> node </tag>
+            
+            <tag> npm </tag>
+            
+            <tag> gulp </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[css3小知识点]]></title>
+      <url>https://github.dayanguo.cn/2017/04/19/css3%E5%B0%8F%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
+      <content type="html"><![CDATA[<p>css小细节，在于积累</p>
+<a id="more"></a>
+<h2 id="长按选中文本复制"><a href="#长按选中文本复制" class="headerlink" title="长按选中文本复制"></a>长按选中文本复制</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></div><div class="line">    <span class="selector-tag">p</span> &#123;</div><div class="line">		<span class="attribute">-webkit-touch-callout</span>: none;</div><div class="line">        <span class="attribute">-webkit-user-select</span>: none;</div><div class="line">        <span class="attribute">-moz-user-select</span>: none;</div><div class="line">        <span class="attribute">-ms-user-select</span>: none;</div><div class="line">        <span class="attribute">user-select</span>: none;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    <span class="selector-tag">p</span> <span class="selector-tag">i</span> &#123;</div><div class="line">        <span class="attribute">-webkit-user-select</span>: text;</div><div class="line">        <span class="attribute">user-select</span>: text;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>长按复制<span class="tag">&lt;<span class="name">i</span>&gt;</span>123456789<span class="tag">&lt;/<span class="name">i</span>&gt;</span>粘贴<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="取消长按选中文本复制"><a href="#取消长按选中文本复制" class="headerlink" title="取消长按选中文本复制"></a>取消长按选中文本复制</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></div><div class="line">    <span class="selector-tag">p</span> &#123;</div><div class="line">		<span class="attribute">-webkit-touch-callout</span>: none;</div><div class="line">        <span class="attribute">-webkit-user-select</span>: none;</div><div class="line">        <span class="attribute">-moz-user-select</span>: none;</div><div class="line">        <span class="attribute">-ms-user-select</span>: none;</div><div class="line">        <span class="attribute">user-select</span>: none;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>复制不了，哈哈<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="取消长按图片"><a href="#取消长按图片" class="headerlink" title="取消长按图片"></a>取消长按图片</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></div><div class="line">   <span class="selector-tag">img</span> &#123; <span class="attribute">pointer-events</span>: none; &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="css控制不换行"><a href="#css控制不换行" class="headerlink" title="css控制不换行"></a>css控制不换行</h2><p>单行<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.tailor</span> &#123;</div><div class="line">    <span class="attribute">white-space</span>: nowrap;</div><div class="line">    <span class="attribute">overflow</span>: hidden;</div><div class="line">    <span class="attribute">text-overflow</span>: ellipsis;</div><div class="line">    <span class="attribute">display</span>: inline-block;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>多行<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.tt</span> &#123;</div><div class="line">  <span class="attribute">display</span>: -webkit-box;</div><div class="line">  <span class="attribute">overflow</span>: hidden;</div><div class="line">  <span class="attribute">text-overflow</span>: ellipsis;</div><div class="line">  <span class="attribute">word-break</span>: break-all;</div><div class="line">  <span class="attribute">-webkit-box-orient</span>: vertical;</div><div class="line">  <span class="attribute">-webkit-line-clamp</span>: <span class="number">5</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="自定义滚动条样式-webkit-scrollbar"><a href="#自定义滚动条样式-webkit-scrollbar" class="headerlink" title="自定义滚动条样式 -webkit-scrollbar"></a>自定义滚动条样式 -webkit-scrollbar</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/</span></div><div class="line"><span class="selector-pseudo">::-webkit-scrollbar</span></div><div class="line">&#123;</div><div class="line">    <span class="attribute">width</span>: <span class="number">16px</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">16px</span>;</div><div class="line">    <span class="attribute">background-color</span>: <span class="number">#F5F5F5</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">/*定义滚动条轨道 内阴影+圆角*/</span></div><div class="line"><span class="selector-pseudo">::-webkit-scrollbar-track</span></div><div class="line">&#123;</div><div class="line">    <span class="attribute">-webkit-box-shadow</span>: inset <span class="number">0</span> <span class="number">0</span> <span class="number">6px</span> <span class="built_in">rgba</span>(0,0,0,0.3);</div><div class="line">    <span class="attribute">border-radius</span>: <span class="number">10px</span>;</div><div class="line">    <span class="attribute">background-color</span>: <span class="number">#F5F5F5</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">/*定义滑块 内阴影+圆角*/</span></div><div class="line"><span class="selector-pseudo">::-webkit-scrollbar-thumb</span></div><div class="line">&#123;</div><div class="line">    <span class="attribute">border-radius</span>: <span class="number">10px</span>;</div><div class="line">    <span class="attribute">-webkit-box-shadow</span>: inset <span class="number">0</span> <span class="number">0</span> <span class="number">6px</span> <span class="built_in">rgba</span>(0,0,0,.3);</div><div class="line">    <span class="attribute">background-color</span>: <span class="number">#555</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="移动端h5页面端去掉input输入框的白色背景和边框（兼容Android和ios）"><a href="#移动端h5页面端去掉input输入框的白色背景和边框（兼容Android和ios）" class="headerlink" title="移动端h5页面端去掉input输入框的白色背景和边框（兼容Android和ios）"></a>移动端h5页面端去掉input输入框的白色背景和边框（兼容Android和ios）</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">input</span>,<span class="selector-tag">label</span> &#123;</div><div class="line">    <span class="attribute">-webkit-appearance</span>: none;</div><div class="line">    <span class="attribute">appearance</span>: none;</div><div class="line">    <span class="attribute">outline</span>: none;</div><div class="line">    <span class="attribute">-webkit-tap-highlight-color</span>: <span class="built_in">rgba</span>(0,0,0,0);</div><div class="line">    <span class="attribute">border-radius</span>: <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> css </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[js小知识点]]></title>
+      <url>https://github.dayanguo.cn/2017/04/18/js%E5%B8%B8%E7%94%A8%E7%82%B9/</url>
+      <content type="html"><![CDATA[<a id="more"></a>
+<h2 id="点击"><a href="#点击" class="headerlink" title="点击"></a>点击</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 头部导航</span></div><div class="line">$(<span class="string">'.nav li'</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    $(<span class="keyword">this</span>).addClass(<span class="string">'cur'</span>).siblings().removeClass(<span class="string">'cur'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[js小知识点]]></title>
+      <url>https://github.dayanguo.cn/2017/04/18/js%E5%B0%8F%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
+      <content type="html"><![CDATA[<h2 id="去掉字符串前面的0"><a href="#去掉字符串前面的0" class="headerlink" title="去掉字符串前面的0"></a>去掉字符串前面的0</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a=<span class="string">'007'</span>;</div><div class="line"><span class="built_in">console</span>.log(a.replace(<span class="regexp">/\b(0+)/gi</span>,<span class="string">""</span>));</div></pre></td></tr></table></figure>
+<h2 id="对localStorage的封装"><a href="#对localStorage的封装" class="headerlink" title="对localStorage的封装"></a>对localStorage的封装</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//在get时，如果是JSON格式，那么将其转换为JSON，而不是字符串。以下是基础代码：</span></div><div class="line"><span class="keyword">var</span> Store = &#123;</div><div class="line">    <span class="attr">get</span>: <span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> value = localStorage.getItem(key);</div><div class="line">        <span class="keyword">if</span> (value) &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">var</span> value_json = <span class="built_in">JSON</span>.parse(value);</div><div class="line">                <span class="keyword">if</span> (<span class="keyword">typeof</span> value_json === <span class="string">'object'</span>) &#123;</div><div class="line">                    <span class="keyword">return</span> value_json;</div><div class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> value_json === <span class="string">'number'</span>) &#123;</div><div class="line">                    <span class="keyword">return</span> value_json;</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">catch</span>(e) &#123;</div><div class="line">                <span class="keyword">return</span> value;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">set</span>: <span class="function"><span class="keyword">function</span>(<span class="params">key, value</span>) </span>&#123;</div><div class="line">        localStorage.setItem(key, value);</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">remove</span>: <span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123;</div><div class="line">        localStorage.removeItem(key);</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">clear</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        localStorage.clear();</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="判断终端（苹果-安卓-电脑）"><a href="#判断终端（苹果-安卓-电脑）" class="headerlink" title="判断终端（苹果/安卓/电脑）"></a>判断终端（苹果/安卓/电脑）</h2><h3 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (<span class="regexp">/(iPhone|iPad|iPod|iOS)/i</span>.test(navigator.userAgent)) &#123;</div><div class="line">    <span class="comment">//alert(navigator.userAgent);</span></div><div class="line">    alert(<span class="string">"ios"</span>);</div><div class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="regexp">/(Android)/i</span>.test(navigator.userAgent)) &#123;</div><div class="line">    <span class="comment">//alert(navigator.userAgent);</span></div><div class="line">    alert(<span class="string">"android"</span>);</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    alert(<span class="string">"pc"</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (!IsPC()) &#123;</div><div class="line">    alert(<span class="string">'移动端'</span>);</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">    alert(<span class="string">'pc端'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">IsPC</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> userAgentInfo = navigator.userAgent;</div><div class="line">    <span class="keyword">var</span> Agents = [<span class="string">"Android"</span>, <span class="string">"iPhone"</span>];</div><div class="line">    <span class="keyword">var</span> flag = <span class="literal">true</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> v = <span class="number">0</span>; v &lt; Agents.length; v++) &#123;</div><div class="line">        <span class="keyword">if</span> (userAgentInfo.indexOf(Agents[v]) &gt; <span class="number">0</span>) &#123;</div><div class="line">            flag = <span class="literal">false</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> flag;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="判断字符串包含"><a href="#判断字符串包含" class="headerlink" title="判断字符串包含"></a>判断字符串包含</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"tempText"</span> ;</div><div class="line"><span class="comment">//返回大于等于0的整数值，若不包含"Text"则返回"-1。</span></div><div class="line"><span class="keyword">if</span>(str.indexOf(<span class="string">"Text"</span>) &gt;= <span class="number">0</span>)&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"包含字符串"</span>);</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"不包含字符串"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="break是结束整个循环体，continue是结束单次循环"><a href="#break是结束整个循环体，continue是结束单次循环" class="headerlink" title="break是结束整个循环体，continue是结束单次循环"></a>break是结束整个循环体，continue是结束单次循环</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//比方说：</span></div><div class="line"><span class="keyword">while</span>(x &lt; <span class="number">10</span>)</div><div class="line">&#123;</div><div class="line">	x++;</div><div class="line">    <span class="keyword">if</span>(x == <span class="number">3</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">	<span class="built_in">console</span>.log(x);</div><div class="line">&#125;</div><div class="line"><span class="comment">//结果是输出  1 2   就退出了整个while循环</span></div><div class="line"><span class="comment">//但是如果使用continue</span></div><div class="line"><span class="keyword">while</span>(x &lt; <span class="number">10</span>)</div><div class="line">&#123;</div><div class="line">	x++;</div><div class="line">    <span class="keyword">if</span>(x == <span class="number">3</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">console</span>.log(x);</div><div class="line">&#125;</div><div class="line"><span class="comment">//结果是：1 2 4 5 6 7 8 9 10</span></div><div class="line"><span class="comment">//仅仅是不输出3，因为它结束了本次循环</span></div></pre></td></tr></table></figure>
+<h2 id="获取当前的日期时间-格式“yyyy-MM-dd-HH-MM-SS”"><a href="#获取当前的日期时间-格式“yyyy-MM-dd-HH-MM-SS”" class="headerlink" title="获取当前的日期时间 格式“yyyy-MM-dd HH:MM:SS”"></a>获取当前的日期时间 格式“yyyy-MM-dd HH:MM:SS”</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getNowFormatDate</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">    <span class="keyword">var</span> seperator1 = <span class="string">"-"</span>;</div><div class="line">    <span class="keyword">var</span> seperator2 = <span class="string">":"</span>;</div><div class="line">    <span class="keyword">var</span> month = date.getMonth() + <span class="number">1</span>;</div><div class="line">    <span class="keyword">var</span> strDate = date.getDate();</div><div class="line">    <span class="keyword">if</span> (month &gt;= <span class="number">1</span> &amp;&amp; month &lt;= <span class="number">9</span>) &#123;</div><div class="line">        month = <span class="string">"0"</span> + month;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (strDate &gt;= <span class="number">0</span> &amp;&amp; strDate &lt;= <span class="number">9</span>) &#123;</div><div class="line">        strDate = <span class="string">"0"</span> + strDate;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate</div><div class="line">            + <span class="string">" "</span> + date.getHours() + seperator2 + date.getMinutes()</div><div class="line">            + seperator2 + date.getSeconds();</div><div class="line">    <span class="keyword">return</span> currentdate;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="克隆数组"><a href="#克隆数组" class="headerlink" title="克隆数组"></a>克隆数组</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*错误*/</span></div><div class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</div><div class="line"><span class="keyword">const</span> arr1 = arr; <span class="comment">// 直接赋值，arr1指向的是arr的内存，也就是说arr发生改变时，arr1也会被改变</span></div><div class="line">arr.push(<span class="number">123</span>);</div><div class="line"><span class="built_in">console</span>.log(arr1); <span class="comment">// [1, 2, 3, 4, 5, 6, 123]</span></div><div class="line"></div><div class="line"><span class="comment">/*正确*/</span></div><div class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</div><div class="line"><span class="keyword">const</span> arr1 = arr.slice(<span class="number">0</span>); <span class="comment">// 克隆了一个arr1，arr与arr1指向不同的内存，arr的改变并不会影响到arr1</span></div><div class="line">arr.push(<span class="number">123</span>);</div><div class="line"><span class="built_in">console</span>.log(arr1); <span class="comment">// [1, 2, 3, 4, 5, 6]</span></div></pre></td></tr></table></figure>
+<h2 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h2><p>浅拷贝与深拷贝的区别在于：浅拷贝只是遍历了obj1的第一层，然后把obj1的每个属性都赋值给了obj2；而深拷贝则不会，当属性值为对象时，深拷贝会new一个空对象，然后把对象的值赋值给这个空对象，在返回这个空对象作为obj3的属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> obj1 = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'Ash'</span>,</div><div class="line">    <span class="attr">class</span>: &#123;</div><div class="line">        <span class="attr">a</span>: <span class="number">1</span>,</div><div class="line">        <span class="attr">b</span>: <span class="number">2</span>,</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 浅拷贝</span></div><div class="line"><span class="keyword">const</span> obj2 = &#123;&#125;;</div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> obj1) &#123;</div><div class="line">    obj2[key] = obj1[key];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 深拷贝</span></div><div class="line"><span class="keyword">const</span> copyObj = <span class="function">(<span class="params">obj</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">const</span> newObj = &#123;&#125;;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> obj) &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> obj[key] !== <span class="string">'object'</span>) &#123;</div><div class="line">            newObj[key] = obj[key];</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            newObj[key] = copyObj(obj[key]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> newObj;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> obj3 = copyObj(obj1);</div><div class="line"></div><div class="line">obj1.name = <span class="string">'Coco'</span>;</div><div class="line">obj1.class.a = <span class="number">100</span>;</div><div class="line"><span class="built_in">console</span>.log(obj2.name, obj2.class.a); <span class="comment">// Ash 100</span></div><div class="line"><span class="built_in">console</span>.log(obj3.name, obj3.class.a); <span class="comment">// Ash 1</span></div></pre></td></tr></table></figure>
+<h2 id="移动端网页的输入框窗口定位，获取焦点依然固定"><a href="#移动端网页的输入框窗口定位，获取焦点依然固定" class="headerlink" title="移动端网页的输入框窗口定位，获取焦点依然固定"></a>移动端网页的输入框窗口定位，获取焦点依然固定</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">'textarea'</span>).focus(<span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">document</span>.body.scrollTop = <span class="built_in">document</span>.body.scrollHeight;</div><div class="line">    &#125;,<span class="number">500</span>)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="获取地址栏参数"><a href="#获取地址栏参数" class="headerlink" title="获取地址栏参数"></a>获取地址栏参数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">GetQueryString</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"(^|&amp;)"</span> + name + <span class="string">"=([^&amp;]*)(&amp;|$)"</span>);</div><div class="line">    <span class="keyword">var</span> r = <span class="built_in">window</span>.location.search.substr(<span class="number">1</span>).match(reg);</div><div class="line">    <span class="keyword">if</span> (r != <span class="literal">null</span>) <span class="keyword">return</span> <span class="built_in">unescape</span>(r[<span class="number">2</span>]); <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="返回上一级"><a href="#返回上一级" class="headerlink" title="返回上一级"></a>返回上一级</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//返回上一级</span></div><div class="line">$(<span class="string">'.js_back'</span>).on(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span> (<span class="built_in">document</span>.referrer === <span class="string">''</span>) &#123;</div><div class="line">		<span class="built_in">window</span>.location.href = <span class="string">'./'</span></div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">		<span class="built_in">window</span>.history.back();</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="判断微信和QQ"><a href="#判断微信和QQ" class="headerlink" title="判断微信和QQ"></a>判断微信和QQ</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ua = navigator.userAgent.toLowerCase();</div><div class="line"><span class="keyword">if</span>(ua.match(<span class="regexp">/MicroMessenger/i</span>)==<span class="string">'micromessenger'</span>) &#123;</div><div class="line">	alert(<span class="string">'微信'</span>);</div><div class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(ua.match(<span class="regexp">/QQ/i</span>) == <span class="string">'qq'</span>)&#123;</div><div class="line">	alert(<span class="string">'QQ'</span>);</div><div class="line">&#125;<span class="keyword">else</span>&#123;alert(<span class="string">'not  微信、QQ'</span>);&#125;</div></pre></td></tr></table></figure>
+<h2 id="判断iphoneX"><a href="#判断iphoneX" class="headerlink" title="判断iphoneX"></a>判断iphoneX</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIphoneX</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="regexp">/iphone/gi</span>.test(navigator.userAgent) &amp;&amp; (screen.height == <span class="number">812</span> &amp;&amp; screen.width == <span class="number">375</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="获取参数"><a href="#获取参数" class="headerlink" title="获取参数"></a>获取参数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">GetQueryString</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"(^|&amp;)"</span> + name + <span class="string">"=([^&amp;]*)(&amp;|$)"</span>);</div><div class="line">    <span class="keyword">var</span> r = <span class="built_in">window</span>.location.search.substr(<span class="number">1</span>).match(reg);</div><div class="line">    <span class="keyword">if</span> (r != <span class="literal">null</span>) <span class="keyword">return</span> <span class="built_in">unescape</span>(r[<span class="number">2</span>]); <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[使用多个Git账号]]></title>
+      <url>https://github.dayanguo.cn/2017/04/11/%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AAGit%E8%B4%A6%E5%8F%B7/</url>
+      <content type="html"><![CDATA[<p>永久保存<br>    git config –global user.name “lyg”<br>    git config –global user.email “lyg@qq.com”</p>
+<p>单个项目保存<br>    git config user.name “lyg”<br>    git config user.email “lyg@qq.com”</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[图片懒加载lazyload 3步走使用方法]]></title>
+      <url>https://github.dayanguo.cn/2017/04/05/%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BDlazyload%203%E6%AD%A5%E8%B5%B0%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</url>
+      <content type="html"><![CDATA[<p>1.引入<a href="http://7xpz4f.com1.z0.glb.clouddn.com/js/jquery.lazyload.js" target="_blank" rel="external">lazyload</a><br>2.img标签，将src改成data-original，然后添加class=”lazy”<br>3.js加入$(‘img.lazy’).lazyload({effect:”fadeIn”});</p>
+<a id="more"></a>
+<hr>
+<h2 id="lazyload方法说明："><a href="#lazyload方法说明：" class="headerlink" title="lazyload方法说明："></a>lazyload方法说明：</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 最简单的使用，不带参数</span></div><div class="line">$(<span class="string">'img'</span>).lazyload();</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 带参数(配置对象)，下面配置对象中的各个属性值都是默认的</span></div><div class="line">$(<span class="string">'img'</span>).lazyload(&#123;</div><div class="line">	<span class="attr">threshold</span>	   : <span class="number">0</span>,</div><div class="line">	<span class="attr">failure_limit</span>   : <span class="number">0</span>,</div><div class="line">	<span class="attr">event</span>		   : <span class="string">"scroll"</span>,</div><div class="line">	<span class="attr">effect</span>		  : <span class="string">"show"</span>,</div><div class="line">	<span class="attr">container</span>	   : <span class="built_in">window</span>,</div><div class="line">	<span class="attr">data_attribute</span>  : <span class="string">"original"</span>,</div><div class="line">	<span class="attr">skip_invisible</span>  : <span class="literal">true</span>,</div><div class="line">	<span class="attr">appear</span>		  : <span class="literal">null</span>,</div><div class="line">	<span class="attr">load</span>			: <span class="literal">null</span>,</div><div class="line">	<span class="attr">placeholder</span>	 : <span class="string">"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> jquery </tag>
+            
+            <tag> lazyload </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[小程序子页面添加返回首页且不影响分享功能的方法]]></title>
+      <url>https://github.dayanguo.cn/2017/04/01/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%90%E9%A1%B5%E9%9D%A2%E6%B7%BB%E5%8A%A0%E8%BF%94%E5%9B%9E%E9%A6%96%E9%A1%B5%E4%B8%94%E4%B8%8D%E5%BD%B1%E5%93%8D%E5%88%86%E4%BA%AB%E5%8A%9F%E8%83%BD%E7%9A%84%E6%96%B9%E6%B3%95/</url>
+      <content type="html"><![CDATA[<p>之前在子页面添加放回首页按钮的时候，懵逼了。跳转，小程序有只能5层页面的限制；后来发现可以使用redirectTo页面，但是效果不理想，也会多层；最后发现可以关闭页面，回退到首页。好了，就用关闭回退吧，但是，又有一个问题，那就是分享出去的话，怎么回退，回退毛啊。然后继续研究吧…</p>
+<a id="more"></a>
+<p>有了新进展：<br>如果是首页，就在内存中设置一个变量，在子页面点击“返回首页”时，使用wx.navigateBack({ delta: 6 })这个方法回退。详解见api<br>非首页，内存中无变量就使用wx.redirectTo({ url: ‘../index/index’ })这个方法回退。详解见api</p>
+<p>eg:<br>    首页：getApp().globalData.hasIndex = true;<br>    子页：<br>        if(getApp().globalData.hasIndex){<br>            wx.navigateBack({<br>                delta: 6<br>            })<br>        }else{<br>            wx.redirectTo({<br>                url: ‘../index/index’<br>            })<br>        }</p>
+<p>没错，就是这样，完美解决。<br>​</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> 小程序 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[小程序内存中的事儿]]></title>
+      <url>https://github.dayanguo.cn/2017/03/29/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%84%BF/</url>
+      <content type="html"><![CDATA[<p>在根目录app.js设置globalData对象，可以在打开小程序是对象值生效，退出便失效<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">App(&#123;</div><div class="line">  <span class="attr">globalData</span>:&#123;</div><div class="line">    <span class="attr">hasIndex</span> : <span class="literal">false</span></div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> 小程序 </tag>
+            
+            <tag> 微信 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[点击事件不能多次点击执行，可以判断ajax是否在执行中]]></title>
+      <url>https://github.dayanguo.cn/2017/03/27/%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E4%B8%8D%E8%83%BD%E5%A4%9A%E6%AC%A1%E7%82%B9%E5%87%BB%E6%89%A7%E8%A1%8C%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%88%A4%E6%96%ADajax%E6%98%AF%E5%90%A6%E5%9C%A8%E6%89%A7%E8%A1%8C%E4%B8%AD/</url>
+      <content type="html"><![CDATA[<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ajaxStatus = <span class="literal">false</span>;<span class="comment">//这个是全局变量，用于判断是否在执行ajax</span></div><div class="line"></div><div class="line">doAjax();<span class="comment">//不同地方调用，可多次执行，但会判断状态值</span></div><div class="line"></div><div class="line">&lt;!-- more --&gt;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">doAjax</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span>(ajaxStatus)<span class="keyword">return</span>;<span class="comment">//如果在执行ajax，就停止执行以后的事情</span></div><div class="line">	ajaxStatus = <span class="literal">true</span>;<span class="comment">//如果不在执行ajax状态，那么此时即将进入ajax，就改变状态</span></div><div class="line">	$.ajax( &#123;</div><div class="line">	    <span class="attr">url</span>:<span class="string">'do.html'</span>,</div><div class="line">	    <span class="attr">type</span>:<span class="string">'post'</span>,</div><div class="line">	    <span class="attr">dataType</span>:<span class="string">'json'</span>,</div><div class="line">	    <span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">	    	ajaxStatus = <span class="literal">false</span>;<span class="comment">//执行ajax结束</span></div><div class="line">	     &#125;,</div><div class="line">	     <span class="attr">error</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	    	ajaxStatus = <span class="literal">false</span>;<span class="comment">//执行ajax结束</span></div><div class="line">			alert(<span class="string">"异常！"</span>);</div><div class="line">	     &#125;</div><div class="line">	&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> js </tag>
+            
+            <tag> ajax </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[hexo换主题注意事项]]></title>
+      <url>https://github.dayanguo.cn/2017/03/24/hexo%E6%8D%A2%E4%B8%BB%E9%A2%98%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</url>
+      <content type="html"><![CDATA[<h2 id="改配置"><a href="#改配置" class="headerlink" title="改配置"></a>改配置</h2><p>将新主题放入theme后，更改_confirm.yml中的theme<br>    theme: yelee</p>
+<h2 id="清缓存"><a href="#清缓存" class="headerlink" title="清缓存"></a>清缓存</h2><p>删除根目录 public文件夹 和 db.json文件</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[background 简写属性在一个声明中设置所有的背景属性]]></title>
+      <url>https://github.dayanguo.cn/2017/03/24/background-%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7%E5%9C%A8%E4%B8%80%E4%B8%AA%E5%A3%B0%E6%98%8E%E4%B8%AD%E8%AE%BE%E7%BD%AE%E6%89%80%E6%9C%89%E7%9A%84%E8%83%8C%E6%99%AF%E5%B1%9E%E6%80%A7/</url>
+      <content type="html"><![CDATA[<p>最简写：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.top_con</span>&#123;</div><div class="line">	<span class="attribute">background</span>: <span class="built_in">url</span>(img/top_con.jpg) no-repeat center center / cover;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>使用以上写法，wap端有兼容性问题（手机QQ底版本无法实现效果），可以使用以下写法：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.top_con</span>&#123;</div><div class="line">	<span class="attribute">background</span>: <span class="built_in">url</span>(img/top_con.jpg) no-repeat center center;</div><div class="line">	<span class="attribute">-webkit-background-size</span>:cover;</div><div class="line">	<span class="attribute">-moz-background-size</span>: cover;</div><div class="line">	<span class="attribute">-o-background-size</span>: cover;</div><div class="line">	<span class="attribute">background-size</span>: cover;</div><div class="line">	<span class="attribute">filter</span>: progid:DXImageTransform.Microsoft.<span class="built_in">AlphaImageLoader</span>(src=<span class="string">'/Content/Images/Mascot/DZ.png'</span>,sizingMethod=<span class="string">'crop'</span>);<span class="comment">/*ie7\8的兼容写法*/</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>PS:注意：如果设置了background-attachment:fixed;会是background-size属性失效
+</code></pre>]]></content>
+      
+        
+        <tags>
+            
+            <tag> css </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[执行ajax，并判断状态值]]></title>
+      <url>https://github.dayanguo.cn/2017/03/23/%E6%89%A7%E8%A1%8Cajax%EF%BC%8C%E5%B9%B6%E5%88%A4%E6%96%AD%E7%8A%B6%E6%80%81%E5%80%BC/</url>
+      <content type="html"><![CDATA[<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ajaxStatus = <span class="literal">false</span>;<span class="comment">//这个是全局变量，用于判断是否在执行ajax</span></div><div class="line"></div><div class="line">doAjax();<span class="comment">//不同地方调用，可多次执行，但会判断状态值</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">doAjax</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span>(ajaxStatus)<span class="keyword">return</span>;<span class="comment">//如果在执行ajax，就停止执行以后的事情</span></div><div class="line">	ajaxStatus = <span class="literal">true</span>;<span class="comment">//如果不在执行ajax状态，那么此时即将进入ajax，就改变状态</span></div><div class="line">	$.ajax( &#123;</div><div class="line">	    <span class="attr">url</span>:<span class="string">'do.html'</span>,</div><div class="line">	    <span class="attr">type</span>:<span class="string">'post'</span>,</div><div class="line">	    <span class="attr">dataType</span>:<span class="string">'json'</span>,</div><div class="line">	    <span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">	    	ajaxStatus = <span class="literal">false</span>;<span class="comment">//执行ajax结束</span></div><div class="line">	     &#125;,</div><div class="line">	     <span class="attr">error</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	    	ajaxStatus = <span class="literal">false</span>;<span class="comment">//执行ajax结束</span></div><div class="line">			alert(<span class="string">"异常！"</span>);</div><div class="line">	     &#125;</div><div class="line">	&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[js限制在微信浏览器打开，禁止外置浏览器]]></title>
+      <url>https://github.dayanguo.cn/2016/12/07/js%E9%99%90%E5%88%B6%E5%9C%A8%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%93%E5%BC%80%EF%BC%8C%E7%A6%81%E6%AD%A2%E5%A4%96%E7%BD%AE%E6%B5%8F%E8%A7%88%E5%99%A8/</url>
+      <content type="html"><![CDATA[<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器  </span></div><div class="line"><span class="keyword">var</span> useragent = navigator.userAgent;  </div><div class="line"><span class="keyword">if</span> (useragent.match(<span class="regexp">/MicroMessenger/i</span>) != <span class="string">'MicroMessenger'</span>) &#123;  </div><div class="line">    <span class="comment">// 这里警告框会阻塞当前页面继续加载  </span></div><div class="line">    alert(<span class="string">'已禁止本次访问：您必须使用微信内置浏览器访问本页面！'</span>);  </div><div class="line">    <span class="comment">// 以下代码是用javascript强行关闭当前页面  </span></div><div class="line">    <span class="keyword">var</span> opened = <span class="built_in">window</span>.open(<span class="string">'about:blank'</span>, <span class="string">'_self'</span>);  </div><div class="line">    opened.opener = <span class="literal">null</span>;  </div><div class="line">    opened.close();  </div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[使用js将html结构和字符串互转]]></title>
+      <url>https://github.dayanguo.cn/2016/12/01/%E4%BD%BF%E7%94%A8js%E5%B0%86html%E7%BB%93%E6%9E%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BA%92%E8%BD%AC/</url>
+      <content type="html"><![CDATA[<h2 id="html结构转字符串形式显示-支持换行"><a href="#html结构转字符串形式显示-支持换行" class="headerlink" title="html结构转字符串形式显示 支持换行"></a>html结构转字符串形式显示 支持<br>换行</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ToHtmlString</span>(<span class="params">htmlStr</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> toTXT(htmlStr).replace(<span class="regexp">/\&amp;lt\;br[\&amp;ensp\;|\&amp;emsp\;]*[\/]?\&amp;gt\;|\r\n|\n/g</span>, <span class="string">"&lt;br/&gt;"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="html结构转字符串形式显示"><a href="#html结构转字符串形式显示" class="headerlink" title="html结构转字符串形式显示"></a>html结构转字符串形式显示</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">toTXT</span>(<span class="params">str</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> RexStr = <span class="regexp">/\&lt;|\&gt;|\"|\'|\&amp;|　| /g</span></div><div class="line">    str = str.replace(RexStr,</div><div class="line">    <span class="function"><span class="keyword">function</span> (<span class="params">MatchStr</span>) </span>&#123;</div><div class="line">        <span class="keyword">switch</span> (MatchStr) &#123;</div><div class="line">            <span class="keyword">case</span> <span class="string">"&lt;"</span>:</div><div class="line">                <span class="keyword">return</span> <span class="string">"&amp;lt;"</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="string">"&gt;"</span>:</div><div class="line">                <span class="keyword">return</span> <span class="string">"&amp;gt;"</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="string">"\""</span>:</div><div class="line">                <span class="keyword">return</span> <span class="string">"&amp;quot;"</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="string">"'"</span>:</div><div class="line">                <span class="keyword">return</span> <span class="string">"&amp;#39;"</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="string">"&amp;"</span>:</div><div class="line">                <span class="keyword">return</span> <span class="string">"&amp;amp;"</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="string">" "</span>:</div><div class="line">                <span class="keyword">return</span> <span class="string">"&amp;ensp;"</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="string">"　"</span>:</div><div class="line">                <span class="keyword">return</span> <span class="string">"&amp;emsp;"</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    )</div><div class="line">    <span class="keyword">return</span> str;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> js </tag>
+            
+            <tag> html </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[HTTP状态码]]></title>
+      <url>https://github.dayanguo.cn/2016/10/02/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/</url>
+      <content type="html"><![CDATA[<p>常见的状态码:</p>
+<p>HTTP: Status 200 – 服务器成功返回网页<br>HTTP: Status 304 – 请求的网页未修改<br>HTTP Status  400 – 错误请求<br>HTTP: Status 404 – 请求的网页不存在<br>HTTP: Status 503 – 服务不可用<br>HTTP:Status 504  – 网关超时</p>
+<a id="more"></a>
+<p>说明:</p>
+<p>HTTP: Status 1xx  (临时响应)<br>-&gt;表示临时响应并需要请求者继续执行操作的状态代码。</p>
+<p>详细代码及说明:<br>HTTP: Status 100 (继续)<br>-&gt; 请求者应当继续提出请求。 服务器返回此代码表示已收到请求的第一部分，正在等待其余部分。<br>HTTP: Status 101 (切换协议)<br>-&gt; 请求者已要求服务器切换协议，服务器已确认并准备切换。</p>
+<p>说明:<br>HTTP Status 2xx  (成功)<br>-&gt;表示成功处理了请求的状态代码;</p>
+<p>详细代码及说明:</p>
+<p>HTTP Status 200 (成功)<br>-&gt; 服务器已成功处理了请求。 通常，这表示服务器提供了请求的网页。<br>HTTP Status 201 (已创建)<br>-&gt; 请求成功并且服务器创建了新的资源。<br>HTTP Status 202 (已接受)<br>-&gt; 服务器已接受请求，但尚未处理。<br>HTTP Status 203 (非授权信息)<br>-&gt; 服务器已成功处理了请求，但返回的信息可能来自另一来源。<br>HTTP Status 204 (无内容)<br>-&gt; 服务器成功处理了请求，但没有返回任何内容。<br>HTTP Status 205 (重置内容)<br>-&gt; 服务器成功处理了请求，但没有返回任何内容。<br>HTTP Status 206 (部分内容)<br>-&gt; 服务器成功处理了部分 GET 请求。</p>
+<p>3xx （重定向）<br>表示要完成请求，需要进一步操作。 通常，这些状态代码用来重定向。</p>
+<p>代码   说明<br>300   Multiple Choices（多种选择）  针对请求，服务器可执行多种操作。 服务器可根据请求者 (user agent) 选择一项操作，或提供操作列表供请求者选择。<br>301   Moved Permanently（永久移动）  请求的网页已永久移动到新位置。 服务器返回此响应（对 GET 或 HEAD 请求的响应）时，会自动将请求者转到新位置。<br>302   Found（临时移动）  服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来进行以后的请求。<br>303   See Other（查看其他位置） 请求者应当对不同的位置使用单独的 GET 请求来检索响应时，服务器返回此代码。<br>304   Not Modified（未修改） 自从上次请求后，请求的网页未修改过。 服务器返回此响应时，不会返回网页内容。<br>305   Use Proxy（使用代理） 请求者只能使用代理访问请求的网页。 如果服务器返回此响应，还表示请求者应使用代理。<br>307   Temporary Redirect（临时重定向）  服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来进行以后的请求。</p>
+<p>说明:</p>
+<p>HTTP Status 4xx (请求错误)<br>-&gt;这些状态代码表示请求可能出错，妨碍了服务器的处理。</p>
+<p>详细代码说明:<br>HTTP Status 400 （错误请求）<br>-&gt;服务器不理解请求的语法。<br>HTTP Status 401 （未授权）<br>-&gt;请求要求身份验证。 对于需要登录的网页，服务器可能返回此响应。<br>HTTP Status 403 （禁止）<br>-&gt; 服务器拒绝请求。<br>HTTP Status 404 （未找到）<br>-&gt;服务器找不到请求的网页。<br>HTTP Status 405 （方法禁用）<br>-&gt;禁用请求中指定的方法。<br>HTTP Status 406 （不接受）<br>-&gt;无法使用请求的内容特性响应请求的网页。<br>HTTP Status 407 （需要代理授权）<br>-&gt;此状态代码与 401（未授权）类似，但指定请求者应当授权使用代理。<br>HTTP Status 408 （请求超时）<br>-&gt;服务器等候请求时发生超时。<br>HTTP Status 409 （冲突）<br>-&gt;服务器在完成请求时发生冲突。 服务器必须在响应中包含有关冲突的信息。<br>HTTP Status 410 （已删除）<br>-&gt; 如果请求的资源已永久删除，服务器就会返回此响应。<br>HTTP Status 411 （需要有效长度）<br>-&gt;服务器不接受不含有效内容长度标头字段的请求。<br>HTTP Status 412 （未满足前提条件）<br>-&gt;服务器未满足请求者在请求中设置的其中一个前提条件。<br>HTTP Status 413 （请求实体过大）<br>-&gt;服务器无法处理请求，因为请求实体过大，超出服务器的处理能力。<br>HTTP Status 414 （请求的 URI 过长） 请求的 URI（通常为网址）过长，服务器无法处理。<br>HTTP Status 415 （不支持的媒体类型）<br>-&gt;请求的格式不受请求页面的支持。<br>HTTP Status 416 （请求范围不符合要求）<br>-&gt;如果页面无法提供请求的范围，则服务器会返回此状态代码。<br>HTTP Status 417 （未满足期望值）<br>-&gt;服务器未满足”期望”请求标头字段的要求。</p>
+<p>说明<br>HTTP Status 5xx （服务器错误）<br>-&gt;这些状态代码表示服务器在尝试处理请求时发生内部错误。 这些错误可能是服务器本身的错误，而不是请求出错。</p>
+<p>代码详细及说明:<br>HTTP Status 500 （服务器内部错误）<br>-&gt;服务器遇到错误，无法完成请求。<br>HTTP Status 501 （尚未实施）<br>-&gt;服务器不具备完成请求的功能。 例如，服务器无法识别请求方法时可能会返回此代码。<br>HTTP Status 502 （错误网关）<br>-&gt;服务器作为网关或代理，从上游服务器收到无效响应。<br>HTTP Status 503 （服务不可用）<br>-&gt; 服务器目前无法使用（由于超载或停机维护）。 通常，这只是暂时状态。<br>HTTP Status 504 （网关超时）<br>-&gt;服务器作为网关或代理，但是没有及时从上游服务器收到请求。<br>HTTP Status 505 （HTTP 版本不受支持）<br>-&gt; 服务器不支持请求中所用的 HTTP 协议版本。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> http </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[js中获取时间new Date()详细介绍]]></title>
+      <url>https://github.dayanguo.cn/2015/12/23/js%E4%B8%AD%E8%8E%B7%E5%8F%96%E6%97%B6%E9%97%B4new-Date-%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/</url>
+      <content type="html"><![CDATA[<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> myDate = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">myDate.getYear(); <span class="comment">//获取当前年份(2位)</span></div><div class="line">myDate.getFullYear(); <span class="comment">//获取完整的年份(4位,1970-????)</span></div><div class="line">myDate.getMonth(); <span class="comment">//获取当前月份(0-11,0代表1月)</span></div><div class="line">myDate.getDate(); <span class="comment">//获取当前日(1-31)</span></div><div class="line">myDate.getDay(); <span class="comment">//获取当前星期X(0-6,0代表星期天)</span></div><div class="line">myDate.getTime(); <span class="comment">//获取当前时间(从1970.1.1开始的毫秒数)</span></div><div class="line">myDate.getHours(); <span class="comment">//获取当前小时数(0-23)</span></div><div class="line">myDate.getMinutes(); <span class="comment">//获取当前分钟数(0-59)</span></div><div class="line">myDate.getSeconds(); <span class="comment">//获取当前秒数(0-59)</span></div><div class="line">myDate.getMilliseconds(); <span class="comment">//获取当前毫秒数(0-999)</span></div><div class="line">myDate.toLocaleDateString(); <span class="comment">//获取当前日期</span></div><div class="line"><span class="keyword">var</span> mytime=myDate.toLocaleTimeString(); <span class="comment">//获取当前时间</span></div><div class="line">myDate.toLocaleString( ); <span class="comment">//获取日期与时间</span></div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>获取当前时间戳：<br>第一种方法：<br>var timestamp =Date.parse(new Date());<br>结果：1280977330000</p>
+<p>第二种方法：<br>var timestamp =(new Date()).valueOf();<br>结果：1280977330748</p>
+<p>第三种方法：<br>var timestamp=new Date().getTime()；</p>
+<p>结果：1280977330748<br>第一种：获取的时间戳是把毫秒改成000显示，<br>第二种和第三种是获取了当前毫秒的时间戳。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Js/Jquery获取iframe中的元素 在iframe中获取父窗体的元素方法]]></title>
+      <url>https://github.dayanguo.cn/2015/11/24/Js-Jquery%E8%8E%B7%E5%8F%96iframe%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0-%E5%9C%A8iframe%E4%B8%AD%E8%8E%B7%E5%8F%96%E7%88%B6%E7%AA%97%E4%BD%93%E7%9A%84%E5%85%83%E7%B4%A0%E6%96%B9%E6%B3%95/</url>
+      <content type="html"><![CDATA[<h2 id="通过js"><a href="#通过js" class="headerlink" title="通过js"></a>通过js</h2><h3 id="在父窗口中获取iframe中的元素"><a href="#在父窗口中获取iframe中的元素" class="headerlink" title="在父窗口中获取iframe中的元素"></a>在父窗口中获取iframe中的元素</h3><h4 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h4><pre><code>格式：window.frames[&quot;iframe的name值&quot;].document.getElementById(&quot;iframe中控件的ID&quot;).click();
+实例：window.frames[&quot;ifm&quot;].document.getElementById(&quot;btnOk&quot;).click();
+</code></pre><a id="more"></a>
+<h4 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h4><pre><code>格式：
+    var obj=document.getElementById(&quot;iframe的name&quot;).contentWindow;
+    var ifmObj=obj.document.getElementById(&quot;iframe中控件的ID&quot;);
+    ifmObj.click();
+实例：
+    var obj=document.getElementById(&quot;ifm&quot;).contentWindow;
+    var ifmObj=obj.document.getElementById(&quot;btnOk&quot;);
+    ifmObj.click();
+</code></pre><h3 id="在iframe中获取父窗口的元素"><a href="#在iframe中获取父窗口的元素" class="headerlink" title="在iframe中获取父窗口的元素"></a>在iframe中获取父窗口的元素</h3><pre><code>格式：window.parent.document.getElementById(&quot;父窗口的元素ID&quot;).click();
+实例：window.parent.document.getElementById(&quot;btnOk&quot;).click();
+</code></pre><h2 id="通过jquery"><a href="#通过jquery" class="headerlink" title="通过jquery"></a>通过jquery</h2><h3 id="在父窗口中获取iframe中的元素-1"><a href="#在父窗口中获取iframe中的元素-1" class="headerlink" title="在父窗口中获取iframe中的元素"></a>在父窗口中获取iframe中的元素</h3><h4 id="方法1-1"><a href="#方法1-1" class="headerlink" title="方法1"></a>方法1</h4><pre><code>格式：$(&quot;#iframe的ID&quot;).contents().find(&quot;#iframe中的控件ID&quot;).click();//
+实例：$(&quot;#ifm&quot;).contents().find(&quot;#btnOk&quot;).click();
+</code></pre><h4 id="方法2-1"><a href="#方法2-1" class="headerlink" title="方法2"></a>方法2</h4><pre><code>格式：$(&quot;#iframe中的控件ID&quot;,document.frames(&quot;frame的name&quot;).document).click();
+实例：$(&quot;#btnOk&quot;,document.frames(&quot;ifm&quot;).document).click();
+</code></pre><h3 id="在iframe中获取父窗口的元素-1"><a href="#在iframe中获取父窗口的元素-1" class="headerlink" title="在iframe中获取父窗口的元素"></a>在iframe中获取父窗口的元素</h3><pre><code>格式：$(&apos;#父窗口中的元素ID&apos;, parent.document).click();
+实例：$(&apos;#btnOk&apos;, parent.document).click();
+</code></pre>]]></content>
+      
+        
+        <tags>
+            
+            <tag> js </tag>
+            
+            <tag> jquery </tag>
+            
+            <tag> iframe </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+</search>

@@ -1,0 +1,9 @@
+@charset "UTF-8";
+/**
+ *
+ * @authors liaoyanguo (1039577864@qq.com)
+ * @date    2017-12-04 17:09:59
+ * @use     用于小程序，随便玩
+ * @version 1.0.0
+ */
+.ub{display:flex;display:-webkit-flex;flex-wrap:nowrap;position:relative;}.ub_row_rev{flex-direction:row-reverse;}.ub_col_rev{flex-direction:column-reverse;}.ub_fh{width:100%;}.ub_fv{height:100%;}.ub_ac{align-items:center;}.ub_ae{align-items:flex-end;}.ub_pc{justify-content:center;}.ub_pe{justify-content:flex-end;}.ub_pj{justify-content:space-between;}.ub_ver{flex-flow:column;}.ub_f1{flex:1;}.ub_f2{flex:2;}.ub_f3{flex:3;}.ub_f4{flex:4;}

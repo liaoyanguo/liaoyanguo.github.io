@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Mr.Liao" />
+
+
+
+<meta name="description" content="通过js在父窗口中获取iframe中的元素方法1格式：window.frames[&amp;quot;iframe的name值&amp;quot;].document.getElementById(&amp;quot;iframe中控件的ID&amp;quot;).click();
+实例：window.frames[&amp;quot;ifm&amp;quot;].document.getElementById(&amp;quot;btnOk&amp;quot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Js/Jquery获取iframe中的元素 在iframe中获取父窗体的元素方法">
+<meta property="og:url" content="https://github.dayanguo.cn/2015/11/24/Js-Jquery获取iframe中的元素-在iframe中获取父窗体的元素方法/index.html">
+<meta property="og:site_name" content="大雁国-Mr.Liao">
+<meta property="og:description" content="通过js在父窗口中获取iframe中的元素方法1格式：window.frames[&amp;quot;iframe的name值&amp;quot;].document.getElementById(&amp;quot;iframe中控件的ID&amp;quot;).click();
+实例：window.frames[&amp;quot;ifm&amp;quot;].document.getElementById(&amp;quot;btnOk&amp;quot">
+<meta property="og:updated_time" content="2017-11-29T04:07:16.137Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Js/Jquery获取iframe中的元素 在iframe中获取父窗体的元素方法">
+<meta name="twitter:description" content="通过js在父窗口中获取iframe中的元素方法1格式：window.frames[&amp;quot;iframe的name值&amp;quot;].document.getElementById(&amp;quot;iframe中控件的ID&amp;quot;).click();
+实例：window.frames[&amp;quot;ifm&amp;quot;].document.getElementById(&amp;quot;btnOk&amp;quot">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="大雁国-Mr.Liao" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Js/Jquery获取iframe中的元素 在iframe中获取父窗体的元素方法 | 大雁国-Mr.Liao</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?72db96357866c029655a7b4018b84c5e";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Mr.Liao</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">大雁国</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">文章</a></li>
+                        
+                            <li><a href="/tags/">标签</a></li>
+                        
+                            <li><a href="/about/">关于</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:liaoyanguo@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/lyg90" title="新浪微博"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Mr.Liao</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Mr.Liao</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">大雁国</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">文章</a></li>
+                
+                    <li><a href="/tags/">标签</a></li>
+                
+                    <li><a href="/about/">关于</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:liaoyanguo@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/lyg90" title="新浪微博"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Js-Jquery获取iframe中的元素-在iframe中获取父窗体的元素方法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/24/Js-Jquery获取iframe中的元素-在iframe中获取父窗体的元素方法/" class="article-date">
+      <time datetime="2015-11-24T09:52:59.000Z" itemprop="datePublished">2015-11-24</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Js/Jquery获取iframe中的元素 在iframe中获取父窗体的元素方法
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iframe/">iframe</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jquery/">jquery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="通过js"><a href="#通过js" class="headerlink" title="通过js"></a>通过js</h2><h3 id="在父窗口中获取iframe中的元素"><a href="#在父窗口中获取iframe中的元素" class="headerlink" title="在父窗口中获取iframe中的元素"></a>在父窗口中获取iframe中的元素</h3><h4 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h4><pre><code>格式：window.frames[&quot;iframe的name值&quot;].document.getElementById(&quot;iframe中控件的ID&quot;).click();
+实例：window.frames[&quot;ifm&quot;].document.getElementById(&quot;btnOk&quot;).click();
+</code></pre><a id="more"></a>
+<h4 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h4><pre><code>格式：
+    var obj=document.getElementById(&quot;iframe的name&quot;).contentWindow;
+    var ifmObj=obj.document.getElementById(&quot;iframe中控件的ID&quot;);
+    ifmObj.click();
+实例：
+    var obj=document.getElementById(&quot;ifm&quot;).contentWindow;
+    var ifmObj=obj.document.getElementById(&quot;btnOk&quot;);
+    ifmObj.click();
+</code></pre><h3 id="在iframe中获取父窗口的元素"><a href="#在iframe中获取父窗口的元素" class="headerlink" title="在iframe中获取父窗口的元素"></a>在iframe中获取父窗口的元素</h3><pre><code>格式：window.parent.document.getElementById(&quot;父窗口的元素ID&quot;).click();
+实例：window.parent.document.getElementById(&quot;btnOk&quot;).click();
+</code></pre><h2 id="通过jquery"><a href="#通过jquery" class="headerlink" title="通过jquery"></a>通过jquery</h2><h3 id="在父窗口中获取iframe中的元素-1"><a href="#在父窗口中获取iframe中的元素-1" class="headerlink" title="在父窗口中获取iframe中的元素"></a>在父窗口中获取iframe中的元素</h3><h4 id="方法1-1"><a href="#方法1-1" class="headerlink" title="方法1"></a>方法1</h4><pre><code>格式：$(&quot;#iframe的ID&quot;).contents().find(&quot;#iframe中的控件ID&quot;).click();//
+实例：$(&quot;#ifm&quot;).contents().find(&quot;#btnOk&quot;).click();
+</code></pre><h4 id="方法2-1"><a href="#方法2-1" class="headerlink" title="方法2"></a>方法2</h4><pre><code>格式：$(&quot;#iframe中的控件ID&quot;,document.frames(&quot;frame的name&quot;).document).click();
+实例：$(&quot;#btnOk&quot;,document.frames(&quot;ifm&quot;).document).click();
+</code></pre><h3 id="在iframe中获取父窗口的元素-1"><a href="#在iframe中获取父窗口的元素-1" class="headerlink" title="在iframe中获取父窗口的元素"></a>在iframe中获取父窗口的元素</h3><pre><code>格式：$(&apos;#父窗口中的元素ID&apos;, parent.document).click();
+实例：$(&apos;#btnOk&apos;, parent.document).click();
+</code></pre>
+      
+    </div>
+    
+  </div>
+
+
+  
+
+    <!-- 捐赠 start -->
+    <div id="donate_module">
+      <!-- css -->
+      <style type="text/css">
+        .hidden {
+            display: none;
+        }
+        .center {
+            text-align: center;
+        }
+        #donate_board, #donate_guide{margin-top:30px;}
+        .donate_bar a.btn_donate{
+          display: inline-block;
+          width: 82px;
+          height: 82px;
+          background: url("http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif") no-repeat;
+          _background: url("http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif") no-repeat;
+          <!-- 因为本 hexo 生成的博客所用的 theme 的 a:hover 带动画效果，
+             为了在让打赏按钮显示效果正常 而 添加了以下几行 css，
+             嵌入其它博客时不一定要它们。 -->
+          -webkit-transition: background 0s;
+          -moz-transition: background 0s;
+          -o-transition: background 0s;
+          -ms-transition: background 0s;
+          transition: background 0s;
+          <!-- /让打赏按钮的效果显示正常 而 添加的几行 css 到此结束 -->
+        }
+        .donate_bar a.btn_donate:hover{ background-position: 0px -82px;}
+        .donate_bar .donate_txt {
+          display: block;
+          color: #9d9d9d;
+          font: 14px/2 "Microsoft Yahei";
+        }
+        .bold{ font-weight: bold; }
+      </style>
+      <!-- /css -->
+
+      <!-- btn_donate & tips -->
+      <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+        <span class="donate_txt">
+          &uarr;<br/>
+          If you enjoy the article, please feel free to <span class="bold">donate~</span> Thx.<br/>
+          若本文对您有帮助，<span class="bold">求打赏~</span> 谢谢您的鼓励。
+        </span>
+        <br/>
+      </div>
+      <!-- /btn_donate & tips -->
+
+      <!-- donate guide -->
+      <div id="donate_guide" class="donate_bar center hidden">
+        <a href="http://storage1.imgchr.com/iStqU.jpg" title="支付宝" class="fancybox" rel="article0">
+          <img src="http://storage1.imgchr.com/iStqU.jpg" title="支付宝随意打赏，一分也是爱" height="164px" width="164px"/>
+        </a> &nbsp;
+        <a href="http://storage1.imgchr.com/iSYrT.jpg" title="微信" class="fancybox" rel="article0">
+          <img src="http://storage1.imgchr.com/iSYrT.jpg" title="微信随意打赏，一分也是爱" height="164px" width="auto"/>
+        </a>
+        <span class="donate_txt">
+          Use App <span class="bold"><a href="http://global.alipay.com/ospay/home.htm">Alipay</a> / <a href="http://www.wechat.com/en/">WeChat</a></span>
+          to scan QRCode~ Thx for your support.<br/>
+          用手机 <span class="bold"><a href="https://mobile.alipay.com/index.htm">支付宝钱包</a> / <a href="http://weixin.qq.com/">微信</a></span>，
+          扫一扫即可~ 谢谢您的鼓励。<br/>
+          <br/>
+        </span>
+        <br/>
+      </div>
+      <!-- /donate guide -->
+      <!-- donate script -->
+      <script type="text/javascript">
+        document.getElementById('btn_donate').onclick = function(){
+          $('#donate_board').addClass('hidden');
+          $('#donate_guide').removeClass('hidden');
+        }
+        function donate_on_web(){
+          $('#donate').submit();
+        }
+      </script>
+      <!-- /donate script -->
+    </div>
+    <!-- 捐赠 end -->
+
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2015/11/24/Js-Jquery获取iframe中的元素-在iframe中获取父窗体的元素方法/">Js/Jquery获取iframe中的元素 在iframe中获取父窗体的元素方法</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Mr.Liao</a></p>
+        <p><span>发布时间:</span>2015-11-24, 17:52:59</p>
+        <p><span>最后更新:</span>2017-11-29, 12:07:16</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2015/11/24/Js-Jquery获取iframe中的元素-在iframe中获取父窗体的元素方法/" title="Js/Jquery获取iframe中的元素 在iframe中获取父窗体的元素方法">https://github.dayanguo.cn/2015/11/24/Js-Jquery获取iframe中的元素-在iframe中获取父窗体的元素方法/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://github.dayanguo.cn/2015/11/24/Js-Jquery获取iframe中的元素-在iframe中获取父窗体的元素方法/　　作者: Mr.Liao" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2015/12/23/js中获取时间new-Date-详细介绍/">
+                    js中获取时间new Date()详细介绍
+                </a>
+            </div>
+        
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#通过js"><span class="toc-number">1.</span> <span class="toc-text">通过js</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在父窗口中获取iframe中的元素"><span class="toc-number">1.1.</span> <span class="toc-text">在父窗口中获取iframe中的元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方法1"><span class="toc-number">1.1.1.</span> <span class="toc-text">方法1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法2"><span class="toc-number">1.1.2.</span> <span class="toc-text">方法2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在iframe中获取父窗口的元素"><span class="toc-number">1.2.</span> <span class="toc-text">在iframe中获取父窗口的元素</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过jquery"><span class="toc-number">2.</span> <span class="toc-text">通过jquery</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在父窗口中获取iframe中的元素-1"><span class="toc-number">2.1.</span> <span class="toc-text">在父窗口中获取iframe中的元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方法1-1"><span class="toc-number">2.1.1.</span> <span class="toc-text">方法1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法2-1"><span class="toc-number">2.1.2.</span> <span class="toc-text">方法2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在iframe中获取父窗口的元素-1"><span class="toc-number">2.2.</span> <span class="toc-text">在iframe中获取父窗口的元素</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Js/Jquery获取iframe中的元素 在iframe中获取父窗体的元素方法　| 大雁国-Mr.Liao　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+    <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+    <script>
+    var cloudTieConfig = {
+      url: document.location.href,
+      sourceId: "",
+      productKey: "019eb94531ba40f09121f74dc708cd85",
+      target: "cloud-tie-wrapper"
+    };
+    var yunManualLoad = true;
+    Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+    </script>
+
+
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2015/12/23/js中获取时间new-Date-详细介绍/" title="上一篇: js中获取时间new Date()详细介绍">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/07/06/ios transition translate 闪屏问题总结/">ios transition translate 闪屏问题总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/28/下拉框“第一个选项不能选择”的bug/">下拉框“第一个选项不能选择”的bug</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/15/判断h5是否成功跳转到app/">判断h5是否成功跳转到app</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/24/vs code调试php之旅/">vs code调试php之旅</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/11/rem的使用方法/">rem的使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/04/My-flex-css/">My'flex.css'</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/jq评论列表往上不间断滚动/">jq评论列表往上不间断滚动</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/网页调起QQ的方法/">网页调起QQ的方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/27/My-box-css/">My'box.css'</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/20/在iphone8-plus上的一个前端兼容性问题/">在iphone8 plus上的一个前端兼容性问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/20/hexo命令/">hexo命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/13/移动端注意事项/">移动端注意事项</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/cmd命令操作电脑/">cmd命令操作电脑</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/05/让浏览器自动刷新吧/">让浏览器自动刷新吧</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/15/gulp教程/">gulp教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/14/npm相关知识/">npm相关知识</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/19/css3小知识点/">css3小知识点</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/18/js常用点/">js小知识点</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/18/js小知识点/">js小知识点</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/11/使用多个Git账号/">使用多个Git账号</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/05/图片懒加载lazyload 3步走使用方法/">图片懒加载lazyload 3步走使用方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/01/小程序子页面添加返回首页且不影响分享功能的方法/">小程序子页面添加返回首页且不影响分享功能的方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/小程序内存中的事儿/">小程序内存中的事儿</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/27/点击事件不能多次点击执行，可以判断ajax是否在执行中/">点击事件不能多次点击执行，可以判断ajax是否在执行中</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/hexo换主题注意事项/">hexo换主题注意事项</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/background-简写属性在一个声明中设置所有的背景属性/">background 简写属性在一个声明中设置所有的背景属性</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/23/执行ajax，并判断状态值/">执行ajax，并判断状态值</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/07/js限制在微信浏览器打开，禁止外置浏览器/">js限制在微信浏览器打开，禁止外置浏览器</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/01/使用js将html结构和字符串互转/">使用js将html结构和字符串互转</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/HTTP状态码/">HTTP状态码</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/12/23/js中获取时间new-Date-详细介绍/">js中获取时间new Date()详细介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/24/Js-Jquery获取iframe中的元素-在iframe中获取父窗体的元素方法/">Js/Jquery获取iframe中的元素 在iframe中获取父窗体的元素方法</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2018 Mr.Liao
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "||ヽ(*￣▽￣*)ノミ|Ю 快回来 " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "ヾ(≧∇≦*)ゝ嗨" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

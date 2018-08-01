@@ -1,0 +1,9 @@
+@charset "UTF-8";
+/**
+ *
+ * @authors liaoyanguo (1039577864@qq.com)
+ * @date    2017-11-29 10:12:11
+ * @use     用于h5页面，极速模式，你懂的
+ * @version 1.0.0
+ */
+.ub{display:-webkit-box!important;display:box!important;position:relative;}.ub_rev{-webkit-box-direction:reverse;box-direction:reverse;}.ub_fh{width:100%;}.ub_fv{height:100%;}.ub_con{position:absolute;width:100%;height:100%;}.ub_ac{-webkit-box-align:center;box-align:center;}.ub_ae{-webkit-box-align:end;box-align:end;}.ub_pc{-webkit-box-pack:center;box-pack:center;}.ub_pe{-webkit-box-pack:end;box-pack:end;}.ub_pj{-webkit-box-pack:justify;box-pack:justify;}.ub_ver{-webkit-box-orient:vertical;box-orient:vertical;}.ub_f1{-webkit-box-flex:1;box-flex:1;}.ub_f2{-webkit-box-flex:2;box-flex:2;}.ub_f3{-webkit-box-flex:3;box-flex:3;}.ub_f4{-webkit-box-flex:4;box-flex:4;}
