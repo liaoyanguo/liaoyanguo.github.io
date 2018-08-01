@@ -223,6 +223,207 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-hexo-github-push出错" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/01/hexo-github-push出错/" class="article-date">
+      <time datetime="2018-08-01T08:23:18.000Z" itemprop="datePublished">2018-08-01</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/01/hexo-github-push出错/">hexo_github_push出错</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>一段时间没写博客，写了博客github居然push出错，我哩个去！</p>
+<p><img src="/images/git/1.png" alt=""></p>
+<p>查了下资料，最后发现github上面的ssh key不见了，补上。</p>
+<p>push正常。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-vue脚手架打包部署" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/01/vue脚手架打包部署/" class="article-date">
+      <time datetime="2018-08-01T06:30:43.000Z" itemprop="datePublished">2018-08-01</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/01/vue脚手架打包部署/">vue脚手架打包部署</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="打开路由history模式"><a href="#打开路由history模式" class="headerlink" title="打开路由history模式"></a>打开路由history模式</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Router(&#123;</div><div class="line">  <span class="attr">mode</span>: <span class="string">'history'</span>,<span class="comment">//去掉#，</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="跳转未匹配相应用路由，避免出现空白页面"><a href="#跳转未匹配相应用路由，避免出现空白页面" class="headerlink" title="跳转未匹配相应用路由，避免出现空白页面"></a>跳转未匹配相应用路由，避免出现空白页面</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</div><div class="line">    <span class="comment">//如果未匹配到路由</span></div><div class="line">    <span class="keyword">if</span> (to.matched.length ===<span class="number">0</span>) &#123;</div><div class="line">        <span class="comment">//如果上级也未匹配到路由则跳转登录页面，如果上级能匹配到则转上级路由</span></div><div class="line">        <span class="keyword">from</span>.name ? next(&#123; <span class="attr">name</span>:<span class="keyword">from</span>.name &#125;) : next(<span class="string">'/'</span>);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">//如果匹配到正确跳转</span></div><div class="line">        next();</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="部署到IIS"><a href="#部署到IIS" class="headerlink" title="部署到IIS"></a>部署到IIS</h2><p>把静态文件放在服务器下，首页能访问，子页面（如：域名/test）却404，那是因为访问vue的路由，IIS找不到那个文件，所以需要重写地址，无论把test改成什么，都重写到首页，然后后面的事情就交给路由哥哥啦。</p>
+<h4 id="安装url重写模块，找到管理下的web平台安装程序，搜索url，选择url重写工具2-0，选择安装。"><a href="#安装url重写模块，找到管理下的web平台安装程序，搜索url，选择url重写工具2-0，选择安装。" class="headerlink" title="安装url重写模块，找到管理下的web平台安装程序，搜索url，选择url重写工具2.0，选择安装。"></a>安装url重写模块，找到管理下的web平台安装程序，搜索url，选择url重写工具2.0，选择安装。</h4><p><img src="/images/vue/1.png" alt=""><br><img src="/images/vue/2.png" alt=""></p>
+<h4 id="添加规则。点击url重写，选择添加规则，空白规则，输入名称，按照下图进行配置。"><a href="#添加规则。点击url重写，选择添加规则，空白规则，输入名称，按照下图进行配置。" class="headerlink" title="添加规则。点击url重写，选择添加规则，空白规则，输入名称，按照下图进行配置。"></a>添加规则。点击url重写，选择添加规则，空白规则，输入名称，按照下图进行配置。</h4><p><img src="/images/vue/3.png" alt=""><br><img src="/images/vue/4.png" alt=""><br><img src="/images/vue/5.png" alt=""></p>
+<p>大功告成！！！</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-解决国内访问github速度太慢的问题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/07/30/解决国内访问github速度太慢的问题/" class="article-date">
+      <time datetime="2018-07-30T03:51:14.000Z" itemprop="datePublished">2018-07-30</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/30/解决国内访问github速度太慢的问题/">解决国内访问github速度太慢的问题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>解决方法：</p>
+<p>1.访问<a href="http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo" target="_blank" rel="external">http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo</a></p>
+<p>可以获取域名以及ip，如以下内容</p>
+<p>Fastly DNS Resource Records<br>Name    Type    Data    TTL<br>github.global.ssl.fastly.net    A    151.101.113.194    30</p>
+<p>打开hosts文件(C:\Windows\System32\drivers\etc)中，添加：</p>
+<pre><code>52.74.223.119    github.com
+151.101.113.194  github.global.ssl.fastly.net
+</code></pre><p>打开速度贼快，好鸡冻</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="ios-ios transition translate 闪屏问题总结" class="article article-type-ios" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -657,196 +858,6 @@
         <p class="article-more-link">
           <a href="/2017/11/30/jq评论列表往上不间断滚动/#more">阅读全文 >></a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-
-
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-网页调起QQ的方法" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/11/28/网页调起QQ的方法/" class="article-date">
-      <time datetime="2017-11-28T06:41:07.000Z" itemprop="datePublished">2017-11-28</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/28/网页调起QQ的方法/">网页调起QQ的方法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>非常简单哦！</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QQ/">QQ</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/11/28/网页调起QQ的方法/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-
-
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-My-box-css" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/11/27/My-box-css/" class="article-date">
-      <time datetime="2017-11-27T07:45:18.000Z" itemprop="datePublished">2017-11-27</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/27/My-box-css/">My&#39;box.css&#39;</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><em>使用于h5页面·极速模式</em><br>使用弹性盒子对页面进行布局，box.css中就定义了弹性盒子的一些css3样式，弹性盒子模型是在指定大小的父容器里来为子元素分配空间，使用box架构可以更容易更方便的适配不同分辨率不同屏幕尺寸的手机。<br>与flex.css的区别是ub_rev。</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/11/27/My-box-css/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-
-
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-在iphone8-plus上的一个前端兼容性问题" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/11/20/在iphone8-plus上的一个前端兼容性问题/" class="article-date">
-      <time datetime="2017-11-20T07:45:58.000Z" itemprop="datePublished">2017-11-20</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/20/在iphone8-plus上的一个前端兼容性问题/">在iphone8 plus上的一个前端兼容性问题</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>i8p上使用百度浏览器，会出现display无法实现显示或隐藏的bug，可以使用visibility:hidden(隐藏)，visibility:visible(显示)</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
       
       <div class="clearfix"></div>
     </div>

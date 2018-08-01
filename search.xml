@@ -4,6 +4,68 @@
   
     
     <entry>
+      <title><![CDATA[hexo_github_push出错]]></title>
+      <url>https://github.dayanguo.cn/2018/08/01/hexo-github-push%E5%87%BA%E9%94%99/</url>
+      <content type="html"><![CDATA[<p>一段时间没写博客，写了博客github居然push出错，我哩个去！</p>
+<p><img src="/images/git/1.png" alt=""></p>
+<p>查了下资料，最后发现github上面的ssh key不见了，补上。</p>
+<p>push正常。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> github </tag>
+            
+            <tag> git </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[vue脚手架打包部署]]></title>
+      <url>https://github.dayanguo.cn/2018/08/01/vue%E8%84%9A%E6%89%8B%E6%9E%B6%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2/</url>
+      <content type="html"><![CDATA[<h2 id="打开路由history模式"><a href="#打开路由history模式" class="headerlink" title="打开路由history模式"></a>打开路由history模式</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Router(&#123;</div><div class="line">  <span class="attr">mode</span>: <span class="string">'history'</span>,<span class="comment">//去掉#，</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="跳转未匹配相应用路由，避免出现空白页面"><a href="#跳转未匹配相应用路由，避免出现空白页面" class="headerlink" title="跳转未匹配相应用路由，避免出现空白页面"></a>跳转未匹配相应用路由，避免出现空白页面</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</div><div class="line">    <span class="comment">//如果未匹配到路由</span></div><div class="line">    <span class="keyword">if</span> (to.matched.length ===<span class="number">0</span>) &#123;</div><div class="line">        <span class="comment">//如果上级也未匹配到路由则跳转登录页面，如果上级能匹配到则转上级路由</span></div><div class="line">        <span class="keyword">from</span>.name ? next(&#123; <span class="attr">name</span>:<span class="keyword">from</span>.name &#125;) : next(<span class="string">'/'</span>);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">//如果匹配到正确跳转</span></div><div class="line">        next();</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="部署到IIS"><a href="#部署到IIS" class="headerlink" title="部署到IIS"></a>部署到IIS</h2><p>把静态文件放在服务器下，首页能访问，子页面（如：域名/test）却404，那是因为访问vue的路由，IIS找不到那个文件，所以需要重写地址，无论把test改成什么，都重写到首页，然后后面的事情就交给路由哥哥啦。</p>
+<h4 id="安装url重写模块，找到管理下的web平台安装程序，搜索url，选择url重写工具2-0，选择安装。"><a href="#安装url重写模块，找到管理下的web平台安装程序，搜索url，选择url重写工具2-0，选择安装。" class="headerlink" title="安装url重写模块，找到管理下的web平台安装程序，搜索url，选择url重写工具2.0，选择安装。"></a>安装url重写模块，找到管理下的web平台安装程序，搜索url，选择url重写工具2.0，选择安装。</h4><p><img src="/images/vue/1.png" alt=""><br><img src="/images/vue/2.png" alt=""></p>
+<h4 id="添加规则。点击url重写，选择添加规则，空白规则，输入名称，按照下图进行配置。"><a href="#添加规则。点击url重写，选择添加规则，空白规则，输入名称，按照下图进行配置。" class="headerlink" title="添加规则。点击url重写，选择添加规则，空白规则，输入名称，按照下图进行配置。"></a>添加规则。点击url重写，选择添加规则，空白规则，输入名称，按照下图进行配置。</h4><p><img src="/images/vue/3.png" alt=""><br><img src="/images/vue/4.png" alt=""><br><img src="/images/vue/5.png" alt=""></p>
+<p>大功告成！！！</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> vue </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[解决国内访问github速度太慢的问题]]></title>
+      <url>https://github.dayanguo.cn/2018/07/30/%E8%A7%A3%E5%86%B3%E5%9B%BD%E5%86%85%E8%AE%BF%E9%97%AEgithub%E9%80%9F%E5%BA%A6%E5%A4%AA%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p>解决方法：</p>
+<p>1.访问<a href="http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo" target="_blank" rel="external">http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo</a></p>
+<p>可以获取域名以及ip，如以下内容</p>
+<p>Fastly DNS Resource Records<br>Name    Type    Data    TTL<br>github.global.ssl.fastly.net    A    151.101.113.194    30</p>
+<p>打开hosts文件(C:\Windows\System32\drivers\etc)中，添加：</p>
+<pre><code>52.74.223.119    github.com
+151.101.113.194  github.global.ssl.fastly.net
+</code></pre><p>打开速度贼快，好鸡冻</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> github </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[ios transition translate 闪屏问题总结]]></title>
       <url>https://github.dayanguo.cn/2018/07/06/ios%20transition%20translate%20%E9%97%AA%E5%B1%8F%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</url>
       <content type="html"><![CDATA[<p>解决方法：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"J-slider"</span> <span class="attr">style</span>=<span class="string">"width:320px;height:600px"</span>&gt;</span></div><div class="line">　<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"J-scroller"</span> <span class="attr">style</span>=<span class="string">"width:960px;height:600px;&gt;</span></span></div><div class="line">　　　　&lt;div class="<span class="attr">item</span>"&gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">　　　　<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">　　<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
@@ -668,21 +730,6 @@ hexo d #开始部署
     
     <entry>
       <title><![CDATA[js小知识点]]></title>
-      <url>https://github.dayanguo.cn/2017/04/18/js%E5%B8%B8%E7%94%A8%E7%82%B9/</url>
-      <content type="html"><![CDATA[<a id="more"></a>
-<h2 id="点击"><a href="#点击" class="headerlink" title="点击"></a>点击</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 头部导航</span></div><div class="line">$(<span class="string">'.nav li'</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    $(<span class="keyword">this</span>).addClass(<span class="string">'cur'</span>).siblings().removeClass(<span class="string">'cur'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>]]></content>
-      
-        
-        <tags>
-            
-            <tag> js </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[js小知识点]]></title>
       <url>https://github.dayanguo.cn/2017/04/18/js%E5%B0%8F%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
       <content type="html"><![CDATA[<h2 id="去掉字符串前面的0"><a href="#去掉字符串前面的0" class="headerlink" title="去掉字符串前面的0"></a>去掉字符串前面的0</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a=<span class="string">'007'</span>;</div><div class="line"><span class="built_in">console</span>.log(a.replace(<span class="regexp">/\b(0+)/gi</span>,<span class="string">""</span>));</div></pre></td></tr></table></figure>
 <h2 id="对localStorage的封装"><a href="#对localStorage的封装" class="headerlink" title="对localStorage的封装"></a>对localStorage的封装</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//在get时，如果是JSON格式，那么将其转换为JSON，而不是字符串。以下是基础代码：</span></div><div class="line"><span class="keyword">var</span> Store = &#123;</div><div class="line">    <span class="attr">get</span>: <span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> value = localStorage.getItem(key);</div><div class="line">        <span class="keyword">if</span> (value) &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">var</span> value_json = <span class="built_in">JSON</span>.parse(value);</div><div class="line">                <span class="keyword">if</span> (<span class="keyword">typeof</span> value_json === <span class="string">'object'</span>) &#123;</div><div class="line">                    <span class="keyword">return</span> value_json;</div><div class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> value_json === <span class="string">'number'</span>) &#123;</div><div class="line">                    <span class="keyword">return</span> value_json;</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">catch</span>(e) &#123;</div><div class="line">                <span class="keyword">return</span> value;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">set</span>: <span class="function"><span class="keyword">function</span>(<span class="params">key, value</span>) </span>&#123;</div><div class="line">        localStorage.setItem(key, value);</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">remove</span>: <span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123;</div><div class="line">        localStorage.removeItem(key);</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">clear</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        localStorage.clear();</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
@@ -712,10 +759,26 @@ hexo d #开始部署
     </entry>
     
     <entry>
+      <title><![CDATA[js小知识点]]></title>
+      <url>https://github.dayanguo.cn/2017/04/18/js%E5%B8%B8%E7%94%A8%E7%82%B9/</url>
+      <content type="html"><![CDATA[<a id="more"></a>
+<h2 id="点击"><a href="#点击" class="headerlink" title="点击"></a>点击</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 头部导航</span></div><div class="line">$(<span class="string">'.nav li'</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    $(<span class="keyword">this</span>).addClass(<span class="string">'cur'</span>).siblings().removeClass(<span class="string">'cur'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 监听滚动条，滑动一定位置，就显示按钮</span></div><div class="line"><span class="keyword">var</span> btnHide = $(<span class="string">".btn_hide"</span>);</div><div class="line">$(<span class="built_in">window</span>).scroll(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> sc = $(<span class="built_in">window</span>).scrollTop();</div><div class="line">    <span class="keyword">if</span> (sc &gt; <span class="number">100</span>) &#123;</div><div class="line">        btnHide.addClass(<span class="string">'btn_show'</span>);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">    	btnHide.removeClass(<span class="string">'btn_show'</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[使用多个Git账号]]></title>
       <url>https://github.dayanguo.cn/2017/04/11/%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AAGit%E8%B4%A6%E5%8F%B7/</url>
-      <content type="html"><![CDATA[<p>永久保存<br>    git config –global user.name “lyg”<br>    git config –global user.email “lyg@qq.com”</p>
-<p>单个项目保存<br>    git config user.name “lyg”<br>    git config user.email “lyg@qq.com”</p>
+      <content type="html"><![CDATA[<p>永久保存<br>    git config –global user.name “lyg”<br>    git config –global user.email “lyg@qq.com”<br>    git config –global user.password “password”</p>
+<p>单个项目保存<br>    git config user.name “lyg”<br>    git config user.email “lyg@qq.com”<br>    git config user.password “password”</p>
 ]]></content>
       
         
