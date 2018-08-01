@@ -223,73 +223,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-js小知识点" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/18/js小知识点/" class="article-date">
-      <time datetime="2017-04-18T10:44:14.000Z" itemprop="datePublished">2017-04-18</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/18/js小知识点/">js小知识点</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="去掉字符串前面的0"><a href="#去掉字符串前面的0" class="headerlink" title="去掉字符串前面的0"></a>去掉字符串前面的0</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a=<span class="string">'007'</span>;</div><div class="line"><span class="built_in">console</span>.log(a.replace(<span class="regexp">/\b(0+)/gi</span>,<span class="string">""</span>));</div></pre></td></tr></table></figure>
-<h2 id="对localStorage的封装"><a href="#对localStorage的封装" class="headerlink" title="对localStorage的封装"></a>对localStorage的封装</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//在get时，如果是JSON格式，那么将其转换为JSON，而不是字符串。以下是基础代码：</span></div><div class="line"><span class="keyword">var</span> Store = &#123;</div><div class="line">    <span class="attr">get</span>: <span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> value = localStorage.getItem(key);</div><div class="line">        <span class="keyword">if</span> (value) &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">var</span> value_json = <span class="built_in">JSON</span>.parse(value);</div><div class="line">                <span class="keyword">if</span> (<span class="keyword">typeof</span> value_json === <span class="string">'object'</span>) &#123;</div><div class="line">                    <span class="keyword">return</span> value_json;</div><div class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> value_json === <span class="string">'number'</span>) &#123;</div><div class="line">                    <span class="keyword">return</span> value_json;</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">catch</span>(e) &#123;</div><div class="line">                <span class="keyword">return</span> value;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">set</span>: <span class="function"><span class="keyword">function</span>(<span class="params">key, value</span>) </span>&#123;</div><div class="line">        localStorage.setItem(key, value);</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">remove</span>: <span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123;</div><div class="line">        localStorage.removeItem(key);</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">clear</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        localStorage.clear();</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/18/js小知识点/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-
-
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-js常用点" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -334,6 +267,72 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
     </div>
 
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-js小知识点" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/18/js小知识点/" class="article-date">
+      <time datetime="2017-04-18T10:44:14.000Z" itemprop="datePublished">2017-04-18</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/18/js小知识点/">js小知识点</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="去掉字符串前面的0"><a href="#去掉字符串前面的0" class="headerlink" title="去掉字符串前面的0"></a>去掉字符串前面的0</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a=<span class="string">'007'</span>;</div><div class="line"><span class="built_in">console</span>.log(a.replace(<span class="regexp">/\b(0+)/gi</span>,<span class="string">""</span>));</div></pre></td></tr></table></figure>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/04/18/js小知识点/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
