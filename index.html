@@ -97,12 +97,20 @@
         var _hmt = _hmt || [];
         (function() {
             var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?72db96357866c029655a7b4018b84c5e";
+            hm.src = "//hm.baidu.com/hm.js?1e2309fef923b36cc97663bd910bab05";
             var s = document.getElementsByTagName("script")[0]; 
             s.parentNode.insertBefore(hm, s);
         })();
     </script>
 
+
+{% if theme.cnzz_siteid %}
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id={{ theme.cnzz_siteid }}&web_id={{ theme.cnzz_siteid }}" language="JavaScript"></script>
+  </div>
+
+{% endif %}
 
 </head>
 <body>
@@ -223,11 +231,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-hexo-github-push出错" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-记录requireJs" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/08/01/hexo-github-push出错/" class="article-date">
-      <time datetime="2018-08-01T08:23:18.000Z" itemprop="datePublished">2018-08-01</time>
+      <a href="/2018/12/26/记录requireJs/" class="article-date">
+      <time datetime="2018-12-26T09:02:59.000Z" itemprop="datePublished">2018-12-26</time>
 </a>
 
 
@@ -242,7 +250,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/01/hexo-github-push出错/">hexo_github_push出错</a>
+      <a class="article-title" href="/2018/12/26/记录requireJs/">记录requireJs</a>
     </h1>
   
 
@@ -252,7 +260,195 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>一段时间没写博客，写了博客github居然push出错，我哩个去！</p>
+        <p>简单的理解就是模块化加载器。<br>作用：<br>JS文件的依赖关系。<br>通过异步加载优化script标签引起的阻塞问题。<br>可以简单的以文件为单位将功能模块化并实现复用。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/requirejs/">requirejs</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-在苹果手机不能实时触发onscroll事件" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/12/05/在苹果手机不能实时触发onscroll事件/" class="article-date">
+      <time datetime="2018-12-05T07:46:27.000Z" itemprop="datePublished">2018-12-05</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/05/在苹果手机不能实时触发onscroll事件/">在苹果手机不能实时触发onscroll事件</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-h5适配iphonex" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/12/05/h5适配iphonex/" class="article-date">
+      <time datetime="2018-12-05T03:47:44.000Z" itemprop="datePublished">2018-12-05</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/05/h5适配iphonex/">h5适配iphonex</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>viewport 可以设置的选项就是 viewport-fit,它有三个可选值：</p>
+<pre><code>contain: The viewport should fully contain the web content. 可视窗口完全包含网页内容
+
+cover: The web content should fully cover the viewport. 网页内容完全覆盖可视窗口
+
+auto: The default value, 同contain的作用
+</code></pre><p>本来是：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"</span> /&gt;</span></div></pre></td></tr></table></figure></p>
+<p>适配是：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0; viewport-fit=cover"</span> /&gt;</span></div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iphonex/">iphonex</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-使用git命令提交远程github仓库的时候提示rejected（拒绝）解决办法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/11/07/使用git命令提交远程github仓库的时候提示rejected（拒绝）解决办法/" class="article-date">
+      <time datetime="2018-11-07T10:31:20.000Z" itemprop="datePublished">2018-11-07</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/07/使用git命令提交远程github仓库的时候提示rejected（拒绝）解决办法/">使用git命令提交远程github仓库的时候提示rejected（拒绝）解决办法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>不想克隆再提交，通过关联来提交代码到github，git本地仓库首次push到远程仓库出现错误 ! </p>
           
       
     </div>
@@ -268,7 +464,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2018/08/01/hexo-github-push出错/#more">阅读全文 >></a>
+          <a href="/2018/11/07/使用git命令提交远程github仓库的时候提示rejected（拒绝）解决办法/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -289,11 +485,11 @@
 
 
   
-    <article id="post-vue脚手架打包部署" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-打包时静态文件自动添加版本号" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/08/01/vue脚手架打包部署/" class="article-date">
-      <time datetime="2018-08-01T06:30:43.000Z" itemprop="datePublished">2018-08-01</time>
+      <a href="/2018/11/05/打包时静态文件自动添加版本号/" class="article-date">
+      <time datetime="2018-11-05T08:01:33.000Z" itemprop="datePublished">2018-11-05</time>
 </a>
 
 
@@ -308,7 +504,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/01/vue脚手架打包部署/">vue脚手架打包部署</a>
+      <a class="article-title" href="/2018/11/05/打包时静态文件自动添加版本号/">打包时静态文件自动添加版本号</a>
     </h1>
   
 
@@ -318,7 +514,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h2 id="打开路由history模式"><a href="#打开路由history模式" class="headerlink" title="打开路由history模式"></a>打开路由history模式</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Router(&#123;</div><div class="line">  <span class="attr">mode</span>: <span class="string">'history'</span>,<span class="comment">//去掉#，</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+              <p>静态资源的缓存是件很头疼的事情，有时候明明处理的bug测试还是存在，其实就是缓存惹的祸，手机不比pc浏览器，清理缓存还是有点麻烦的。</p>
           
       
     </div>
@@ -329,12 +525,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gulp/">gulp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/">npm</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2018/08/01/vue脚手架打包部署/#more">阅读全文 >></a>
+          <a href="/2018/11/05/打包时静态文件自动添加版本号/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -355,11 +551,11 @@
 
 
   
-    <article id="post-解决国内访问github速度太慢的问题" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-未使用脚手架时，使用gulp压缩整个项目，靠谱" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/07/30/解决国内访问github速度太慢的问题/" class="article-date">
-      <time datetime="2018-07-30T03:51:14.000Z" itemprop="datePublished">2018-07-30</time>
+      <a href="/2018/10/29/未使用脚手架时，使用gulp压缩整个项目，靠谱/" class="article-date">
+      <time datetime="2018-10-29T09:32:16.000Z" itemprop="datePublished">2018-10-29</time>
 </a>
 
 
@@ -374,7 +570,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/30/解决国内访问github速度太慢的问题/">解决国内访问github速度太慢的问题</a>
+      <a class="article-title" href="/2018/10/29/未使用脚手架时，使用gulp压缩整个项目，靠谱/">未使用脚手架时，使用gulp压缩整个项目，靠谱</a>
     </h1>
   
 
@@ -384,81 +580,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>解决方法：</p>
-<p>1.访问<a href="http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo" target="_blank" rel="external">http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo</a></p>
-<p>可以获取域名以及ip，如以下内容</p>
-<p>Fastly DNS Resource Records<br>Name    Type    Data    TTL<br>github.global.ssl.fastly.net    A    151.101.113.194    30</p>
-<p>打开hosts文件(C:\Windows\System32\drivers\etc)中，添加：</p>
-<pre><code>52.74.223.119    github.com
-151.101.113.194  github.global.ssl.fastly.net
-</code></pre><p>打开速度贼快，好鸡冻</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-
-
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="ios-ios transition translate 闪屏问题总结" class="article article-type-ios" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/07/06/ios transition translate 闪屏问题总结/" class="article-date">
-      <time datetime="2018-07-06T08:32:58.000Z" itemprop="datePublished">2018-07-06</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/06/ios transition translate 闪屏问题总结/">ios transition translate 闪屏问题总结</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>解决方法：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"J-slider"</span> <span class="attr">style</span>=<span class="string">"width:320px;height:600px"</span>&gt;</span></div><div class="line">　<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"J-scroller"</span> <span class="attr">style</span>=<span class="string">"width:960px;height:600px;&gt;</span></span></div><div class="line">　　　　&lt;div class="<span class="attr">item</span>"&gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">　　　　<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">　　<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>假如以上结构的多图左右移动查看， J-scroller是一块很大的动画移动层，我们对J-scroller设置了 translate3d(x,y,z)  以及transition 动画，</p>
-<p>此时iphone查看移动时会有闪屏现象，因为webkit是不会将J-scroller这么大的层整个分配内存绘制渲染。</p>
-<p>这时候我们需要将滚动区域可视范围的列表项item元素缓存起来<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.item</span>&#123;</div><div class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">translate3d</span>(0,0,0);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>另外：当translate使用2d而非3d的呈现方式时，我们要设置当前动画移动元素的呈现方式为3d，它的所有子元素背面隐藏<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.J-scroller</span>&#123;</div><div class="line">    <span class="attribute">-webkit-transform-style</span>: preserve-<span class="number">3</span>d;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.J-scroller</span> <span class="selector-tag">item</span>&#123;</div><div class="line">    <span class="attribute">-webkit-backface-visibility</span>: hidden;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
       
     </div>
     
@@ -486,11 +608,11 @@
 
 
   
-    <article id="post-下拉框“第一个选项不能选择”的bug" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-background-size在Android上出现异常" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/03/28/下拉框“第一个选项不能选择”的bug/" class="article-date">
-      <time datetime="2018-03-28T06:19:47.000Z" itemprop="datePublished">2018-03-28</time>
+      <a href="/2018/10/26/background-size在Android上出现异常/" class="article-date">
+      <time datetime="2018-10-26T09:36:50.000Z" itemprop="datePublished">2018-10-26</time>
 </a>
 
 
@@ -505,7 +627,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/28/下拉框“第一个选项不能选择”的bug/">下拉框“第一个选项不能选择”的bug</a>
+      <a class="article-title" href="/2018/10/26/background-size在Android上出现异常/">background-size在Android上出现异常</a>
     </h1>
   
 
@@ -515,266 +637,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>对应标题意思也就是让select默认不选中任何一项，才能选择第一项。但是浏览器会让select选择第一项，所以只能添加一条空的option，如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">select</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">disabled</span> <span class="attr">selected</span> <span class="attr">value</span>&gt;</span><span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"1"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"2"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"3"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"4"</span>&gt;</span>4<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>如果要批量修改的话，可以在js中添加：<br>    其中使用了attr、prop，是因为jq版本级别不同的兼容。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    $(<span class="string">'select'</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params">index, el</span>) </span>&#123;</div><div class="line">        $(<span class="keyword">this</span>).find(<span class="string">'option'</span>).eq(<span class="number">0</span>).attr(<span class="string">'selected'</span>, <span class="literal">false</span>).prop(<span class="string">'selected'</span>, <span class="literal">false</span>).before(<span class="string">'&lt;option disabled selected value style="display:none"&gt;&lt;/option&gt;'</span>);</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-
-
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-判断h5是否成功跳转到app" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/03/15/判断h5是否成功跳转到app/" class="article-date">
-      <time datetime="2018-03-15T02:57:45.000Z" itemprop="datePublished">2018-03-15</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/15/判断h5是否成功跳转到app/">判断h5是否成功跳转到app</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="document的可见性属性"><a href="#document的可见性属性" class="headerlink" title="document的可见性属性"></a>document的可见性属性</h2><p>document.hidden是一个布尔值，简单的表示标签页显示或者隐藏。</p>
-<p>一般情况下我们使用document.hidden就能满足通常的需求。</p>
-<p>为了支持老版本的浏览器，我们需要对document.hidden在做一些前缀处理：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getHiddenProp</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> prefixes = [<span class="string">'webkit'</span>,<span class="string">'moz'</span>,<span class="string">'ms'</span>,<span class="string">'o'</span>];</div><div class="line"></div><div class="line">    <span class="comment">// if 'hidden' is natively supported just return it</span></div><div class="line">    <span class="keyword">if</span> (<span class="string">'hidden'</span> <span class="keyword">in</span> <span class="built_in">document</span> &amp;&amp; <span class="built_in">document</span>[<span class="string">'hidden'</span>]) <span class="keyword">return</span> <span class="string">'hidden'</span>;</div><div class="line"></div><div class="line">    <span class="comment">// otherwise loop over all the known prefixes until we find one</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; prefixes.length; i++)&#123;</div><div class="line">        <span class="keyword">if</span> ((prefixes[i] + <span class="string">'Hidden'</span>) <span class="keyword">in</span> <span class="built_in">document</span> &amp;&amp; <span class="built_in">document</span>[prefixes[i] + <span class="string">'Hidden'</span>])</div><div class="line">            <span class="keyword">return</span> prefixes[i] + <span class="string">'Hidden'</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// otherwise it's not supported</span></div><div class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>判断是否成功跳转到app（即是否离开当前h5页面），此处需要做2个判断兼容android和ios，以下是实例代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//点击打开app</span></div><div class="line">$(<span class="string">'#openApp'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">//显示加载</span></div><div class="line">    $(<span class="string">'.dialog_loading'</span>).removeClass(<span class="string">'hide'</span>);</div><div class="line"></div><div class="line">    <span class="comment">//打开app</span></div><div class="line">    <span class="keyword">var</span> u = navigator.userAgent;</div><div class="line">    <span class="keyword">var</span> isAndroid = u.indexOf(<span class="string">'Android'</span>) &gt; <span class="number">-1</span> || u.indexOf(<span class="string">'Adr'</span>) &gt; <span class="number">-1</span>;</div><div class="line">    <span class="keyword">var</span> target = <span class="string">''</span>;</div><div class="line">    <span class="keyword">if</span> (isAndroid) &#123;</div><div class="line">        target = <span class="string">'androidApp://?type=app&amp;target=Lamp'</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        target = <span class="string">'iosApp://?type=app&amp;target=Lamp'</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">document</span>.location = target;</div><div class="line"></div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">//隐藏加载</span></div><div class="line">        $(<span class="string">'.dialog_loading'</span>).addClass(<span class="string">'hide'</span>);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (!getHiddenProp()) &#123; <span class="comment">//android兼容</span></div><div class="line"></div><div class="line">            <span class="keyword">var</span> remind = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                alert(<span class="string">'未装该app或版本过低'</span>);</div><div class="line">            &#125;, <span class="number">500</span>);</div><div class="line"></div><div class="line">            <span class="built_in">window</span>.onblur = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">//ios兼容</span></div><div class="line">                clearTimeout(remind); <span class="comment">//清除提示事件</span></div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;, <span class="number">2000</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/h5/">h5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hidden/">hidden</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-
-
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-vs code调试php之旅" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/02/24/vs code调试php之旅/" class="article-date">
-      <time datetime="2018-02-24T06:48:20.000Z" itemprop="datePublished">2018-02-24</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/24/vs code调试php之旅/">vs code调试php之旅</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="下载php对应版本xdebug的插件"><a href="#下载php对应版本xdebug的插件" class="headerlink" title="下载php对应版本xdebug的插件"></a>下载php对应版本xdebug的插件</h2><ol>
-<li>输出phpinfo()，copy到<a href="https://xdebug.org/wizard.php" target="_blank" rel="external">这里</a>，查看一下对应配置。</li>
-<li>然后在<a href="https://xdebug.org/download.php" target="_blank" rel="external">这里</a>下载对应的包，放进php目录下的ext。</li>
-<li>打开php目录下的php.ini ，添加几行配置，xdebug的路径按实际情况配置，配置完成后重启apache服务器。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[XDebug]</div><div class="line">zend_extension=&quot;D:\Program Files\phpStudy\php\php-5.5.38\ext\php_xdebug-2.5.5-5.5-vc11.dll&quot;</div><div class="line">xdebug.remote_enable = 1</div><div class="line">xdebug.remote_autostart = 1</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="配置vs-code"><a href="#配置vs-code" class="headerlink" title="配置vs code"></a>配置vs code</h2><ol>
-<li><p>打开vs code，打开设置，配置php路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    // 指向 PHP 可执行文件。</div><div class="line">    &quot;php.validate.executablePath&quot;: &quot;D:/Program Files/phpStudy/php/php-5.5.38/php.exe&quot;,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>在vs code中打开自己的项目，按f5会自动生成launch.json。然后打个断点-&gt;再按下f5，浏览器刷新页面，然后就可以调试了…</p>
-</li>
-</ol>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/调试/">调试</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-
-
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-rem的使用方法" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/01/11/rem的使用方法/" class="article-date">
-      <time datetime="2018-01-11T09:27:43.000Z" itemprop="datePublished">2018-01-11</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/11/rem的使用方法/">rem的使用方法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="rem是什么？"><a href="#rem是什么？" class="headerlink" title="rem是什么？"></a>rem是什么？</h2><p>rem（font size of the root element）是指相对于根元素的字体大小的单位。简单的说它就是一个相对单位。看到rem大家一定会想起em单位，em（font size of the element）是指相对于父元素的字体大小的单位。它们之间其实很相似，只不过一个计算的规则是依赖根元素一个是依赖父元素计算。</p>
-<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>置于head中，然后…尽情撒野吧<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> html = <span class="built_in">document</span>.documentElement;</div><div class="line">	<span class="keyword">var</span> windowWidth = html.clientWidth;</div><div class="line">	html.style.fontSize = windowWidth / <span class="number">7.5</span> + <span class="string">'px'</span>;</div><div class="line">	<span class="comment">// 等价于html.style.fontSize = windowWidth / 750 * 100 + 'px';</span></div><div class="line">	&#125;, <span class="literal">false</span>);</div><div class="line">&#125;)();</div></pre></td></tr></table></figure></p>
-<h2 id="浏览器的兼容性"><a href="#浏览器的兼容性" class="headerlink" title="浏览器的兼容性"></a>浏览器的兼容性</h2><p>rem是CSS3新引进来的一个度量单位，支持的浏览器还是蛮多的，比如：Mozilla Firefox 3.6+、Apple Safari 5+、Google Chrome、IE9+和Opera11+。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-
-
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-My-flex-css" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/12/04/My-flex-css/" class="article-date">
-      <time datetime="2017-12-04T09:09:59.000Z" itemprop="datePublished">2017-12-04</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/04/My-flex-css/">My&#39;flex.css&#39;</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><em>使用于小程序</em><br>弹性布局，适配不同分辨率不同分辨率的手机。</p>
+              <p>在Android上出现背景图片不显示情况，找了半天，以为是webview的问题，最后才发现是background-size的“功劳”。</p>
           
       
     </div>
@@ -785,12 +648,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/background-size/">background-size</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/2017/12/04/My-flex-css/#more">阅读全文 >></a>
+          <a href="/2018/10/26/background-size在Android上出现异常/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -811,11 +674,11 @@
 
 
   
-    <article id="post-jq评论列表往上不间断滚动" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-解决git-push代码到github上一直提示输入用户名及密码的问题" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/11/30/jq评论列表往上不间断滚动/" class="article-date">
-      <time datetime="2017-11-30T03:30:00.000Z" itemprop="datePublished">2017-11-30</time>
+      <a href="/2018/10/24/解决git-push代码到github上一直提示输入用户名及密码的问题/" class="article-date">
+      <time datetime="2018-10-24T09:09:36.000Z" itemprop="datePublished">2018-10-24</time>
 </a>
 
 
@@ -830,7 +693,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/30/jq评论列表往上不间断滚动/">jq评论列表往上不间断滚动</a>
+      <a class="article-title" href="/2018/10/24/解决git-push代码到github上一直提示输入用户名及密码的问题/">解决git push代码到github上一直提示输入用户名及密码的问题</a>
     </h1>
   
 
@@ -840,8 +703,22 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>定时滚动，时间可控。<br>
-          
+        <h2 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h2><p>从github上克隆到本地，要push时，发现老是要输入账号密码，而且不能push。</p>
+<p><img src="/images/20181024/1.png" alt=""></p>
+<h2 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a>分析问题</h2><p>那是因为使用了克隆默认的http的方式，切换成ssh方式即可。</p>
+<p><img src="/images/20181024/5.png" alt=""></p>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>先查看当前方式：</p>
+<pre><code>git remote -v
+</code></pre><p><img src="/images/20181024/2.png" alt=""></p>
+<p>把http方式改为ssh方式。先移除旧的http的origin：</p>
+<pre><code>git remote rm origin
+</code></pre><p>再添加新的ssh方式的origin：</p>
+<pre><code>git remote add origin git@github.com:yychuyu/linux-system-programming.git
+</code></pre><p><img src="/images/20181024/3.png" alt=""></p>
+<p>改动完之后直接执行git push是无法推送代码的，需要设置一下上游要跟踪的分支，与此同时会自动执行一次git push命令:</p>
+<pre><code>git push --set-upstream origin master
+</code></pre><p><img src="/images/20181024/4.png" alt=""></p>
+
       
     </div>
     
@@ -851,13 +728,130 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jquery/">jquery</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
     </div>
 
       
-        <p class="article-more-link">
-          <a href="/2017/11/30/jq评论列表往上不间断滚动/#more">阅读全文 >></a>
-        </p>
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-页面返回时js刷新数据" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/23/页面返回时js刷新数据/" class="article-date">
+      <time datetime="2018-10-23T02:38:44.000Z" itemprop="datePublished">2018-10-23</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/23/页面返回时js刷新数据/">页面返回时js刷新数据</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>第一个页面a：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//刷新方法</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Refersh</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span>(localStorage.back)&#123;</div><div class="line">   		Reload();<span class="comment">//数据刷新</span></div><div class="line">		localStorage.removeItem(<span class="string">'back'</span>);</div><div class="line">   	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 页面后退，执行刷新</span></div><div class="line"><span class="comment">// alert(performance.navigation.type)</span></div><div class="line"><span class="keyword">if</span> (performance.navigation.type == <span class="number">2</span>) &#123;</div><div class="line">	Refersh();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>第二个页面b：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//第二个页面返回时，设置存储一个值，以便于第一个页面知道是返回状态</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">SetVal</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="comment">//b是第二个页面的名称</span></div><div class="line">   	<span class="keyword">if</span>(<span class="built_in">document</span>.referrer.indexOf(<span class="string">'b'</span>) != <span class="number">-1</span>)&#123;</div><div class="line">    	localStorage.back = <span class="number">1</span></div><div class="line">		<span class="built_in">window</span>.history.back();</div><div class="line">	&#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-emment让你飞起来" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/10/emment让你飞起来/" class="article-date">
+      <time datetime="2018-10-10T11:21:35.000Z" itemprop="datePublished">2018-10-10</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/10/emment让你飞起来/">emment让你飞起来</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>‘#’ 创建一个id特性<br>‘.’ 创建一个类特性<br>‘[]’ 创建一个自定义特性<br>‘&gt;’ 创建一个子元素<br>‘+’ 创建一个兄弟元素<br>‘^’ 提升元素层次<br>‘*’ 相当于乘号，会创建n次相同的东西。<br>‘$’ 代替一个自增的数字。<br>‘$$’ 用于有填充位的数字，比如00，01。<br>‘{}’ 创建元素的文本。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
       
       <div class="clearfix"></div>
     </div>
@@ -879,7 +873,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </div>
@@ -888,7 +882,7 @@
         <div id="footer-info">
             <div class="footer-left">
                 <i class="fa fa-copyright"></i> 
-                2016-2018 Mr.Liao
+                2016-2019 Mr.Liao
             </div>
         </div>
         

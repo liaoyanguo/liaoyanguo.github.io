@@ -97,12 +97,20 @@
         var _hmt = _hmt || [];
         (function() {
             var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?72db96357866c029655a7b4018b84c5e";
+            hm.src = "//hm.baidu.com/hm.js?1e2309fef923b36cc97663bd910bab05";
             var s = document.getElementsByTagName("script")[0]; 
             s.parentNode.insertBefore(hm, s);
         })();
     </script>
 
+
+{% if theme.cnzz_siteid %}
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id={{ theme.cnzz_siteid }}&web_id={{ theme.cnzz_siteid }}" language="JavaScript"></script>
+  </div>
+
+{% endif %}
 
 </head>
 <body>
@@ -223,11 +231,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-js常用点" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-下拉框“第一个选项不能选择”的bug" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/18/js常用点/" class="article-date">
-      <time datetime="2017-04-18T10:44:14.000Z" itemprop="datePublished">2017-04-18</time>
+      <a href="/2018/03/28/下拉框“第一个选项不能选择”的bug/" class="article-date">
+      <time datetime="2018-03-28T06:19:47.000Z" itemprop="datePublished">2018-03-28</time>
 </a>
 
 
@@ -242,7 +250,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/18/js常用点/">js小知识点</a>
+      <a class="article-title" href="/2018/03/28/下拉框“第一个选项不能选择”的bug/">下拉框“第一个选项不能选择”的bug</a>
     </h1>
   
 
@@ -252,9 +260,71 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <a id="more"></a>
-<h2 id="点击"><a href="#点击" class="headerlink" title="点击"></a>点击</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 头部导航</span></div><div class="line">$(<span class="string">'.nav li'</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    $(<span class="keyword">this</span>).addClass(<span class="string">'cur'</span>).siblings().removeClass(<span class="string">'cur'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 监听滚动条，滑动一定位置，就显示按钮</span></div><div class="line"><span class="keyword">var</span> btnHide = $(<span class="string">".btn_hide"</span>);</div><div class="line">$(<span class="built_in">window</span>).scroll(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> sc = $(<span class="built_in">window</span>).scrollTop();</div><div class="line">    <span class="keyword">if</span> (sc &gt; <span class="number">100</span>) &#123;</div><div class="line">        btnHide.addClass(<span class="string">'btn_show'</span>);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">    	btnHide.removeClass(<span class="string">'btn_show'</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+        <p>对应标题意思也就是让select默认不选中任何一项，才能选择第一项。但是浏览器会让select选择第一项，所以只能添加一条空的option，如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">select</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">disabled</span> <span class="attr">selected</span> <span class="attr">value</span>&gt;</span><span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"1"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"2"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"3"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"4"</span>&gt;</span>4<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如果要批量修改的话，可以在js中添加：<br>    其中使用了attr、prop，是因为jq版本级别不同的兼容。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    $(<span class="string">'select'</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params">index, el</span>) </span>&#123;</div><div class="line">        $(<span class="keyword">this</span>).find(<span class="string">'option'</span>).eq(<span class="number">0</span>).attr(<span class="string">'selected'</span>, <span class="literal">false</span>).prop(<span class="string">'selected'</span>, <span class="literal">false</span>).before(<span class="string">'&lt;option disabled selected value style="display:none"&gt;&lt;/option&gt;'</span>);</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-判断h5是否成功跳转到app" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/03/15/判断h5是否成功跳转到app/" class="article-date">
+      <time datetime="2018-03-15T02:57:45.000Z" itemprop="datePublished">2018-03-15</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/15/判断h5是否成功跳转到app/">判断h5是否成功跳转到app</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="document的可见性属性"><a href="#document的可见性属性" class="headerlink" title="document的可见性属性"></a>document的可见性属性</h2><p>document.hidden是一个布尔值，简单的表示标签页显示或者隐藏。</p>
+<p>一般情况下我们使用document.hidden就能满足通常的需求。</p>
+<p>为了支持老版本的浏览器，我们需要对document.hidden在做一些前缀处理：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getHiddenProp</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> prefixes = [<span class="string">'webkit'</span>,<span class="string">'moz'</span>,<span class="string">'ms'</span>,<span class="string">'o'</span>];</div><div class="line"></div><div class="line">    <span class="comment">// if 'hidden' is natively supported just return it</span></div><div class="line">    <span class="keyword">if</span> (<span class="string">'hidden'</span> <span class="keyword">in</span> <span class="built_in">document</span> &amp;&amp; <span class="built_in">document</span>[<span class="string">'hidden'</span>]) <span class="keyword">return</span> <span class="string">'hidden'</span>;</div><div class="line"></div><div class="line">    <span class="comment">// otherwise loop over all the known prefixes until we find one</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; prefixes.length; i++)&#123;</div><div class="line">        <span class="keyword">if</span> ((prefixes[i] + <span class="string">'Hidden'</span>) <span class="keyword">in</span> <span class="built_in">document</span> &amp;&amp; <span class="built_in">document</span>[prefixes[i] + <span class="string">'Hidden'</span>])</div><div class="line">            <span class="keyword">return</span> prefixes[i] + <span class="string">'Hidden'</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// otherwise it's not supported</span></div><div class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>判断是否成功跳转到app（即是否离开当前h5页面），此处需要做2个判断兼容android和ios，以下是实例代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//点击打开app</span></div><div class="line">$(<span class="string">'#openApp'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">//显示加载</span></div><div class="line">    $(<span class="string">'.dialog_loading'</span>).removeClass(<span class="string">'hide'</span>);</div><div class="line"></div><div class="line">    <span class="comment">//打开app</span></div><div class="line">    <span class="keyword">var</span> u = navigator.userAgent;</div><div class="line">    <span class="keyword">var</span> isAndroid = u.indexOf(<span class="string">'Android'</span>) &gt; <span class="number">-1</span> || u.indexOf(<span class="string">'Adr'</span>) &gt; <span class="number">-1</span>;</div><div class="line">    <span class="keyword">var</span> target = <span class="string">''</span>;</div><div class="line">    <span class="keyword">if</span> (isAndroid) &#123;</div><div class="line">        target = <span class="string">'androidApp://?type=app&amp;target=Lamp'</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        target = <span class="string">'iosApp://?type=app&amp;target=Lamp'</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">document</span>.location = target;</div><div class="line"></div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">//隐藏加载</span></div><div class="line">        $(<span class="string">'.dialog_loading'</span>).addClass(<span class="string">'hide'</span>);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (!getHiddenProp()) &#123; <span class="comment">//android兼容</span></div><div class="line"></div><div class="line">            <span class="keyword">var</span> remind = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                alert(<span class="string">'未装该app或版本过低'</span>);</div><div class="line">            &#125;, <span class="number">500</span>);</div><div class="line"></div><div class="line">            <span class="built_in">window</span>.onblur = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">//ios兼容</span></div><div class="line">                clearTimeout(remind); <span class="comment">//清除提示事件</span></div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;, <span class="number">2000</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+
       
     </div>
     
@@ -264,7 +334,7 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/h5/">h5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hidden/">hidden</a></li></ul>
     </div>
 
       
@@ -286,11 +356,11 @@
 
 
   
-    <article id="post-js小知识点" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-vs code调试php之旅" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/18/js小知识点/" class="article-date">
-      <time datetime="2017-04-18T10:44:14.000Z" itemprop="datePublished">2017-04-18</time>
+      <a href="/2018/02/24/vs code调试php之旅/" class="article-date">
+      <time datetime="2018-02-24T06:48:20.000Z" itemprop="datePublished">2018-02-24</time>
 </a>
 
 
@@ -305,7 +375,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/18/js小知识点/">js小知识点</a>
+      <a class="article-title" href="/2018/02/24/vs code调试php之旅/">vs code调试php之旅</a>
     </h1>
   
 
@@ -315,74 +385,19 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h2 id="去掉字符串前面的0"><a href="#去掉字符串前面的0" class="headerlink" title="去掉字符串前面的0"></a>去掉字符串前面的0</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a=<span class="string">'007'</span>;</div><div class="line"><span class="built_in">console</span>.log(a.replace(<span class="regexp">/\b(0+)/gi</span>,<span class="string">""</span>));</div></pre></td></tr></table></figure>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/18/js小知识点/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-
-
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-使用多个Git账号" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/11/使用多个Git账号/" class="article-date">
-      <time datetime="2017-04-11T06:38:12.000Z" itemprop="datePublished">2017-04-11</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/11/使用多个Git账号/">使用多个Git账号</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>永久保存<br>    git config –global user.name “lyg”<br>    git config –global user.email “lyg@qq.com”<br>    git config –global user.password “password”</p>
-<p>单个项目保存<br>    git config user.name “lyg”<br>    git config user.email “lyg@qq.com”<br>    git config user.password “password”</p>
+        <h2 id="下载php对应版本xdebug的插件"><a href="#下载php对应版本xdebug的插件" class="headerlink" title="下载php对应版本xdebug的插件"></a>下载php对应版本xdebug的插件</h2><ol>
+<li>输出phpinfo()，copy到<a href="https://xdebug.org/wizard.php" target="_blank" rel="external">这里</a>，查看一下对应配置。</li>
+<li>然后在<a href="https://xdebug.org/download.php" target="_blank" rel="external">这里</a>下载对应的包，放进php目录下的ext。</li>
+<li>打开php目录下的php.ini ，添加几行配置，xdebug的路径按实际情况配置，配置完成后重启apache服务器。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[XDebug]</div><div class="line">zend_extension=&quot;D:\Program Files\phpStudy\php\php-5.5.38\ext\php_xdebug-2.5.5-5.5-vc11.dll&quot;</div><div class="line">xdebug.remote_enable = 1</div><div class="line">xdebug.remote_autostart = 1</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="配置vs-code"><a href="#配置vs-code" class="headerlink" title="配置vs code"></a>配置vs code</h2><ol>
+<li><p>打开vs code，打开设置，配置php路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    // 指向 PHP 可执行文件。</div><div class="line">    &quot;php.validate.executablePath&quot;: &quot;D:/Program Files/phpStudy/php/php-5.5.38/php.exe&quot;,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在vs code中打开自己的项目，按f5会自动生成launch.json。然后打个断点-&gt;再按下f5，浏览器刷新页面，然后就可以调试了…</p>
+</li>
+</ol>
 
       
     </div>
@@ -393,7 +408,7 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/调试/">调试</a></li></ul>
     </div>
 
       
@@ -415,11 +430,11 @@
 
 
   
-    <article id="post-图片懒加载lazyload 3步走使用方法" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-rem的使用方法" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/05/图片懒加载lazyload 3步走使用方法/" class="article-date">
-      <time datetime="2017-04-05T09:49:51.000Z" itemprop="datePublished">2017-04-05</time>
+      <a href="/2018/01/11/rem的使用方法/" class="article-date">
+      <time datetime="2018-01-11T09:27:43.000Z" itemprop="datePublished">2018-01-11</time>
 </a>
 
 
@@ -434,7 +449,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/05/图片懒加载lazyload 3步走使用方法/">图片懒加载lazyload 3步走使用方法</a>
+      <a class="article-title" href="/2018/01/11/rem的使用方法/">rem的使用方法</a>
     </h1>
   
 
@@ -444,8 +459,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>1.引入<a href="http://7xpz4f.com1.z0.glb.clouddn.com/js/jquery.lazyload.js">lazyload</a><br>2.img标签，将src改成data-original，然后添加class=”lazy”<br>3.js加入$(‘img.lazy’).lazyload({effect:”fadeIn”});</p>
-          
+        <h2 id="rem是什么？"><a href="#rem是什么？" class="headerlink" title="rem是什么？"></a>rem是什么？</h2><p>rem（font size of the root element）是指相对于根元素的字体大小的单位。简单的说它就是一个相对单位。看到rem大家一定会想起em单位，em（font size of the element）是指相对于父元素的字体大小的单位。它们之间其实很相似，只不过一个计算的规则是依赖根元素一个是依赖父元素计算。</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>置于head中，然后…尽情撒野吧<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> html = <span class="built_in">document</span>.documentElement;</div><div class="line">	<span class="keyword">var</span> windowWidth = html.clientWidth;</div><div class="line">	html.style.fontSize = windowWidth / <span class="number">7.5</span> + <span class="string">'px'</span>;</div><div class="line">	<span class="comment">// 等价于html.style.fontSize = windowWidth / 750 * 100 + 'px';</span></div><div class="line">	&#125;, <span class="literal">false</span>);</div><div class="line">&#125;)();</div></pre></td></tr></table></figure></p>
+<h2 id="浏览器的兼容性"><a href="#浏览器的兼容性" class="headerlink" title="浏览器的兼容性"></a>浏览器的兼容性</h2><p>rem是CSS3新引进来的一个度量单位，支持的浏览器还是蛮多的，比如：Mozilla Firefox 3.6+、Apple Safari 5+、Google Chrome、IE9+和Opera11+。</p>
+
       
     </div>
     
@@ -454,14 +471,6 @@
       
 
       
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jquery/">jquery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lazyload/">lazyload</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/05/图片懒加载lazyload 3步走使用方法/#more">阅读全文 >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -481,11 +490,11 @@
 
 
   
-    <article id="post-小程序子页面添加返回首页且不影响分享功能的方法" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-My-flex-css" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/01/小程序子页面添加返回首页且不影响分享功能的方法/" class="article-date">
-      <time datetime="2017-04-01T09:01:44.000Z" itemprop="datePublished">2017-04-01</time>
+      <a href="/2017/12/04/My-flex-css/" class="article-date">
+      <time datetime="2017-12-04T09:09:59.000Z" itemprop="datePublished">2017-12-04</time>
 </a>
 
 
@@ -500,7 +509,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/01/小程序子页面添加返回首页且不影响分享功能的方法/">小程序子页面添加返回首页且不影响分享功能的方法</a>
+      <a class="article-title" href="/2017/12/04/My-flex-css/">My&#39;flex.css&#39;</a>
     </h1>
   
 
@@ -510,260 +519,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>之前在子页面添加放回首页按钮的时候，懵逼了。跳转，小程序有只能5层页面的限制；后来发现可以使用redirectTo页面，但是效果不理想，也会多层；最后发现可以关闭页面，回退到首页。好了，就用关闭回退吧，但是，又有一个问题，那就是分享出去的话，怎么回退，回退毛啊。然后继续研究吧…</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小程序/">小程序</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/01/小程序子页面添加返回首页且不影响分享功能的方法/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-
-
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-小程序内存中的事儿" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/29/小程序内存中的事儿/" class="article-date">
-      <time datetime="2017-03-29T02:08:58.000Z" itemprop="datePublished">2017-03-29</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/29/小程序内存中的事儿/">小程序内存中的事儿</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>在根目录app.js设置globalData对象，可以在打开小程序是对象值生效，退出便失效<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">App(&#123;</div><div class="line">  <span class="attr">globalData</span>:&#123;</div><div class="line">    <span class="attr">hasIndex</span> : <span class="literal">false</span></div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小程序/">小程序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信/">微信</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-
-
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-点击事件不能多次点击执行，可以判断ajax是否在执行中" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/27/点击事件不能多次点击执行，可以判断ajax是否在执行中/" class="article-date">
-      <time datetime="2017-03-27T07:34:58.000Z" itemprop="datePublished">2017-03-27</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/27/点击事件不能多次点击执行，可以判断ajax是否在执行中/">点击事件不能多次点击执行，可以判断ajax是否在执行中</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ajaxStatus = <span class="literal">false</span>;<span class="comment">//这个是全局变量，用于判断是否在执行ajax</span></div><div class="line"></div><div class="line">doAjax();<span class="comment">//不同地方调用，可多次执行，但会判断状态值</span></div><div class="line"></div><div class="line">&lt;!-- more --&gt;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">doAjax</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span>(ajaxStatus)<span class="keyword">return</span>;<span class="comment">//如果在执行ajax，就停止执行以后的事情</span></div><div class="line">	ajaxStatus = <span class="literal">true</span>;<span class="comment">//如果不在执行ajax状态，那么此时即将进入ajax，就改变状态</span></div><div class="line">	$.ajax( &#123;</div><div class="line">	    <span class="attr">url</span>:<span class="string">'do.html'</span>,</div><div class="line">	    <span class="attr">type</span>:<span class="string">'post'</span>,</div><div class="line">	    <span class="attr">dataType</span>:<span class="string">'json'</span>,</div><div class="line">	    <span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">	    	ajaxStatus = <span class="literal">false</span>;<span class="comment">//执行ajax结束</span></div><div class="line">	     &#125;,</div><div class="line">	     <span class="attr">error</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	    	ajaxStatus = <span class="literal">false</span>;<span class="comment">//执行ajax结束</span></div><div class="line">			alert(<span class="string">"异常！"</span>);</div><div class="line">	     &#125;</div><div class="line">	&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ajax/">ajax</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-
-
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo换主题注意事项" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/24/hexo换主题注意事项/" class="article-date">
-      <time datetime="2017-03-24T08:05:42.000Z" itemprop="datePublished">2017-03-24</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/24/hexo换主题注意事项/">hexo换主题注意事项</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="改配置"><a href="#改配置" class="headerlink" title="改配置"></a>改配置</h2><p>将新主题放入theme后，更改_confirm.yml中的theme<br>    theme: yelee</p>
-<h2 id="清缓存"><a href="#清缓存" class="headerlink" title="清缓存"></a>清缓存</h2><p>删除根目录 public文件夹 和 db.json文件</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-
-
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-background-简写属性在一个声明中设置所有的背景属性" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/24/background-简写属性在一个声明中设置所有的背景属性/" class="article-date">
-      <time datetime="2017-03-24T02:24:20.000Z" itemprop="datePublished">2017-03-24</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/24/background-简写属性在一个声明中设置所有的背景属性/">background 简写属性在一个声明中设置所有的背景属性</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>最简写：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.top_con</span>&#123;</div><div class="line">	<span class="attribute">background</span>: <span class="built_in">url</span>(img/top_con.jpg) no-repeat center center / cover;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+              <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><em>使用于小程序</em><br>弹性布局，适配不同分辨率不同分辨率的手机。</p>
           
       
     </div>
@@ -779,7 +535,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/03/24/background-简写属性在一个声明中设置所有的背景属性/#more">阅读全文 >></a>
+          <a href="/2017/12/04/My-flex-css/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -800,11 +556,11 @@
 
 
   
-    <article id="post-执行ajax，并判断状态值" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-jq评论列表往上不间断滚动" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/23/执行ajax，并判断状态值/" class="article-date">
-      <time datetime="2017-03-23T02:37:50.000Z" itemprop="datePublished">2017-03-23</time>
+      <a href="/2017/11/30/jq评论列表往上不间断滚动/" class="article-date">
+      <time datetime="2017-11-30T03:30:00.000Z" itemprop="datePublished">2017-11-30</time>
 </a>
 
 
@@ -819,7 +575,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/23/执行ajax，并判断状态值/">执行ajax，并判断状态值</a>
+      <a class="article-title" href="/2017/11/30/jq评论列表往上不间断滚动/">jq评论列表往上不间断滚动</a>
     </h1>
   
 
@@ -829,7 +585,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ajaxStatus = <span class="literal">false</span>;<span class="comment">//这个是全局变量，用于判断是否在执行ajax</span></div><div class="line"></div><div class="line">doAjax();<span class="comment">//不同地方调用，可多次执行，但会判断状态值</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">doAjax</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span>(ajaxStatus)<span class="keyword">return</span>;<span class="comment">//如果在执行ajax，就停止执行以后的事情</span></div><div class="line">	ajaxStatus = <span class="literal">true</span>;<span class="comment">//如果不在执行ajax状态，那么此时即将进入ajax，就改变状态</span></div><div class="line">	$.ajax( &#123;</div><div class="line">	    <span class="attr">url</span>:<span class="string">'do.html'</span>,</div><div class="line">	    <span class="attr">type</span>:<span class="string">'post'</span>,</div><div class="line">	    <span class="attr">dataType</span>:<span class="string">'json'</span>,</div><div class="line">	    <span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">	    	ajaxStatus = <span class="literal">false</span>;<span class="comment">//执行ajax结束</span></div><div class="line">	     &#125;,</div><div class="line">	     <span class="attr">error</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	    	ajaxStatus = <span class="literal">false</span>;<span class="comment">//执行ajax结束</span></div><div class="line">			alert(<span class="string">"异常！"</span>);</div><div class="line">	     &#125;</div><div class="line">	&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+              <p>定时滚动，时间可控。<br>
+          
       
     </div>
     
@@ -839,9 +596,272 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jquery/">jquery</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/2017/11/30/jq评论列表往上不间断滚动/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-网页调起QQ的方法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/28/网页调起QQ的方法/" class="article-date">
+      <time datetime="2017-11-28T06:41:07.000Z" itemprop="datePublished">2017-11-28</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/28/网页调起QQ的方法/">网页调起QQ的方法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>非常简单哦！</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QQ/">QQ</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/11/28/网页调起QQ的方法/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-My-box-css" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/27/My-box-css/" class="article-date">
+      <time datetime="2017-11-27T07:45:18.000Z" itemprop="datePublished">2017-11-27</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/27/My-box-css/">My&#39;box.css&#39;</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><em>使用于h5页面·极速模式</em><br>使用弹性盒子对页面进行布局，box.css中就定义了弹性盒子的一些css3样式，弹性盒子模型是在指定大小的父容器里来为子元素分配空间，使用box架构可以更容易更方便的适配不同分辨率不同屏幕尺寸的手机。<br>与flex.css的区别是ub_rev。</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/11/27/My-box-css/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-在iphone8-plus上的一个前端兼容性问题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/20/在iphone8-plus上的一个前端兼容性问题/" class="article-date">
+      <time datetime="2017-11-20T07:45:58.000Z" itemprop="datePublished">2017-11-20</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/20/在iphone8-plus上的一个前端兼容性问题/">在iphone8 plus上的一个前端兼容性问题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>i8p上使用百度浏览器，会出现display无法实现显示或隐藏的bug，可以使用visibility:hidden(隐藏)，visibility:visible(显示)</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hexo命令" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/20/hexo命令/" class="article-date">
+      <time datetime="2017-11-20T07:31:10.000Z" itemprop="datePublished">2017-11-20</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/20/hexo命令/">hexo命令</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="安装更新"><a href="#安装更新" class="headerlink" title="安装更新"></a>安装更新</h2><pre><code>npm install hexo -g #安装  
+npm update hexo -g #升级  
+hexo init #初始化
+</code></pre>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/11/20/hexo命令/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -863,7 +883,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 </div>
@@ -872,7 +892,7 @@
         <div id="footer-info">
             <div class="footer-left">
                 <i class="fa fa-copyright"></i> 
-                2016-2018 Mr.Liao
+                2016-2019 Mr.Liao
             </div>
         </div>
         

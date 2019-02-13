@@ -4,6 +4,326 @@
   
     
     <entry>
+      <title><![CDATA[记录requireJs]]></title>
+      <url>https://github.dayanguo.cn/2018/12/26/%E8%AE%B0%E5%BD%95requireJs/</url>
+      <content type="html"><![CDATA[<p>简单的理解就是模块化加载器。<br>作用：<br>JS文件的依赖关系。<br>通过异步加载优化script标签引起的阻塞问题。<br>可以简单的以文件为单位将功能模块化并实现复用。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> requirejs </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[在苹果手机不能实时触发onscroll事件]]></title>
+      <url>https://github.dayanguo.cn/2018/12/05/%E5%9C%A8%E8%8B%B9%E6%9E%9C%E6%89%8B%E6%9C%BA%E4%B8%8D%E8%83%BD%E5%AE%9E%E6%97%B6%E8%A7%A6%E5%8F%91onscroll%E4%BA%8B%E4%BB%B6/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[h5适配iphonex]]></title>
+      <url>https://github.dayanguo.cn/2018/12/05/h5%E9%80%82%E9%85%8Diphonex/</url>
+      <content type="html"><![CDATA[<p>viewport 可以设置的选项就是 viewport-fit,它有三个可选值：</p>
+<pre><code>contain: The viewport should fully contain the web content. 可视窗口完全包含网页内容
+
+cover: The web content should fully cover the viewport. 网页内容完全覆盖可视窗口
+
+auto: The default value, 同contain的作用
+</code></pre><p>本来是：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"</span> /&gt;</span></div></pre></td></tr></table></figure></p>
+<p>适配是：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0; viewport-fit=cover"</span> /&gt;</span></div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> iphonex </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[使用git命令提交远程github仓库的时候提示rejected（拒绝）解决办法]]></title>
+      <url>https://github.dayanguo.cn/2018/11/07/%E4%BD%BF%E7%94%A8git%E5%91%BD%E4%BB%A4%E6%8F%90%E4%BA%A4%E8%BF%9C%E7%A8%8Bgithub%E4%BB%93%E5%BA%93%E7%9A%84%E6%97%B6%E5%80%99%E6%8F%90%E7%A4%BArejected%EF%BC%88%E6%8B%92%E7%BB%9D%EF%BC%89%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+      <content type="html"><![CDATA[<p>不想克隆再提交，通过关联来提交代码到github，git本地仓库首次push到远程仓库出现错误 ! </p>
+<a id="more"></a>
+<p>执行：<br>    git init<br>    git add .<br>    git commit -m ‘’<br>    git remote add origin git@github.com:username/project.git<br>    git push origin master</p>
+<p>执行到最后一步，发现报错了：<br>     ! [rejected]        master -&gt; master (fetch first)</p>
+<p>原因是没有同步远程的master，在push前需要先同步一下。</p>
+<p>那就来pull：<br>    git pull origin master</p>
+<p>然后连pull都不行，报错了：<br>    fatal: refusing to merge unrelated histories</p>
+<p>得这样才可以：<br>    git pull origin master –allow-unrelated-histories</p>
+<p>接下来执行push：<br>    git push origin master</p>
+<p>完美！</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> github </tag>
+            
+            <tag> git </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[打包时静态文件自动添加版本号]]></title>
+      <url>https://github.dayanguo.cn/2018/11/05/%E6%89%93%E5%8C%85%E6%97%B6%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E7%89%88%E6%9C%AC%E5%8F%B7/</url>
+      <content type="html"><![CDATA[<p>静态资源的缓存是件很头疼的事情，有时候明明处理的bug测试还是存在，其实就是缓存惹的祸，手机不比pc浏览器，清理缓存还是有点麻烦的。</p>
+<a id="more"></a>
+<h2 id="gulp-asset-rev"><a href="#gulp-asset-rev" class="headerlink" title="gulp-asset-rev"></a>gulp-asset-rev</h2><p><a href="https://www.npmjs.com/package/gulp-asset-rev" target="_blank" rel="external">api</a></p>
+<p>下载插件：</p>
+<blockquote>
+<p>cnpm install –save-dev gulp gulp-asset-rev</p>
+</blockquote>
+<p>跑起来：</p>
+<blockquote>
+<p>gulp rev</p>
+</blockquote>
+<p>发现引用的链接是这样的：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"css/style-4cc8af5.css"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/jquery-1.7.2.min-b8d64d0.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/base-8ee41e4.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>很显然它把整个文件名都给改了，不符合我们之前只在文件后面添加版本号参数的需求。我们可以在源文件中做点手脚。</p>
+<p>找到node_modules –&gt; gulp-assets-rev –&gt;index.js</p>
+<p>将：</p>
+<blockquote>
+<p>var verStr = (options.verConnecter || “-“) + md5;<br>src = src.replace(verStr, ‘’).replace(/(.[^.]+)$/, verStr + “$1”);</p>
+</blockquote>
+<p>修改为：</p>
+<blockquote>
+<p>var verStr = (options.verConnecter || “”) + md5;<br>src=src+”?v=”+verStr;</p>
+</blockquote>
+<p>再跑起来：</p>
+<blockquote>
+<p>gulp rev</p>
+</blockquote>
+<p>引用的链接变化了：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"css/style.css?v=4277fa7"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/jquery-1.7.2.min.js?v=b8d64d0"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/base.js?v=8ee41e4"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>以上是常规现象，靠谱。但是我在项目中执行，发现不生效，找啊找啊找bug，埋点测试：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">   <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"//www.test.com/Style/common/base.css"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"/Style/base.css"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../Style/style.css"</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>生成后：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">   <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"//www.test.com/Style/common/base.css"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"/Style/base.css"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../Style/style.css?v=b4e425b"</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>看出来了吧，带域名和根路径不行滴。要相对路径才可以。那么，看源码去…</p>
+<p>在上面那个点的地方重新修改，将整个if换掉：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (fs.existsSync(assetPath)) &#123;</div><div class="line"></div><div class="line">       <span class="keyword">var</span> buf = fs.readFileSync(assetPath);</div><div class="line"></div><div class="line">       <span class="keyword">var</span> md5 = createHash(buf, options.hashLen || <span class="number">7</span>);</div><div class="line"></div><div class="line">       <span class="keyword">var</span> verStr = (options.verConnecter || <span class="string">"-"</span>) + md5;</div><div class="line"></div><div class="line">       src = src.replace(verStr, <span class="string">''</span>).replace(<span class="regexp">/(\.[^\.]+)$/</span>, verStr + <span class="string">"$1"</span>);</div><div class="line">   &#125; <span class="keyword">else</span> &#123;</div><div class="line">       <span class="keyword">return</span> str;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>变成：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// if (fs.existsSync(assetPath)) &#123;</span></div><div class="line"></div><div class="line">    <span class="comment">// var buf = fs.readFileSync(assetPath);</span></div><div class="line"></div><div class="line">    <span class="comment">// var md5 = createHash(buf, options.hashLen || 7);</span></div><div class="line">       <span class="keyword">var</span> md5 = createHash(assetPath+<span class="keyword">new</span> <span class="built_in">Date</span>().getTime(), options.hashLen || <span class="number">7</span>);</div><div class="line"></div><div class="line">    <span class="comment">// var verStr = (options.verConnecter || "-") + md5;</span></div><div class="line">    <span class="comment">// src = src.replace(verStr, '').replace(/(\.[^\.]+)$/, verStr + "$1");</span></div><div class="line"></div><div class="line">    <span class="keyword">var</span> verStr = (options.verConnecter || <span class="string">''</span>) + md5;</div><div class="line">    src=src+<span class="string">'?v='</span>+verStr;</div><div class="line"></div><div class="line"><span class="comment">// &#125; else &#123;</span></div><div class="line"><span class="comment">//     return str;</span></div><div class="line"><span class="comment">// &#125;</span></div></pre></td></tr></table></figure></p>
+<p>生成后：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">   <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"//www.test.com/Style/common/base.css?v=b4e425b"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"/Style/base.css?v=6852e5e"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../Style/style.css?v=f650121"</span>&gt;</span></div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> node </tag>
+            
+            <tag> npm </tag>
+            
+            <tag> gulp </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[未使用脚手架时，使用gulp压缩整个项目，靠谱]]></title>
+      <url>https://github.dayanguo.cn/2018/10/29/%E6%9C%AA%E4%BD%BF%E7%94%A8%E8%84%9A%E6%89%8B%E6%9E%B6%E6%97%B6%EF%BC%8C%E4%BD%BF%E7%94%A8gulp%E5%8E%8B%E7%BC%A9%E6%95%B4%E4%B8%AA%E9%A1%B9%E7%9B%AE%EF%BC%8C%E9%9D%A0%E8%B0%B1/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[background-size在Android上出现异常]]></title>
+      <url>https://github.dayanguo.cn/2018/10/26/background-size%E5%9C%A8Android%E4%B8%8A%E5%87%BA%E7%8E%B0%E5%BC%82%E5%B8%B8/</url>
+      <content type="html"><![CDATA[<p>在Android上出现背景图片不显示情况，找了半天，以为是webview的问题，最后才发现是background-size的“功劳”。</p>
+<a id="more"></a>
+<p>有资料显示Android 4.3 browser and below are reported to not support percentages in background-size。意思就是Android 4.3浏览器和以下报告不支持背景大小的百分比。</p>
+<p>但我是用Android 5.1.1测试的，百分比正常。可恶的是auto不行。</p>
+<p>background-size的不定值也不是完全不兼容,只是在使用了repeat（背景平铺）这个属性值的时候,在Android手机上浏览才会不出现效果。</p>
+<p>所以想要完全兼容，全部都使用固定的数值了。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> css </tag>
+            
+            <tag> background-size </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[解决git push代码到github上一直提示输入用户名及密码的问题]]></title>
+      <url>https://github.dayanguo.cn/2018/10/24/%E8%A7%A3%E5%86%B3git-push%E4%BB%A3%E7%A0%81%E5%88%B0github%E4%B8%8A%E4%B8%80%E7%9B%B4%E6%8F%90%E7%A4%BA%E8%BE%93%E5%85%A5%E7%94%A8%E6%88%B7%E5%90%8D%E5%8F%8A%E5%AF%86%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<h2 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h2><p>从github上克隆到本地，要push时，发现老是要输入账号密码，而且不能push。</p>
+<p><img src="/images/20181024/1.png" alt=""></p>
+<h2 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a>分析问题</h2><p>那是因为使用了克隆默认的http的方式，切换成ssh方式即可。</p>
+<p><img src="/images/20181024/5.png" alt=""></p>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>先查看当前方式：</p>
+<pre><code>git remote -v
+</code></pre><p><img src="/images/20181024/2.png" alt=""></p>
+<p>把http方式改为ssh方式。先移除旧的http的origin：</p>
+<pre><code>git remote rm origin
+</code></pre><p>再添加新的ssh方式的origin：</p>
+<pre><code>git remote add origin git@github.com:yychuyu/linux-system-programming.git
+</code></pre><p><img src="/images/20181024/3.png" alt=""></p>
+<p>改动完之后直接执行git push是无法推送代码的，需要设置一下上游要跟踪的分支，与此同时会自动执行一次git push命令:</p>
+<pre><code>git push --set-upstream origin master
+</code></pre><p><img src="/images/20181024/4.png" alt=""></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> github </tag>
+            
+            <tag> git </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[页面返回时js刷新数据]]></title>
+      <url>https://github.dayanguo.cn/2018/10/23/%E9%A1%B5%E9%9D%A2%E8%BF%94%E5%9B%9E%E6%97%B6js%E5%88%B7%E6%96%B0%E6%95%B0%E6%8D%AE/</url>
+      <content type="html"><![CDATA[<p>第一个页面a：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//刷新方法</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Refersh</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span>(localStorage.back)&#123;</div><div class="line">   		Reload();<span class="comment">//数据刷新</span></div><div class="line">		localStorage.removeItem(<span class="string">'back'</span>);</div><div class="line">   	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 页面后退，执行刷新</span></div><div class="line"><span class="comment">// alert(performance.navigation.type)</span></div><div class="line"><span class="keyword">if</span> (performance.navigation.type == <span class="number">2</span>) &#123;</div><div class="line">	Refersh();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>第二个页面b：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//第二个页面返回时，设置存储一个值，以便于第一个页面知道是返回状态</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">SetVal</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="comment">//b是第二个页面的名称</span></div><div class="line">   	<span class="keyword">if</span>(<span class="built_in">document</span>.referrer.indexOf(<span class="string">'b'</span>) != <span class="number">-1</span>)&#123;</div><div class="line">    	localStorage.back = <span class="number">1</span></div><div class="line">		<span class="built_in">window</span>.history.back();</div><div class="line">	&#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[emment让你飞起来]]></title>
+      <url>https://github.dayanguo.cn/2018/10/10/emment%E8%AE%A9%E4%BD%A0%E9%A3%9E%E8%B5%B7%E6%9D%A5/</url>
+      <content type="html"><![CDATA[<p>‘#’ 创建一个id特性<br>‘.’ 创建一个类特性<br>‘[]’ 创建一个自定义特性<br>‘&gt;’ 创建一个子元素<br>‘+’ 创建一个兄弟元素<br>‘^’ 提升元素层次<br>‘*’ 相当于乘号，会创建n次相同的东西。<br>‘$’ 代替一个自增的数字。<br>‘$$’ 用于有填充位的数字，比如00，01。<br>‘{}’ 创建元素的文本。</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[meta默认使用极速模式打开网页]]></title>
+      <url>https://github.dayanguo.cn/2018/10/10/meta%E9%BB%98%E8%AE%A4%E4%BD%BF%E7%94%A8%E6%9E%81%E9%80%9F%E6%A8%A1%E5%BC%8F%E6%89%93%E5%BC%80%E7%BD%91%E9%A1%B5/</url>
+      <content type="html"><![CDATA[<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge,chrome=1"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"renderer"</span> <span class="attr">content</span>=<span class="string">"webkit"</span> /&gt;</span></div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> html </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[meta的使用]]></title>
+      <url>https://github.dayanguo.cn/2018/10/10/meta%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+      <content type="html"><![CDATA[<p>如对浏览器进行强制全屏的设置（UC全屏），webapp模式等</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 视图窗口，移动端特属的标签 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 避免IE使用兼容模式 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"x-ua-compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- uc强制竖屏 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"screen-orientation"</span> <span class="attr">content</span>=<span class="string">"portrait"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- QQ强制竖屏 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"x5-orientation"</span> <span class="attr">content</span>=<span class="string">"portrait"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- UC强制全屏 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"full-screen"</span> <span class="attr">content</span>=<span class="string">"yes"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- QQ强制全屏 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"x5-fullscreen"</span> <span class="attr">content</span>=<span class="string">"true"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- UC应用模式 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"browsermode"</span> <span class="attr">content</span>=<span class="string">"application"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- QQ应用模式 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"x5-page-mode"</span> <span class="attr">content</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-capable"</span> <span class="attr">content</span>=<span class="string">"yes"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-status-bar-style"</span> <span class="attr">content</span>=<span class="string">"black"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 忽略页面中的数字识别为电话号码,email识别 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"format-decoration"</span> <span class="attr">content</span>=<span class="string">"telephone=no,email=no"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 启用360浏览器的极速模式(webkit) --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"renderer"</span> <span class="attr">content</span>=<span class="string">"webkit"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"HandheldFriendly"</span> <span class="attr">content</span>=<span class="string">"true"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 微软的老式浏览器 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"MobileOptimized"</span> <span class="attr">content</span>=<span class="string">"320"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- windows phone 点击无高光 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"msapplication-tap-highlight"</span> <span class="attr">content</span>=<span class="string">"no"</span>&gt;</span></div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> html </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[弹框阻止页面滑动/滚动]]></title>
+      <url>https://github.dayanguo.cn/2018/09/06/%E5%BC%B9%E6%A1%86%E9%98%BB%E6%AD%A2%E9%A1%B5%E9%9D%A2%E6%BB%91%E5%8A%A8-%E6%BB%9A%E5%8A%A8/</url>
+      <content type="html"><![CDATA[<p>时隔长了，有些东西就会淡忘，那是应为脑子装的东西太多了，哈哈…</p>
+<a id="more"></a>
+<h2 id="第一步："><a href="#第一步：" class="headerlink" title="第一步："></a>第一步：</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">html</span>,<span class="selector-tag">body</span>&#123;</div><div class="line">	<span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">	<span class="attribute">overflow</span>: hidden;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>做完第一步，pc可以，移动端不可以，接着第二步</p>
+<h2 id="第二步："><a href="#第二步：" class="headerlink" title="第二步："></a>第二步：</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">'.dialog'</span>).on(<span class="string">'touchmove'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">   	e.preventDefault();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>完美！</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> js </tag>
+            
+            <tag> css </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tp5中验证码不显示的问题]]></title>
+      <url>https://github.dayanguo.cn/2018/08/27/tp5%E4%B8%AD%E9%AA%8C%E8%AF%81%E7%A0%81%E4%B8%8D%E6%98%BE%E7%A4%BA%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p>页面中使用了验证码，本地显示，服务器上就不显示了，奇葩问题。</p>
+<a id="more"></a>
+<p>解决方案如下：</p>
+<p>在Thinkphp 的 CaptchaController.php 中加清缓存： ob_clean();</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CaptchaController</span></span></div><div class="line">&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> function <span class="title">index</span><span class="params">($id = <span class="string">""</span>)</span></span></div><div class="line">    &#123;</div><div class="line">        ob_clean();</div><div class="line">        $captcha = <span class="keyword">new</span> Captcha((array)Config::get(<span class="string">'captcha'</span>));</div><div class="line">        <span class="keyword">return</span> $captcha-&gt;entry($id);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>问题解决！！</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> tp5 </tag>
+            
+            <tag> thinkphp5 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[css3动画制作评论滚动]]></title>
+      <url>https://github.dayanguo.cn/2018/08/21/css3%E5%8A%A8%E7%94%BB%E5%88%B6%E4%BD%9C%E8%AF%84%E8%AE%BA%E6%BB%9A%E5%8A%A8/</url>
+      <content type="html"><![CDATA[<p>之前都是用js，为了更高效，燥起来…</p>
+<a id="more"></a>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></div><div class="line"><span class="comment">/*评论*/</span></div><div class="line"><span class="selector-class">.comment_body</span> &#123;</div><div class="line">    <span class="attribute">padding</span>: .<span class="number">4rem</span> .<span class="number">3rem</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">8rem</span>;</div><div class="line">    <span class="attribute">overflow-y</span>: hidden;</div><div class="line">    <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#f6e1c8</span>;</div><div class="line">    <span class="attribute">border-radius</span>: .<span class="number">04rem</span>;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#fffbf5</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.comment_list</span><span class="selector-class">.run</span> &#123;</div><div class="line">    <span class="attribute">animation</span>: rolling <span class="number">16s</span> linear infinite;</div><div class="line">    <span class="attribute">-webkit-animation</span>: rolling <span class="number">16s</span> linear infinite;</div><div class="line">    <span class="attribute">animation-play-state</span>: running;</div><div class="line">    <span class="attribute">-webkit-animation-play-state</span>: running;</div><div class="line"></div><div class="line">    <span class="attribute">-webkit-transform-style</span>: preserve-<span class="number">3</span>d;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">keyframes</span> rolling &#123;</div><div class="line">    0% &#123;</div><div class="line">        <span class="attribute">transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</div><div class="line">    &#125;</div><div class="line">    100% &#123;</div><div class="line">        <span class="attribute">transform</span>: <span class="built_in">translate3d</span>(0, -50%, 0);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">@-<span class="keyword">webkit</span>-<span class="keyword">keyframes</span> rolling &#123;</div><div class="line">    0% &#123;</div><div class="line">        <span class="attribute">-webkit-transform</span>: <span class="built_in">translate3d</span>(0, 0, 0);</div><div class="line">    &#125;</div><div class="line">    100% &#123;</div><div class="line">        <span class="attribute">-webkit-transform</span>: <span class="built_in">translate3d</span>(0, -50%, 0);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.comment_list_item</span> &#123;</div><div class="line">    <span class="attribute">padding-bottom</span>: .<span class="number">25rem</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.comment_item_header</span> &#123;</div><div class="line">    <span class="attribute">margin-bottom</span>: .<span class="number">1rem</span>;</div><div class="line">    <span class="attribute">font-size</span>: .<span class="number">3rem</span>;</div><div class="line">    <span class="attribute">color</span>: <span class="number">#dd6022</span>;</div><div class="line">    <span class="attribute">font-weight</span>: bold;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.icon_star</span> &#123;</div><div class="line">    <span class="attribute">margin-left</span>: .<span class="number">05rem</span>;</div><div class="line">    <span class="attribute">display</span>: inline-block;</div><div class="line">    <span class="attribute">width</span>: .<span class="number">28rem</span>;</div><div class="line">    <span class="attribute">height</span>: .<span class="number">28rem</span>;</div><div class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">"/images/icon_star.png"</span>) no-repeat center center;</div><div class="line">    <span class="attribute">background-size</span>: <span class="number">100%</span> auto;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.comment_content</span> &#123;</div><div class="line">    <span class="attribute">font-size</span>: .<span class="number">24rem</span>;</div><div class="line">    <span class="attribute">color</span>: <span class="number">#000</span>;</div><div class="line">    <span class="attribute">line-height</span>: <span class="number">1.8</span>;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"comment_body"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"comment_list"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"comment_list_item"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"comment_item_header flex justify_content_justify"</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">div</span>&gt;</span>果果：<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"icon_star"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"icon_star"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span></span></div><div class="line">                        <span class="attr">class</span>=<span class="string">"icon_star"</span>&gt;<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"icon_star"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span></span></div><div class="line">                        <span class="attr">class</span>=<span class="string">"icon_star"</span>&gt;<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"comment_content"</span>&gt;</span></div><div class="line">                哎哟，不错哟</div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"comment_list_item"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"comment_item_header flex justify_content_justify"</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">div</span>&gt;</span>果果：<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"icon_star"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"icon_star"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span></span></div><div class="line">                        <span class="attr">class</span>=<span class="string">"icon_star"</span>&gt;<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"icon_star"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span></span></div><div class="line">                        <span class="attr">class</span>=<span class="string">"icon_star"</span>&gt;<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"comment_content"</span>&gt;</span></div><div class="line">                哎哟，不错哟</div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"comment_list_item"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"comment_item_header flex justify_content_justify"</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">div</span>&gt;</span>果果：<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"icon_star"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"icon_star"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span></span></div><div class="line">                        <span class="attr">class</span>=<span class="string">"icon_star"</span>&gt;<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"icon_star"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span></span></div><div class="line">                        <span class="attr">class</span>=<span class="string">"icon_star"</span>&gt;<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"comment_content"</span>&gt;</span></div><div class="line">                哎哟，不错哟</div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line">//评论</div><div class="line">var cl = $('.comment_list');</div><div class="line">var clhtml = cl.html();</div><div class="line">cl.html(clhtml+clhtml);</div><div class="line"></div><div class="line">//滚动一定要在html之后执行，不然ios有bug</div><div class="line">cl.addClass('run');</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> css </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[vue脚手架引入element-ui报错解决方法]]></title>
+      <url>https://github.dayanguo.cn/2018/08/02/vue%E8%84%9A%E6%89%8B%E6%9E%B6%E5%BC%95%E5%85%A5element-ui%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+      <content type="html"><![CDATA[<p>按照element-ui使用 npm 的方式安装，npm i element-ui -S</p>
+<a id="more"></a>
+<p>安装完成，按照文档引入<br>main.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span></div><div class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">'./router'</span></div><div class="line"><span class="keyword">import</span> ElementUI <span class="keyword">from</span> <span class="string">'element-ui'</span><span class="comment">//1</span></div><div class="line"><span class="keyword">import</span> <span class="string">'element-ui/lib/theme-chalk/index.css'</span><span class="comment">//2</span></div><div class="line"></div><div class="line">Vue.config.productionTip = <span class="literal">false</span></div><div class="line"></div><div class="line"><span class="comment">/* eslint-disable no-new */</span></div><div class="line">Vue.use(ElementUI)<span class="comment">//3</span></div><div class="line"></div><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">el</span>: <span class="string">'#app'</span>,</div><div class="line">  router,</div><div class="line">  <span class="attr">components</span>: &#123; App &#125;,</div><div class="line">  <span class="attr">template</span>: <span class="string">'&lt;App/&gt;'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>index.vue<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">el-row</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">el-button</span>&gt;</span>&#123;&#123;msg&#125;&#125;<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">"primary"</span>&gt;</span>主要按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">"success"</span>&gt;</span>成功按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">"info"</span>&gt;</span>信息按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">"warning"</span>&gt;</span>警告按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">"danger"</span>&gt;</span>危险按钮<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">el-row</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>以上访问正常，下面把index.vue改成：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">el-table</span> <span class="attr">:data</span>=<span class="string">"tableData"</span> <span class="attr">stripe</span> <span class="attr">style</span>=<span class="string">"width: 100%"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">"date"</span> <span class="attr">label</span>=<span class="string">"日期"</span> <span class="attr">width</span>=<span class="string">"180"</span>&gt;</span><span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">"name"</span> <span class="attr">label</span>=<span class="string">"姓名"</span> <span class="attr">width</span>=<span class="string">"180"</span>&gt;</span><span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">"address"</span> <span class="attr">label</span>=<span class="string">"地址"</span>&gt;</span><span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">el-table</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">        data() &#123;</div><div class="line">            <span class="keyword">return</span> &#123;</div><div class="line">                <span class="attr">tableData</span>: [&#123;</div><div class="line">                    <span class="attr">date</span>: <span class="string">'2016-05-02'</span>,</div><div class="line">                    <span class="attr">name</span>: <span class="string">'王小虎'</span>,</div><div class="line">                    <span class="attr">address</span>: <span class="string">'上海市普陀区金沙江路 1518 弄'</span></div><div class="line">                &#125;, &#123;</div><div class="line">                    <span class="attr">date</span>: <span class="string">'2016-05-04'</span>,</div><div class="line">                    <span class="attr">name</span>: <span class="string">'王小虎'</span>,</div><div class="line">                    <span class="attr">address</span>: <span class="string">'上海市普陀区金沙江路 1517 弄'</span></div><div class="line">                &#125;, &#123;</div><div class="line">                    <span class="attr">date</span>: <span class="string">'2016-05-01'</span>,</div><div class="line">                    <span class="attr">name</span>: <span class="string">'王小虎'</span>,</div><div class="line">                    <span class="attr">address</span>: <span class="string">'上海市普陀区金沙江路 1519 弄'</span></div><div class="line">                &#125;, &#123;</div><div class="line">                    <span class="attr">date</span>: <span class="string">'2016-05-03'</span>,</div><div class="line">                    <span class="attr">name</span>: <span class="string">'王小虎'</span>,</div><div class="line">                    <span class="attr">address</span>: <span class="string">'上海市普陀区金沙江路 1516 弄'</span></div><div class="line">                &#125;]</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>然后就报错了<br><img src="/images/vue/err/ele-err1.png" alt=""></p>
+<p>寻找解决方法，最后解决了，在config/index.js里配置useEslint: true, // 改为false即可。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> vue </tag>
+            
+            <tag> element-ui </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[hexo_github_push出错]]></title>
       <url>https://github.dayanguo.cn/2018/08/01/hexo-github-push%E5%87%BA%E9%94%99/</url>
       <content type="html"><![CDATA[<p>一段时间没写博客，写了博客github居然push出错，我哩个去！</p>
@@ -70,13 +390,25 @@
     <entry>
       <title><![CDATA[ios transition translate 闪屏问题总结]]></title>
       <url>https://github.dayanguo.cn/2018/07/06/ios%20transition%20translate%20%E9%97%AA%E5%B1%8F%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</url>
-      <content type="html"><![CDATA[<p>解决方法：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"J-slider"</span> <span class="attr">style</span>=<span class="string">"width:320px;height:600px"</span>&gt;</span></div><div class="line">　<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"J-scroller"</span> <span class="attr">style</span>=<span class="string">"width:960px;height:600px;&gt;</span></span></div><div class="line">　　　　&lt;div class="<span class="attr">item</span>"&gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">　　　　<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">　　<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+      <content type="html"><![CDATA[<h2 id="no-1"><a href="#no-1" class="headerlink" title="no.1"></a>no.1</h2><p>解决方法：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"J-slider"</span> <span class="attr">style</span>=<span class="string">"width:320px;height:600px"</span>&gt;</span></div><div class="line">　<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"J-scroller"</span> <span class="attr">style</span>=<span class="string">"width:960px;height:600px;&gt;</span></span></div><div class="line">　　　　&lt;div class="<span class="attr">item</span>"&gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">　　　　<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">　　<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
 <p>假如以上结构的多图左右移动查看， J-scroller是一块很大的动画移动层，我们对J-scroller设置了 translate3d(x,y,z)  以及transition 动画，</p>
 <p>此时iphone查看移动时会有闪屏现象，因为webkit是不会将J-scroller这么大的层整个分配内存绘制渲染。</p>
 <p>这时候我们需要将滚动区域可视范围的列表项item元素缓存起来<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.item</span>&#123;</div><div class="line">    <span class="attribute">-webkit-transform</span>: <span class="built_in">translate3d</span>(0,0,0);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>另外：当translate使用2d而非3d的呈现方式时，我们要设置当前动画移动元素的呈现方式为3d，它的所有子元素背面隐藏<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.J-scroller</span>&#123;</div><div class="line">    <span class="attribute">-webkit-transform-style</span>: preserve-<span class="number">3</span>d;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.J-scroller</span> <span class="selector-tag">item</span>&#123;</div><div class="line">    <span class="attribute">-webkit-backface-visibility</span>: hidden;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="no-2"><a href="#no-2" class="headerlink" title="no.2"></a>no.2</h2><p>一、现在，像Chrome, FireFox, Safari, IE9+和最新版本的Opera都支持硬件加速，当它们检测到页面中某个DOM元素应用了某些CSS规则时就会开启，最显著的特征的元素的3D变换。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.tran</span> &#123;  </div><div class="line">	<span class="attribute">-webkit-transform</span>: <span class="built_in">translate3d</span>(200px,200px,200px)</div><div class="line">	<span class="built_in">rotate3d</span>(200px,200px,200px,-120deg)</div><div class="line">	<span class="built_in">scale3d</span>(0.5, 0.5, 0.5);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>二、可是在一些情况下，我们并不需要对元素应用3D变换的效果，那怎么办呢？这时候我们可以使用个小技巧“欺骗”浏览器来开启硬件加速。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.tran</span> &#123;  </div><div class="line">	<span class="attribute">-webkit-transform</span>: <span class="built_in">translateZ</span>(0);  </div><div class="line">	<span class="attribute">-moz-transform</span>: <span class="built_in">translateZ</span>(0);  </div><div class="line">	<span class="attribute">-ms-transform</span>: <span class="built_in">translateZ</span>(0);  </div><div class="line">	<span class="attribute">-o-transform</span>: <span class="built_in">translateZ</span>(0);  </div><div class="line">	<span class="attribute">transform</span>: <span class="built_in">translateZ</span>(0);   <span class="comment">/* Other transform properties here */</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>三、在 Chrome and Safari中，当我们使用CSS transforms 或者 animations时可能会有页面闪烁的效果，下面的代码可以修复此情况。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.tran</span> &#123;  </div><div class="line">	<span class="attribute">-webkit-backface-visibility</span>: hidden;  </div><div class="line">	<span class="attribute">-moz-backface-visibility</span>: hidden;  </div><div class="line">	<span class="attribute">-ms-backface-visibility</span>: hidden; </div><div class="line">	<span class="attribute">backface-visibility</span>: hidden;  </div><div class="line">	<span class="attribute">-webkit-perspective</span>: <span class="number">1000</span>;  </div><div class="line">	<span class="attribute">-moz-perspective</span>: <span class="number">1000</span>;  </div><div class="line">	<span class="attribute">-ms-perspective</span>: <span class="number">1000</span>;  </div><div class="line">	<span class="attribute">perspective</span>: <span class="number">1000</span>;   <span class="comment">/* Other transform properties here */</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 ]]></content>
       
+        
+        <tags>
+            
+            <tag> css3 </tag>
+            
+        </tags>
         
     </entry>
     
@@ -613,7 +945,7 @@ hexo d #开始部署
 <h2 id="适合动态文件"><a href="#适合动态文件" class="headerlink" title="适合动态文件"></a>适合动态文件</h2><blockquote>
 <p>全局安装browser-sync：npm install browser-sync -g</p>
 </blockquote>
-<p>使用cmd命令<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">browser-sync start --proxy <span class="string">"testnode.com:8888"</span> --files <span class="string">"*.html"</span></div></pre></td></tr></table></figure></p>
+<p>使用cmd命令<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">browser-sync start --proxy <span class="string">"testnode.com:8888"</span> --files <span class="string">"*.html"</span></div><div class="line"></div><div class="line"></div><div class="line">eg:   browser-sync start --proxy <span class="string">"192.168.2.199:92"</span> --files <span class="string">"Cooperation/*.aspx,Style/Cooperation/BaZi/style.css"</span></div></pre></td></tr></table></figure></p>
 ]]></content>
       
         
@@ -766,7 +1098,8 @@ hexo d #开始部署
 <h2 id="返回上一级"><a href="#返回上一级" class="headerlink" title="返回上一级"></a>返回上一级</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//返回上一级</span></div><div class="line">$(<span class="string">'.js_back'</span>).on(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span> (<span class="built_in">document</span>.referrer === <span class="string">''</span>) &#123;</div><div class="line">		<span class="built_in">window</span>.location.href = <span class="string">'./'</span></div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">		<span class="built_in">window</span>.history.back();</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <h2 id="判断微信和QQ"><a href="#判断微信和QQ" class="headerlink" title="判断微信和QQ"></a>判断微信和QQ</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ua = navigator.userAgent.toLowerCase();</div><div class="line"><span class="keyword">if</span>(ua.match(<span class="regexp">/MicroMessenger/i</span>)==<span class="string">'micromessenger'</span>) &#123;</div><div class="line">	alert(<span class="string">'微信'</span>);</div><div class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(ua.match(<span class="regexp">/QQ/i</span>) == <span class="string">'qq'</span>)&#123;</div><div class="line">	alert(<span class="string">'QQ'</span>);</div><div class="line">&#125;<span class="keyword">else</span>&#123;alert(<span class="string">'not  微信、QQ'</span>);&#125;</div></pre></td></tr></table></figure>
 <h2 id="判断iphoneX"><a href="#判断iphoneX" class="headerlink" title="判断iphoneX"></a>判断iphoneX</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIphoneX</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="regexp">/iphone/gi</span>.test(navigator.userAgent) &amp;&amp; (screen.height == <span class="number">812</span> &amp;&amp; screen.width == <span class="number">375</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="获取参数"><a href="#获取参数" class="headerlink" title="获取参数"></a>获取参数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">GetQueryString</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"(^|&amp;)"</span> + name + <span class="string">"=([^&amp;]*)(&amp;|$)"</span>);</div><div class="line">    <span class="keyword">var</span> r = <span class="built_in">window</span>.location.search.substr(<span class="number">1</span>).match(reg);</div><div class="line">    <span class="keyword">if</span> (r != <span class="literal">null</span>) <span class="keyword">return</span> <span class="built_in">unescape</span>(r[<span class="number">2</span>]); <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+<h2 id="获取参数"><a href="#获取参数" class="headerlink" title="获取参数"></a>获取参数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">GetQueryString</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"(^|&amp;)"</span> + name + <span class="string">"=([^&amp;]*)(&amp;|$)"</span>);</div><div class="line">    <span class="keyword">var</span> r = <span class="built_in">window</span>.location.search.substr(<span class="number">1</span>).match(reg);</div><div class="line">    <span class="keyword">if</span> (r != <span class="literal">null</span>) <span class="keyword">return</span> <span class="built_in">unescape</span>(r[<span class="number">2</span>]); <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="获取范围内的随机数"><a href="#获取范围内的随机数" class="headerlink" title="获取范围内的随机数"></a>获取范围内的随机数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">randNum</span>(<span class="params">minnum , maxnum</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.floor(minnum + <span class="built_in">Math</span>.random() * (maxnum - minnum));</div><div class="line">&#125;</div><div class="line"><span class="comment">//例如，生成0-9的随机数(包括0和9)randNum(0,10)</span></div></pre></td></tr></table></figure>]]></content>
       
         
         <tags>
