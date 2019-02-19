@@ -254,9 +254,9 @@ auto: The default value, 同contain的作用
         
         <tags>
             
-            <tag> js </tag>
-            
             <tag> css </tag>
+            
+            <tag> js </tag>
             
         </tags>
         
@@ -1064,22 +1064,6 @@ hexo d #开始部署
     
     <entry>
       <title><![CDATA[js小知识点]]></title>
-      <url>https://github.dayanguo.cn/2017/04/18/js%E5%B8%B8%E7%94%A8%E7%82%B9/</url>
-      <content type="html"><![CDATA[<a id="more"></a>
-<h2 id="点击"><a href="#点击" class="headerlink" title="点击"></a>点击</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 头部导航</span></div><div class="line">$(<span class="string">'.nav li'</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    $(<span class="keyword">this</span>).addClass(<span class="string">'cur'</span>).siblings().removeClass(<span class="string">'cur'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 监听滚动条，滑动一定位置，就显示按钮</span></div><div class="line"><span class="keyword">var</span> btnHide = $(<span class="string">".btn_hide"</span>);</div><div class="line">$(<span class="built_in">window</span>).scroll(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> sc = $(<span class="built_in">window</span>).scrollTop();</div><div class="line">    <span class="keyword">if</span> (sc &gt; <span class="number">100</span>) &#123;</div><div class="line">        btnHide.addClass(<span class="string">'btn_show'</span>);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">    	btnHide.removeClass(<span class="string">'btn_show'</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>]]></content>
-      
-        
-        <tags>
-            
-            <tag> js </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[js小知识点]]></title>
       <url>https://github.dayanguo.cn/2017/04/18/js%E5%B0%8F%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
       <content type="html"><![CDATA[<h2 id="去掉字符串前面的0"><a href="#去掉字符串前面的0" class="headerlink" title="去掉字符串前面的0"></a>去掉字符串前面的0</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a=<span class="string">'007'</span>;</div><div class="line"><span class="built_in">console</span>.log(a.replace(<span class="regexp">/\b(0+)/gi</span>,<span class="string">""</span>));</div></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -1100,6 +1084,22 @@ hexo d #开始部署
 <h2 id="判断iphoneX"><a href="#判断iphoneX" class="headerlink" title="判断iphoneX"></a>判断iphoneX</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIphoneX</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="regexp">/iphone/gi</span>.test(navigator.userAgent) &amp;&amp; (screen.height == <span class="number">812</span> &amp;&amp; screen.width == <span class="number">375</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="获取参数"><a href="#获取参数" class="headerlink" title="获取参数"></a>获取参数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">GetQueryString</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"(^|&amp;)"</span> + name + <span class="string">"=([^&amp;]*)(&amp;|$)"</span>);</div><div class="line">    <span class="keyword">var</span> r = <span class="built_in">window</span>.location.search.substr(<span class="number">1</span>).match(reg);</div><div class="line">    <span class="keyword">if</span> (r != <span class="literal">null</span>) <span class="keyword">return</span> <span class="built_in">unescape</span>(r[<span class="number">2</span>]); <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="获取范围内的随机数"><a href="#获取范围内的随机数" class="headerlink" title="获取范围内的随机数"></a>获取范围内的随机数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">randNum</span>(<span class="params">minnum , maxnum</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.floor(minnum + <span class="built_in">Math</span>.random() * (maxnum - minnum));</div><div class="line">&#125;</div><div class="line"><span class="comment">//例如，生成0-9的随机数(包括0和9)randNum(0,10)</span></div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[js小知识点]]></title>
+      <url>https://github.dayanguo.cn/2017/04/18/js%E5%B8%B8%E7%94%A8%E7%82%B9/</url>
+      <content type="html"><![CDATA[<a id="more"></a>
+<h2 id="点击"><a href="#点击" class="headerlink" title="点击"></a>点击</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 头部导航</span></div><div class="line">$(<span class="string">'.nav li'</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    $(<span class="keyword">this</span>).addClass(<span class="string">'cur'</span>).siblings().removeClass(<span class="string">'cur'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 监听滚动条，滑动一定位置，就显示按钮</span></div><div class="line"><span class="keyword">var</span> btnHide = $(<span class="string">".btn_hide"</span>);</div><div class="line">$(<span class="built_in">window</span>).scroll(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> sc = $(<span class="built_in">window</span>).scrollTop();</div><div class="line">    <span class="keyword">if</span> (sc &gt; <span class="number">100</span>) &#123;</div><div class="line">        btnHide.addClass(<span class="string">'btn_show'</span>);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">    	btnHide.removeClass(<span class="string">'btn_show'</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>]]></content>
       
         
         <tags>
